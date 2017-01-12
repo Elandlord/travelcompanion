@@ -1,0 +1,1737 @@
+/*
+	DOCUMENT RULES
+
+	- Secties aangeven met een lange gestreepte lijn. Daarin in hoofdletters de title van de sectie aangeven..
+	- volgorde per sectie is: --Base settings--, --classes--, --media queries--.
+	- probeer de single responsibility rule aan te houden. 
+
+{screensize}-{element}-{behaviour}-{usage}-{identifier}-{amount}
+{lg}-{bg}-{hover}-{darken}-{main}-{xs}
+
+
+/* --------------------------------------------- { TITLE } -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+/* 
+
+	/* Large desktops and laptops */
+	@media (min-width: 1200px) { }
+
+	/* Landscape tablets and medium desktops */
+	@media (min-width: 992px) and (max-width: 1199px) { }
+
+	/* Portrait tablets and small desktops */
+	@media (min-width: 768px) and (max-width: 991px) { }
+
+	/* Landscape phones and portrait tablets */
+	@media (max-width: 767px) { }
+
+	/* Portrait phones and smaller */
+	@media (max-width: 480px) { }
+
+/*
+
+	
+	INCLUDED IN THIS DOCUMENT:
+	-- color variables
+	-- font variables
+	-- font size variables
+	-- shape size variables
+	-- form element variables
+	-- aesthetic variables
+	-- html stucture variables
+	-- base settings
+	
+	HUISSTIJL
+	-------------------------------------
+	-- backgrounds
+	-- buttons
+	-- form elements
+	-- borders
+	-- text and heading colors
+	-- text transforms and font classes
+	-- animations
+	-- shadows
+	-- client manipulator
+	-- images
+	--------------------------------------
+
+	HTML STRUCTURE RULES
+	--------------------------------------
+	-- centering
+	-- shapes
+	-- floats
+	-- block limits
+	-- blocks
+
+
+
+
+*/
+
+
+/* --------------------------------------------- COLOR VARIABLES -------------------------------------------- */
+
+
+
+
+$light-color: white;
+$dark-color: #3F3F3F;
+$main-color : #34495e;
+$secondary-color : #bdc3c7;
+$accent-color : #f39c12;
+
+
+$background-color-light: white;
+$background-color-dark: #3F3F3F;
+
+
+
+/* --------------------------------------------- FONT VARIABLES -------------------------------------------- */
+
+
+$font: 'Roboto', sans-serif;
+$font-heading: 'Roboto', sans-serif;
+
+
+
+
+/* --------------------------------------------- FONT SIZE VARIABLES -------------------------------------------- */
+
+
+/* font-size variables */
+
+
+$font-size-xs: 11px;
+$font-size-sm: 12px;
+$font-size-md: 15px;
+$font-size-lg: 24.5px;
+$font-size-xl: 42px;
+
+
+/* --------------------------------------------- SHAPE SIZE VARIABLES -------------------------------------------- */
+
+
+$circle-dist-xs: 25px;
+$circle-dist-sm: 30px;
+$circle-dist-md: 50px;
+$circle-dist-lg: 150px;
+$circle-dist-xl: 225px;
+
+
+/* --------------------------------------------- FORM ELEMENT VARIABLES -------------------------------------------- */
+
+
+$input-height: 33px;
+
+
+/* --------------------------------------------- AESTHETIC VARIABLES -------------------------------------------- */
+
+
+$opacity-xs: 0.85;
+$opacity-sm: 0.70;
+$opacity-md: 0.55;
+$opacity-lg: 0.40;
+$opacity-xl: 0.25;
+
+
+/* --------------------------------------------- HTML STRUCTURE VARIABLES -------------------------------------------- */
+
+
+$border-thickness: 1px;
+
+$limit-width-xs: 200px;
+$limit-width-sm: 240px;
+$limit-width-md: 280px;
+$limit-width-lg: 320px;
+$limit-width-xl: 360px;
+
+$limit-height-xs: 200px;
+$limit-height-sm: 220px;
+$limit-height-md: 240px;
+$limit-height-lg: 260px;
+$limit-height-xl: 280px;
+
+
+/* --------------------------------------------- BASE SETTINGS -------------------------------------------- */
+
+
+/* resets */
+
+
+
+body, p, span, a, h1, h2, h3, h4, h5{ margin: 0; padding: 0; }
+
+body{
+	background: $background-color-light;
+	font-size: $font-size-sm;
+	font-family: $font;
+}
+
+a, a:hover, a:focus, a:active{ text-decoration: none; }
+
+.container-fluid { padding: 0; }
+
+p{
+	font-family: $font;
+	font-weight: 300;
+}
+
+h1,h2,h3,h4,h5{ 
+	font-family: $font-heading !important; 
+}
+
+
+
+
+/* --------------------------------------------- BACKGROUNDS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.bg-light{ background: $background-color-light; min-height: 1px; }
+.bg-dark{ background: $background-color-dark; min-height: 1px; }
+.bg-main{ background: $main-color !important; min-height: 1px; }
+.bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+.bg-accent{ background: $accent-color; min-height: 1px; }
+
+
+/* background lighten */
+
+
+/* background dark lighten */
+
+.bg-dark-lighten-xs { background: lighten($background-color-dark, 10%) !important	; }
+.bg-dark-lighten-sm { background: lighten($background-color-dark, 30%) !important; }
+.bg-dark-lighten-md { background: lighten($dark-color, 50%) !important; }
+.bg-dark-lighten-lg { background: lighten($dark-color, 70%) !important; }
+.bg-dark-lighten-xl { background: lighten($dark-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-main-lighten-xs { background: lighten($main-color, 10%) !important; }
+.bg-main-lighten-sm { background: lighten($main-color, 30%) !important; }
+.bg-main-lighten-md { background: lighten($main-color, 50%) !important; }
+.bg-main-lighten-lg { background: lighten($main-color, 70%) !important; }
+.bg-main-lighten-xl { background: lighten($main-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-secondary-lighten-xs { background: lighten($secondary-color, 10%) !important; }
+.bg-secondary-lighten-sm { background: lighten($secondary-color, 30%) !important; }
+.bg-secondary-lighten-md { background: lighten($secondary-color, 50%) !important; }
+.bg-secondary-lighten-lg { background: lighten($secondary-color, 70%) !important; }
+.bg-secondary-lighten-xl { background: lighten($secondary-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-accent-lighten-xs { background: lighten($accent-color, 10%) !important; }
+.bg-accent-lighten-sm { background: lighten($accent-color, 30%) !important; }
+.bg-accent-lighten-md { background: lighten($accent-color, 50%) !important; }
+.bg-accent-lighten-lg { background: lighten($accent-color, 70%) !important; }
+.bg-accent-lighten-xl { background: lighten($accent-color, 90%) !important; }
+
+
+/* background darken */
+
+
+/* background dark darken */
+
+
+.bg-light-darken-xs { background: darken($background-color-light, 10%) !important; }
+.bg-light-darken-sm { background: darken($background-color-light, 30%) !important; }
+.bg-light-darken-md { background: darken($light-color, 50%) !important; }
+.bg-light-darken-lg { background: darken($light-color, 70%) !important; }
+.bg-light-darken-xl { background: darken($light-color, 90%) !important; }
+
+
+/* background dark darken */
+
+
+.bg-dark-darken-xs { color: darken($background-color-dark, 10%) !important; }
+.bg-dark-darken-sm { color: darken($background-color-dark, 30%) !important; }
+.bg-dark-darken-md { color: darken($dark-color, 50%) !important; }
+.bg-dark-darken-lg { color: darken($dark-color, 70%) !important; }
+.bg-dark-darken-xl { color: darken($dark-color, 90%) !important; }
+
+
+/* background main darken */
+
+
+.bg-main-darken-xs { background: darken($main-color, 10%) !important; }
+.bg-main-darken-sm { background: darken($main-color, 30%) !important; }
+.bg-main-darken-md { background: darken($main-color, 50%) !important; }
+.bg-main-darken-lg { background: darken($main-color, 70%) !important; }
+.bg-main-darken-xl { background: darken($main-color, 90%) !important; }
+
+
+/* background secondary darken */
+
+
+.bg-secondary-darken-xs { background: darken($secondary-color, 10%) !important; }
+.bg-secondary-darken-sm { background: darken($secondary-color, 30%) !important; }
+.bg-secondary-darken-md { background: darken($secondary-color, 50%) !important; }
+.bg-secondary-darken-lg { background: darken($secondary-color, 70%) !important; }
+.bg-secondary-darken-xl { background: darken($secondary-color, 90%) !important; }
+
+
+/* background accent darken */
+
+
+.bg-accent-darken-xs { background: darken($accent-color, 10%) !important; }
+.bg-accent-darken-sm { background: darken($accent-color, 30%) !important; }
+.bg-accent-darken-md { background: darken($accent-color, 50%) !important; }
+.bg-accent-darken-lg { background: darken($accent-color, 70%) !important; }
+.bg-accent-darken-xl { background: darken($accent-color, 90%) !important; }
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+/*  ---- background-color hovers ---- */
+
+
+.bg-hover-light:hover{ background: $background-color-light !important; }
+.bg-hover-dark:hover{ background: $background-color-dark !important; }
+.bg-hover-main:hover{ background: $main-color !important; }
+.bg-hover-secondary:hover{ background: $secondary-color !important; }
+.bg-hover-accent:hover{ background: $accent-color !important; }
+
+
+/* background darken hovers */
+
+
+/* background dark darken hovers */
+
+
+.bg-light-hover-darken-xs:hover { background: darken($background-color-light, 10%) !important; }
+.bg-light-hover-darken-sm:hover { background: darken($background-color-light, 30%) !important; }
+.bg-light-hover-darken-md:hover { background: darken($light-color, 50%) !important; }
+.bg-light-hover-darken-lg:hover { background: darken($light-color, 70%) !important; }
+.bg-light-hover-darken-xl:hover { background: darken($light-color, 90%) !important; }
+
+
+/* background dark darken hovers */
+
+
+.bg-dark-hover-darken-xs:hover { background: darken($background-color-dark, 10%) !important; }
+.bg-dark-hover-darken-sm:hover { background: darken($background-color-dark, 30%) !important; }
+.bg-dark-hover-darken-md:hover { background: darken($dark-color, 50%) !important; }
+.bg-dark-hover-darken-lg:hover { background: darken($dark-color, 70%) !important; }
+.bg-dark-hover-darken-xl:hover { background: darken($dark-color, 90%) !important; }
+
+
+/* background main darken hovers */
+
+
+.bg-main-hover-darken-xs:hover { background: darken($main-color, 10%) !important; }
+.bg-main-hover-darken-sm:hover { background: darken($main-color, 30%) !important; }
+.bg-main-hover-darken-md:hover { background: darken($main-color, 50%) !important; }
+.bg-main-hover-darken-lg:hover { background: darken($main-color, 70%) !important; }
+.bg-main-hover-darken-xl:hover { background: darken($main-color, 90%) !important; }
+
+
+/* background secondary darken hover */
+
+
+.bg-secondary-hover-darken-xs:hover { background: darken($secondary-color, 10%) !important; }
+.bg-secondary-hover-darken-sm:hover { background: darken($secondary-color, 30%) !important; }
+.bg-secondary-hover-darken-md:hover { background: darken($secondary-color, 50%) !important; }
+.bg-secondary-hover-darken-lg:hover { background: darken($secondary-color, 70%) !important; }
+.bg-secondary-hover-darken-xl:hover { background: darken($secondary-color, 90%) !important; }
+
+
+/* background accent darken hover */
+
+
+.bg-accent-hover-darken-xs:hover { background: darken($accent-color, 10%) !important; }
+.bg-accent-hover-darken-sm:hover { background: darken($accent-color, 30%) !important; }
+.bg-accent-hover-darken-md:hover { background: darken($accent-color, 50%) !important; }
+.bg-accent-hover-darken-lg:hover { background: darken($accent-color, 70%) !important; }
+.bg-accent-hover-darken-xl:hover { background: darken($accent-color, 90%) !important; }
+
+
+/* background lighten */
+
+
+/* background dark lighten */
+
+.bg-dark-hover-lighten-xs:hover { background: lighten($background-color-dark, 10%) !important; }
+.bg-dark-hover-lighten-sm:hover { background: lighten($background-color-dark, 30%) !important; }
+.bg-dark-hover-lighten-md:hover { background: lighten($dark-color, 50%) !important; }
+.bg-dark-hover-lighten-lg:hover { background: lighten($dark-color, 70%) !important; }
+.bg-dark-hover-lighten-xl:hover { background: lighten($dark-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-main-hover-lighten-xs:hover { background: lighten($main-color, 10%) !important; }
+.bg-main-hover-lighten-sm:hover { background: lighten($main-color, 30%) !important; }
+.bg-main-hover-lighten-md:hover { background: lighten($main-color, 50%) !important; }
+.bg-main-hover-lighten-lg:hover { background: lighten($main-color, 70%) !important; }
+.bg-main-hover-lighten-xl:hover { background: lighten($main-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-secondary-hover-lighten-xs:hover { background: lighten($secondary-color, 10%) !important; }
+.bg-secondary-hover-lighten-sm:hover { background: lighten($secondary-color, 30%) !important; }
+.bg-secondary-hover-lighten-md:hover { background: lighten($secondary-color, 50%) !important; }
+.bg-secondary-hover-lighten-lg:hover { background: lighten($secondary-color, 70%) !important; }
+.bg-secondary-hover-lighten-xl:hover { background: lighten($secondary-color, 90%) !important; }
+
+
+/* background main lighten */
+
+
+.bg-accent-hover-lighten-xs:hover { background: lighten($accent-color, 10%) !important; }
+.bg-accent-hover-lighten-sm:hover { background: lighten($accent-color, 30%) !important; }
+.bg-accent-hover-lighten-md:hover { background: lighten($accent-color, 50%) !important; }
+.bg-accent-hover-lighten-lg:hover { background: lighten($accent-color, 70%) !important; }
+.bg-accent-hover-lighten-xl:hover { background: lighten($accent-color, 90%) !important; }
+
+
+
+/*  opacity hovers */
+
+
+.hover-opacity-transparent:hover{ opacity : 0 };
+.hover-opacity-xs:hover{ opacity : $opacity-xs };
+.hover-opacity-sm:hover{ opacity : $opacity-sm };
+.hover-opacity-md:hover{ opacity : $opacity-md };
+.hover-opacity-lg:hover{ opacity : $opacity-lg };
+.hover-opacity-xl:hover{ opacity : $opacity-xl };
+
+
+
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+	/* Large desktops and laptops */
+	@media (min-width: 1200px) { 
+		.lg-bg-light{ background: $background-color-light; min-height: 1px; }
+		.lg-bg-dark{ background: $background-color-dark; min-height: 1px; }
+		.lg-bg-main{ background: $main-color !important; min-height: 1px; }
+		.lg-bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+		.lg-bg-accent{ background: $accent-color; min-height: 1px; }
+
+
+		/*  ---- background-color hovers ---- */
+
+
+		.lg-bg-hover-light:hover{ background: $background-color-light !important; }
+		.lg-bg-hover-dark:hover{ background: $background-color-dark !important; }
+		.lg-bg-hover-main:hover{ background: $main-color !important; }
+		.lg-bg-hover-secondary:hover{ background: $secondary-color !important; }
+		.lg-bg-hover-accent:hover{ background: $accent-color !important; }
+	}
+
+	/* Landscape tablets and medium desktops */
+	@media (min-width: 992px) and (max-width: 1199px) { 
+		.md-bg-light{ background: $background-color-light; min-height: 1px; }
+		.md-bg-dark{ background: $background-color-dark; min-height: 1px; }
+		.md-bg-main{ background: $main-color !important; min-height: 1px; }
+		.md-bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+		.md-bg-accent{ background: $accent-color; min-height: 1px; }
+
+		/*  ---- background-color hovers ---- */
+
+
+		.md-bg-hover-light:hover{ background: $background-color-light !important; }
+		.md-bg-hover-dark:hover{ background: $background-color-dark !important; }
+		.md-bg-hover-main:hover{ background: $main-color !important; }
+		.md-bg-hover-secondary:hover{ background: $secondary-color !important; }
+		.md-bg-hover-accent:hover{ background: $accent-color !important; }		
+	}
+
+	/* Portrait tablets and small desktops */
+	@media (min-width: 768px) and (max-width: 991px) { 
+		.sm-bg-light{ background: $background-color-light; min-height: 1px; }
+		.sm-bg-dark{ background: $background-color-dark; min-height: 1px; }
+		.sm-bg-main{ background: $main-color !important; min-height: 1px; }
+		.sm-bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+		.sm-bg-accent{ background: $accent-color; min-height: 1px; }
+
+		/*  ---- background-color hovers ---- */
+
+
+		.sm-bg-hover-light:hover{ background: $background-color-light !important; }
+		.sm-bg-hover-dark:hover{ background: $background-color-dark !important; }
+		.sm-bg-hover-main:hover{ background: $main-color !important; }
+		.sm-bg-hover-secondary:hover{ background: $secondary-color !important; }
+		.sm-bg-hover-accent:hover{ background: $accent-color !important; }
+	}
+
+	/* Landscape phones and portrait tablets */
+	@media (max-width: 767px) {
+		.xs-bg-light{ background: $background-color-light; min-height: 1px; }
+		.xs-bg-dark{ background: $background-color-dark; min-height: 1px; }
+		.xs-bg-main{ background: $main-color !important; min-height: 1px; }
+		.xs-bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+		.xs-bg-accent{ background: $accent-color; min-height: 1px; }
+
+		/*  ---- background-color hovers ---- */
+
+
+		.xs-bg-hover-light:hover{ background: $background-color-light !important; }
+		.xs-bg-hover-dark:hover{ background: $background-color-dark !important; }
+		.xs-bg-hover-main:hover{ background: $main-color !important; }
+		.xs-bg-hover-secondary:hover{ background: $secondary-color !important; }
+		.xs-bg-hover-accent:hover{ background: $accent-color !important; }		
+	 }
+
+	/* Portrait phones and smaller */
+	@media (max-width: 480px) { 
+		.xs-bg-light{ background: $background-color-light; min-height: 1px; }
+		.xs-bg-dark{ background: $background-color-dark; min-height: 1px; }
+		.xs-bg-main{ background: $main-color !important; min-height: 1px; }
+		.xs-bg-secondary{ 	background: $secondary-color; min-height: 1px; }
+		.xs-bg-accent{ background: $accent-color; min-height: 1px; }
+
+		/*  ---- background-color hovers ---- */
+
+
+		.xs-bg-hover-light:hover{ background: $background-color-light !important; }
+		.xs-bg-hover-dark:hover{ background: $background-color-dark !important; }
+		.xs-bg-hover-main:hover{ background: $main-color !important; }
+		.xs-bg-hover-secondary:hover{ background: $secondary-color !important; }
+		.xs-bg-hover-accent:hover{ background: $accent-color !important; }
+	}
+
+
+/* --------------------------------------------- BUTTONS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.btn-standard {
+	padding: 15px 55px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
+	border:none;
+}
+
+.btn-round {
+	span {
+		margin-left: 20px;
+	}
+}
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+a.btn-standard, input[type=submit].btn-standard, button.btn-standard
+{
+	padding: 15px 55px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
+	border: none;
+}
+
+a.btn-round, input[type=submit].btn-round, button.btn-round{
+	border: none;
+	background: transparent;
+
+	span{
+		margin-left: 20px;
+	}
+}
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+
+/* --------------------------------------------- FORM ELEMENTS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.input{
+	width: 100%;
+	height: $input-height;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.textarea{
+	width: 100%;
+	height: 180px;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.input-label{
+	height: $input-height;
+	line-height: $input-height;
+	width: 100%;
+}
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+
+.input::placeholder, .textarea::placeholder{
+	color: $dark-color;
+	font-size: $font-size-xs;
+}
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+
+/* --------------------------------------------- BORDERS -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.border{
+	border-style: solid;
+	border-width: $border-thickness;
+}
+
+.border-none{ border: none; }
+
+/* ---- color ---- */
+
+.border-light{ border-color: $background-color-light; }
+.border-dark{ border-color: $background-color-dark; }
+.border-accent{ border-color: $accent-color; }
+.border-secondary{ border-color: $secondary-color; }
+.border-main{ border-color: $main-color; }
+
+/* border specifics */
+
+.border-right{ border-right-width: $border-thickness; border-right-style: solid; }
+.border-left{ border-left-width: $border-thickness; border-left-style: solid; }
+.border-top{ border-top-width: $border-thickness; border-top-style: solid; }
+.border-bottom{ border-bottom-width: $border-thickness; border-bottom-style: solid; }
+
+/* ---- appearence ---- */
+
+.border-curved { border-radius: 5px; }
+
+.border-curved-down { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+
+.border-curved-up { border-top-left-radius: 5px; border-top-right-radius: 5px; }
+
+.border-curved-right { border-top-right-radius: 5px; border-bottom-right-radius: 5px; }
+
+.border-curved-left { border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+/* ---- border hovers ---- */
+
+
+.border-hover-light:hover{ border-color: $light-color; }
+.border-hover-dark:hover{ border-color: $dark-color;  }
+.border-hover-main:hover{ border-color: $main-color; }
+.border-hover-secondary:hover{ border-color: $secondary-color; }
+.border-hover-accent:hover{ border-color: $accent-color; }
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+
+
+/* --------------------------------------------- TEXT AND HEADING COLORS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+h1, h2, h3, h4, h5{ color: $dark-color; }
+
+a{ color: $dark-color; }
+p{ color: $dark-color; }
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.text-color-light{ color: $light-color !important; }
+.text-color-dark{ color: $dark-color !important; }
+.text-color-main{ color: $main-color !important; }
+.text-color-secondary{ color: $secondary-color !important; }
+.text-color-accent{ color: $accent-color !important; }
+
+/* make text colors lighter */
+
+
+/* make dark color lighter */
+
+
+.text-color-dark-lighten-xs { color: lighten($dark-color, 10%) !important; }
+.text-color-dark-lighten-sm { color: lighten($dark-color, 30%) !important; }
+.text-color-dark-lighten-md { color: lighten($dark-color, 50%) !important; }
+.text-color-dark-lighten-lg { color: lighten($dark-color, 70%) !important; }
+.text-color-dark-lighten-xl { color: lighten($dark-color, 90%) !important; }
+
+
+/* make text colors darker */
+
+
+/* make light color darker */
+
+.text-color-light-darken-xs { color: darken($light-color, 10%) !important; }
+.text-color-light-darken-sm { color: darken($light-color, 30%) !important; }
+.text-color-light-darken-md { color: darken($light-color, 50%) !important; }
+.text-color-light-darken-lg { color: darken($light-color, 70%) !important; }
+.text-color-light-darken-xl { color: darken($light-color, 90%) !important; }
+
+
+/* make accent color darker */
+
+.text-color-accent-darken-xs { color: darken($accent-color, 10%) !important; }
+.text-color-accent-darken-sm { color: darken($accent-color, 30%) !important; }
+.text-color-accent-darken-md { color: darken($accent-color, 50%) !important; }
+.text-color-accent-darken-lg { color: darken($accent-color, 70%) !important; }
+.text-color-accent-darken-xl { color: darken($accent-color, 90%) !important; }
+
+
+/* make accent color darker */
+
+.text-color-secondary-darken-xs { color: darken($secondary-color, 10%) !important; }
+.text-color-secondary-darken-sm { color: darken($secondary-color, 30%) !important; }
+.text-color-secondary-darken-md { color: darken($secondary-color, 50%) !important; }
+.text-color-secondary-darken-lg { color: darken($secondary-color, 70%) !important; }
+.text-color-secondary-darken-xl { color: darken($secondary-color, 90%) !important; }
+
+
+/* make accent color darker */
+
+.text-color-main-darken-xs { color: darken($main-color, 10%) !important; }
+.text-color-main-darken-sm { color: darken($main-color, 30%) !important; }
+.text-color-main-darken-md { color: darken($main-color, 50%) !important; }
+.text-color-main-darken-lg { color: darken($main-color, 70%) !important; }
+.text-color-main-darken-xl { color: darken($main-color, 90%) !important; }
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+
+h1.text-color-light, h2.text-color-light, h3.text-color-light, h4.text-color-light, h5.text-color-light, span.text-color-light, p.text-color-light, a.text-color-light{ color : $light-color; }
+
+h1.text-color-dark, h2.text-color-dark, h3.text-color-dark, h4.text-color-dark, h5.text-color-dark, span.text-color-dark, p.text-color-dark, a.text-color-dark{ color: $dark-color; }
+
+h1.text-color-main, h2.text-color-main, h3.text-color-main, h4.text-color-main, h5.text-color-main, span.text-color-main, p.text-color-main, a.text-color-main{ color: $main-color; }
+
+h1.text-color-secondary, h2.text-color-secondary, h3.text-color-secondary, h4.text-color-secondary, h5.text-color-secondary, span.text-color-secondary, p.text-color-secondary, a.text-color-secondary{ color: $secondary-color; }
+
+h1.text-color-accent, h2.text-color-accent, h3.text-color-accent, h4.text-color-accent, h5.text-color-accent, span.text-color-accent, p.text-color-accent, a.text-color-accent{ color: $accent-color; }
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+	/* Large desktops and laptops */
+	@media (min-width: 1200px) { 
+		.lg-text-color-light{ color: $light-color !important; }
+		.lg-text-color-dark{ color: $dark-color !important; }
+		.lg-text-color-main{ color: $main-color !important; }
+		.lg-text-color-secondary{ color: $secondary-color !important; }
+		.lg-text-color-accent{ color: $accent-color !important; }
+
+
+		/* text hovers */
+
+		.lg-text-hover-light:hover{ color: $light-color !important; }
+		.lg-text-hover-dark:hover{ color: $dark-color !important; }
+		.lg-text-hover-main:hover{ color: $main-color !important; }
+		.lg-text-hover-secondary:hover{ color: $secondary-color !important; }
+		.lg-text-hover-accent:hover{ color: $accent-color !important; }
+
+	}
+
+	/* Landscape tablets and medium desktops */
+	@media (min-width: 992px) and (max-width: 1199px) { 
+		.md-text-color-light{ color: $light-color !important; }
+		.md-text-color-dark{ color: $dark-color !important; }
+		.md-text-color-main{ color: $main-color !important; }
+		.md-text-color-secondary{ color: $secondary-color !important; }
+		.md-text-color-accent{ color: $accent-color !important; }
+
+		.md-text-hover-light:hover{ color: $light-color !important; }
+		.md-text-hover-dark:hover{ color: $dark-color !important; }
+		.md-text-hover-main:hover{ color: $main-color !important; }
+		.md-text-hover-secondary:hover{ color: $secondary-color !important; }
+		.md-text-hover-accent:hover{ color: $accent-color !important; }
+	}
+
+	/* Portrait tablets and small desktops */
+	@media (min-width: 768px) and (max-width: 991px) { 
+		.sm-text-color-light{ color: $light-color !important; }
+		.sm-text-color-dark{ color: $dark-color !important; }
+		.sm-text-color-main{ color: $main-color !important; }
+		.sm-text-color-secondary{ color: $secondary-color !important; }
+		.sm-text-color-accent{ color: $accent-color !important; }
+
+		.sm-text-hover-light:hover{ color: $light-color !important; }
+		.sm-text-hover-dark:hover{ color: $dark-color !important; }
+		.sm-text-hover-main:hover{ color: $main-color !important; }
+		.sm-text-hover-secondary:hover{ color: $secondary-color !important; }
+		.sm-text-hover-accent:hover{ color: $accent-color !important; }
+
+	}
+
+	/* Landscape phones and portrait tablets */
+	@media (max-width: 767px) { 
+		.xs-text-color-light{ color: $light-color !important; }
+		.xs-text-color-dark{ color: $dark-color !important; }
+		.xs-text-color-main{ color: $main-color !important; }
+		.xs-text-color-secondary{ color: $secondary-color !important; }
+		.xs-text-color-accent{ color: $accent-color !important; }
+
+		.xs-text-hover-light:hover{ color: $light-color !important; }
+		.xs-text-hover-dark:hover{ color: $dark-color !important; }
+		.xs-text-hover-main:hover{ color: $main-color !important; }
+		.xs-text-hover-secondary:hover{ color: $secondary-color !important; }
+		.xs-text-hover-accent:hover{ color: $accent-color !important; }
+
+	}
+
+	/* Portrait phones and smaller */
+	@media (max-width: 480px) { 
+		.xs-text-color-light{ color: $light-color !important; }
+		.xs-text-color-dark{ color: $dark-color !important; }
+		.xs-text-color-main{ color: $main-color !important; }
+		.xs-text-color-secondary{ color: $secondary-color !important; }
+		.xs-text-color-accent{ color: $accent-color !important; }
+
+		.xs-text-hover-light:hover{ color: $light-color !important; }
+		.xs-text-hover-dark:hover{ color: $dark-color !important; }
+		.xs-text-hover-main:hover{ color: $main-color !important; }
+		.xs-text-hover-secondary:hover{ color: $secondary-color !important; }
+		.xs-text-hover-accent:hover{ color: $accent-color !important; }
+
+	}
+
+
+/* --------------------------------------------- TEXT TRANSFORMS AND FONT CLASSES -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+
+h1{ font-size: $font-size-xl; }
+h2{ font-size: $font-size-lg; }
+h3{ font-size: $font-size-md; }
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+
+/* ---- font size classes ---- */
+
+
+.font-xs{ font-size: $font-size-xs; }
+.font-sm{ font-size: $font-size-sm; }
+.font-md{ font-size: $font-size-md; }
+.font-lg{ font-size: $font-size-lg; }
+
+
+/* ---- font family classes ---- */
+
+
+.font-main{ font-family: $font; }
+.font-secondary{ font-family: $font-heading; }
+
+
+/* ---- text appearance classes ---- */
+
+
+.uppercase{ text-transform: uppercase; }
+.lowercase{ text-transform: lowercase; }
+
+.text-bold { font-weight: 700; }
+.text-thin { font-weight: 100; }
+.text-light { font-weight: 300; }
+.text-italic { font-style: italic; }
+.text-oblique { font-style: oblique; }
+
+.text-line-through { text-decoration: line-through; }
+.text-underlined { text-decoration: underline; }
+.text-overlined { text-decoration: overline; }
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* darken color hovers */
+
+
+.hover-darken-light:hover { background: darken($light-color, 10%) !important; }
+.hover-darken-dark:hover { background: darken($dark-color, 10%) !important; }
+.hover-darken-main:hover { background: darken($main-color, 10%) !important; }
+.hover-darken-secondary:hover { background: darken($secondary-color, 10%) !important; }
+.hover-darken-accent:hover { background: darken($accent-color, 10%) !important; }
+
+
+/* lighten color hovers */
+
+
+.hover-lighten-light:hover { background: lighten($light-color, 10%) !important; }
+.hover-lighten-dark:hover { background: lighten($dark-color, 10%) !important; }
+.hover-lighten-main:hover { background: lighten($main-color, 10%) !important; }
+.hover-lighten-secondary:hover { background: lighten($secondary-color, 10%) !important; }
+.hover-lighten-accent:hover { background: lighten($accent-color, 10%) !important; }
+
+
+/* ---- text color hovers ---- */
+
+
+.text-hover-light:hover{ color: $light-color !important; }
+.text-hover-dark:hover{ color: $dark-color !important; }
+.text-hover-main:hover{ color: $main-color !important; }
+.text-hover-secondary:hover{ color: $secondary-color !important; }
+.text-hover-accent:hover{ color: $accent-color !important; }
+
+/* ---- text properties hover ---- */
+
+.text-hover-bold:hover{  @extend .text-bold; }
+.text-hover-thin:hover{  @extend .text-thin; }
+.text-hover-light:hover{  @extend .text-light; }
+.text-hover-italic:hover{  @extend .text-italic; }
+.text-hover-oblique:hover{  @extend .text-oblique; }
+
+.text-hover-line-through:hover{  @extend .text-line-through; }
+.text-hover-underlined:hover{  @extend .text-underlined; }
+.text-hover-overlined:hover{  @extend .text-overlined; }
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+/* Large desktops and laptops */
+
+
+@media (min-width: 1200px) {
+	.lg-font-xs{ font-size: $font-size-xs; }
+	.lg-font-sm{ font-size: $font-size-sm; }
+	.lg-font-md{ font-size: $font-size-md; }
+	.lg-font-lg{ font-size: $font-size-lg; }
+}
+
+
+/* Landscape tablets and medium desktops */
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.md-font-xs{ font-size: $font-size-xs; }
+	.md-font-sm{ font-size: $font-size-sm; }
+	.md-font-md{ font-size: $font-size-md; }
+	.md-font-lg{ font-size: $font-size-lg; }
+}
+
+
+/* Portrait tablets and small desktops */
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.sm-font-xs{ font-size: $font-size-xs; }
+	.sm-font-sm{ font-size: $font-size-sm; }
+	.sm-font-md{ font-size: $font-size-md; }
+	.sm-font-lg{ font-size: $font-size-lg; }
+}
+
+
+/* Landscape phones and portrait tablets */
+
+
+@media (max-width: 767px) {
+	.xs-font-xs{ font-size: $font-size-xs; }
+	.xs-font-sm{ font-size: $font-size-sm; }
+	.xs-font-md{ font-size: $font-size-md; }
+	.xs-font-lg{ font-size: $font-size-lg; }
+}
+
+
+/* Portrait phones and smaller */
+
+
+@media (max-width: 480px) {
+	.xs-font-xs{ font-size: $font-size-xs; }
+	.xs-font-sm{ font-size: $font-size-sm; }
+	.xs-font-md{ font-size: $font-size-md; }
+	.xs-font-lg{ font-size: $font-size-lg; }
+}
+
+
+/* --------------------------------------------- ANIMATIONS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+/* ---- transitions ---- */
+
+
+.transition-xs-slow {
+	-webkit-transition: 1500ms;
+    -moz-transition: 1500ms;
+    -o-transition: 1500ms;
+    transition: 1500ms;
+}
+
+
+.transition-slow {
+	-webkit-transition: 1000ms;
+    -moz-transition: 1000ms;
+    -o-transition: 1000ms;
+    transition: 1000ms;
+}
+
+
+.transition-normal {
+	-webkit-transition: 500ms;
+    -moz-transition: 500ms;
+    -o-transition: 500ms;
+    transition: 500ms;
+}
+
+
+.transition-fast {
+	-webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -o-transition: 200ms;
+    transition: 200ms;
+}
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */
+
+
+/* --------------------------------------------- SHADOWS -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.shadow-xs { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+.shadow-sm { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+.shadow-md { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+.shadow-lg { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+.shadow-xl { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+
+
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+/* ---- shadow hovers ---- */
+
+
+.shadow-xs-hover:hover { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+.shadow-sm-hover:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+.shadow-md-hover:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+.shadow-lg-hover:hover { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+
+/* --------------------------------------------- CLIENT MANIPULATORS -------------------------------------------- */
+
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.pointer { cursor: pointer; }
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+
+/* ---------------------------------------------  IMAGES  -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+.image{	display: block; position: relative; overflow: hidden; width: 100%;
+	img{ width: 100%; }
+}
+
+.image-greyscale{ -webkit-filter: grayscale(100%); filter: grayscale(100%); }
+.image-greyscale-none{ -webkit-filter: greyscale(0%); filter: grayscale(0%); }
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+img .image-greyscale{ -webkit-filter: grayscale(100%); filter: grayscale(100%); }
+img .image-greyscale-none{ -webkit-filter: greyscale(0%); filter: grayscale(0%); }
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+
+/* image hovers */
+
+
+.image-hover-greyscale:hover{ -webkit-filter: grayscale(100%); filter: grayscale(100%); }
+.image-hover-greyscale-none:hover{ -webkit-filter: greyscale(0%); filter: grayscale(0%); }
+
+
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+	/* Large desktops and laptops */
+	@media (min-width: 1200px) { }
+
+	/* Landscape tablets and medium desktops */
+	@media (min-width: 992px) and (max-width: 1199px) { }
+
+	/* Portrait tablets and small desktops */
+	@media (min-width: 768px) and (max-width: 991px) { }
+
+	/* Landscape phones and portrait tablets */
+	@media (max-width: 767px) { }
+
+	/* Portrait phones and smaller */
+	@media (max-width: 480px) { }
+
+
+
+
+
+
+
+/* --------------------------------------------- SHAPES -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+.circle{ border-radius:2000px; text-align: center; }
+
+
+.circle-xs{ width: $circle-dist-xs; height: $circle-dist-xs; }
+.circle-sm{ width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm; }
+.circle-md{ width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md; }
+.circle-lg{ width: $circle-dist-lg; height: $circle-dist-lg; }
+.circle-xl{ width: $circle-dist-xl; height: $circle-dist-xl; }
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) { 
+	.lg-circle-xl { width: $circle-dist-xl; height: $circle-dist-xl; line-height: $circle-dist-xl ; }
+	.lg-circle-lg { width: $circle-dist-lg; height: $circle-dist-lg; line-height: $circle-dist-lg ; }
+	.lg-circle-md { width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md ; }
+	.lg-circle-sm { width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm ; }
+	.lg-circle-xs { width: $circle-dist-xs; height: $circle-dist-xs; line-height: $circle-dist-xs ; }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) { 
+	.md-circle-xl { width: $circle-dist-xl; height: $circle-dist-xl; line-height: $circle-dist-xl ; }
+	.md-circle-lg { width: $circle-dist-lg; height: $circle-dist-lg; line-height: $circle-dist-lg ; }
+	.md-circle-md { width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md ; }
+	.md-circle-sm { width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm ; }
+	.md-circle-xs { width: $circle-dist-xs; height: $circle-dist-xs; line-height: $circle-dist-xs ; }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) { 
+	.sm-circle-xl { width: $circle-dist-xl; height: $circle-dist-xl; line-height: $circle-dist-xl ; }
+	.sm-circle-lg { width: $circle-dist-lg; height: $circle-dist-lg; line-height: $circle-dist-lg ; }
+	.sm-circle-md { width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md ; }
+	.sm-circle-sm { width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm ; }
+	.sm-circle-xs { width: $circle-dist-xs; height: $circle-dist-xs; line-height: $circle-dist-xs ; }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) { 
+	.xs-circle-xl { width: $circle-dist-xl; height: $circle-dist-xl; line-height: $circle-dist-xl ; }
+	.xs-circle-lg { width: $circle-dist-lg; height: $circle-dist-lg; line-height: $circle-dist-lg ; }
+	.xs-circle-md { width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md ; }
+	.xs-circle-sm { width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm ; }
+	.xs-circle-xs { width: $circle-dist-xs; height: $circle-dist-xs; line-height: $circle-dist-xs ; }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) { 
+	.xs-circle-xl { width: $circle-dist-xl; height: $circle-dist-xl; line-height: $circle-dist-xl ; }
+	.xs-circle-lg { width: $circle-dist-lg; height: $circle-dist-lg; line-height: $circle-dist-lg ; }
+	.xs-circle-md { width: $circle-dist-md; height: $circle-dist-md; line-height: $circle-dist-md ; }
+	.xs-circle-sm { width: $circle-dist-sm; height: $circle-dist-sm; line-height: $circle-dist-sm ; }
+	.xs-circle-xs { width: $circle-dist-xs; height: $circle-dist-xs; line-height: $circle-dist-xs ; }
+}
+
+
+/* --------------------------------------------- FLOATS -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+
+/* floats */
+
+.float-left{ float: left; }
+.float-right{ float: right; }
+
+
+/* clear floats */
+
+.clear-floats{ clear: both; }
+.clear-right{ clear: both; }
+.clear-left{ clear: left; }
+
+
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) { 
+	
+	.lg-float-left{ float: left; }
+	.lg-float-right{ float: right; }
+
+
+	.lg-clear-floats{ clear: both; }
+	.lg-clear-right{ clear: right; }
+	.lg-clear-left{ clear: left; }
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) { 
+
+	.md-float-left{ float: left; }
+	.md-float-right{ float: right; }
+
+	.md-clear-floats{ clear: both; }
+	.md-clear-right{ clear: right; }
+	.md-clear-left{ clear: left; }
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) { 
+
+	.sm-float-left{ float: left; }
+	.sm-float-right{ float: right; }
+
+	.sm-clear-floats{ clear: both; }
+	.sm-clear-right{ clear: right; }
+	.sm-clear-left{ clear: left; }
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) { 
+	
+	.xs-float-left{ float: left; }
+	.xs-float-right{ float: right; }
+
+	.xs-clear-floats{ clear: both; }
+	.xs-clear-right{ clear: right; }
+	.xs-clear-left{ clear: left; }
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) { 
+
+	.xs-float-left{ float: left; }
+	.xs-float-right{ float: right; }
+
+	.xs-clear-floats{ clear: both; }
+	.xs-clear-right{ clear: right; }
+	.xs-clear-left{ clear: left; }
+}
+
+
+/* --------------------------------------------- BLOCK LIMITS -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+.max-width-xs { max-width: $limit-width-xs; }
+.max-width-sm { max-width: $limit-width-sm; }
+.max-width-md { max-width: $limit-width-md; }
+.max-width-lg { max-width: $limit-width-lg; }
+.max-width-xl { max-width: $limit-width-xl; }
+
+.min-width-xs { min-width: $limit-width-xs; }
+.min-width-sm { min-width: $limit-width-sm; }
+.min-width-md { min-width: $limit-width-md; }
+.min-width-lg { min-width: $limit-width-lg; }
+.min-width-xl { min-width: $limit-width-xl; }
+
+.max-height-xs { max-height: $limit-height-xs; }
+.max-height-sm { max-height: $limit-height-sm; }
+.max-height-md { max-height: $limit-height-md; }
+.max-height-lg { max-height: $limit-height-lg; }
+.max-height-xl { max-height: $limit-height-xl; }
+
+.min-height-xs { min-height: $limit-height-xs; }
+.min-height-sm { min-height: $limit-height-sm; }
+.min-height-md { min-height: $limit-height-md; }
+.min-height-lg { min-height: $limit-height-lg; }
+.min-height-xl { min-height: $limit-height-xl; }
+
+.max-height-none { max-height: none; }
+.min-height-none { max-height: none; }
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) { 
+	.lg-max-width-xs { max-width: $limit-width-xs; }
+	.lg-max-width-sm { max-width: $limit-width-sm; }
+	.lg-max-width-md { max-width: $limit-width-md; }
+	.lg-max-width-lg { max-width: $limit-width-lg; }
+	.lg-max-width-xl { max-width: $limit-width-xl; }
+
+	.lg-min-width-xs { min-width: $limit-width-xs; }
+	.lg-min-width-sm { min-width: $limit-width-sm; }
+	.lg-min-width-md { min-width: $limit-width-md; }
+	.lg-min-width-lg { min-width: $limit-width-lg; }
+	.lg-min-width-xl { min-width: $limit-width-xl; }
+
+	.lg-max-height-xs { max-height: $limit-height-xs; }
+	.lg-max-height-sm { max-height: $limit-height-sm; }
+	.lg-max-height-md { max-height: $limit-height-md; }
+	.lg-max-height-lg { max-height: $limit-height-lg; }
+	.lg-max-height-xl { max-height: $limit-height-xl; }
+
+	.lg-min-height-xs { min-height: $limit-height-xs; }
+	.lg-min-height-sm { min-height: $limit-height-sm; }
+	.lg-min-height-md { min-height: $limit-height-md; }
+	.lg-min-height-lg { min-height: $limit-height-lg; }
+	.lg-min-height-xl { min-height: $limit-height-xl; }
+
+	.lg-max-height-none { max-height: none; }
+	.lg-min-height-none { max-height: none; }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) { 
+	.md-max-width-xs { max-width: 200px; }
+	.md-max-width-sm { max-width: 250px; }
+	.md-max-width-md { max-width: 300px; }
+	.md-max-width-lg { max-width: 350px; }
+	.md-max-width-xl { max-width: 400px; }
+
+	.md-min-width-xs { min-width: 200px; }
+	.md-min-width-sm { min-width: 250px; }
+	.md-min-width-md { min-width: 300px; }
+	.md-min-width-lg { min-width: 350px; }
+	.md-min-width-xl { min-width: 400px; }
+
+	.md-max-height-xs { max-height: $limit-height-xs; }
+	.md-max-height-sm { max-height: $limit-height-sm; }
+	.md-max-height-md { max-height: $limit-height-md; }
+	.md-max-height-lg { max-height: $limit-height-lg; }
+	.md-max-height-xl { max-height: $limit-height-xl; }
+
+	.md-min-height-xs { min-height: $limit-height-xs; }
+	.md-min-height-sm { min-height: $limit-height-sm; }
+	.md-min-height-md { min-height: $limit-height-md; }
+	.md-min-height-lg { min-height: $limit-height-lg; }
+	.md-min-height-xl { min-height: $limit-height-xl; }	
+
+	.md-max-height-none { max-height: none; }
+	.md-min-height-none { max-height: none; }
+
+
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) { 
+	.sm-max-width-xs { max-width: 200px; }
+	.sm-max-width-sm { max-width: 250px; }
+	.sm-max-width-md { max-width: 300px; }
+	.sm-max-width-lg { max-width: 350px; }
+	.sm-max-width-xl { max-width: 400px; }
+
+	.sm-min-width-xs { min-width: 200px; }
+	.sm-min-width-sm { min-width: 250px; }
+	.sm-min-width-md { min-width: 300px; }
+	.sm-min-width-lg { min-width: 350px; }
+	.sm-min-width-xl { min-width: 400px; }
+
+	.sm-max-height-xs { max-height: $limit-height-xs; }
+	.sm-max-height-sm { max-height: $limit-height-sm; }
+	.sm-max-height-md { max-height: $limit-height-md; }
+	.sm-max-height-lg { max-height: $limit-height-lg; }
+	.sm-max-height-xl { max-height: $limit-height-xl; }
+
+	.sm-min-height-xs { min-height: $limit-height-xs; }
+	.sm-min-height-sm { min-height: $limit-height-sm; }
+	.sm-min-height-md { min-height: $limit-height-md; }
+	.sm-min-height-lg { min-height: $limit-height-lg; }
+	.sm-min-height-xl { min-height: $limit-height-xl; }
+
+	.sm-max-height-none { max-height: none; }
+	.sm-min-height-none { max-height: none; }
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) { 
+	.xs-max-width-xs { max-width: 200px; }
+	.xs-max-width-sm { max-width: 250px; }
+	.xs-max-width-md { max-width: 300px; }
+	.xs-max-width-lg { max-width: 350px; }
+	.xs-max-width-xl { max-width: 400px; }
+
+	.xs-min-width-xs { min-width: 200px; }
+	.xs-min-width-sm { min-width: 250px; }
+	.xs-min-width-md { min-width: 300px; }
+	.xs-min-width-lg { min-width: 350px; }
+	.xs-min-width-xl { min-width: 400px; }
+
+	.xs-max-height-xs { max-height: $limit-height-xs; }
+	.xs-max-height-sm { max-height: $limit-height-sm; }
+	.xs-max-height-md { max-height: $limit-height-md; }
+	.xs-max-height-lg { max-height: $limit-height-lg; }
+	.xs-max-height-xl { max-height: $limit-height-xl; }
+
+	.xs-min-height-xs { min-height: $limit-height-xs; }
+	.xs-min-height-sm { min-height: $limit-height-sm; }
+	.xs-min-height-md { min-height: $limit-height-md; }
+	.xs-min-height-lg { min-height: $limit-height-lg; }
+	.xs-min-height-xl { min-height: $limit-height-xl; }
+
+	.xs-max-height-none { max-height: none; }
+	.xs-min-height-none { max-height: none; }
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) { 
+	.xs-max-width-xs { max-width: 200px; }
+	.xs-max-width-sm { max-width: 250px; }
+	.xs-max-width-md { max-width: 300px; }
+	.xs-max-width-lg { max-width: 350px; }
+	.xs-max-width-xl { max-width: 400px; }
+
+	.xs-min-width-xs { min-width: 200px; }
+	.xs-min-width-sm { min-width: 250px; }
+	.xs-min-width-md { min-width: 300px; }
+	.xs-min-width-lg { min-width: 350px; }
+	.xs-min-width-xl { min-width: 400px; }
+
+	.xs-max-height-xs { max-height: $limit-height-xs; }
+	.xs-max-height-sm { max-height: $limit-height-sm; }
+	.xs-max-height-md { max-height: $limit-height-md; }
+	.xs-max-height-lg { max-height: $limit-height-lg; }
+	.xs-max-height-xl { max-height: $limit-height-xl; }
+
+	.xs-min-height-xs { min-height: $limit-height-xs; }
+	.xs-min-height-sm { min-height: $limit-height-sm; }
+	.xs-min-height-md { min-height: $limit-height-md; }
+	.xs-min-height-lg { min-height: $limit-height-lg; }
+	.xs-min-height-xl { min-height: $limit-height-xl; }
+
+	.xs-max-height-none { max-height: none; }
+	.xs-min-height-none { max-height: none; }
+
+}
+
+
+
+/* --------------------------------------------- BLOCKS -------------------------------------------- */
+
+/* ----------------------- */
+/* || --base settings-- || */
+/* ----------------------- */
+
+/* ----------------- */
+/* || --classes-- || */
+/* ----------------- */
+
+.block{
+	display: block;
+}
+
+.inline-block{
+	display: inline-block;
+}
+
+.inline{
+	display: inline;
+}
+
+/* -------------------------- */
+/* || --class attaching -- || */
+/* -------------------------- */
+
+/* ------------------ */
+/* || -- hovers -- || */
+/* ------------------ */
+
+/* ----------------------- */
+/* || --media queries-- || */
+/* ----------------------- */ 
+
+
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) { 
+
+	.lg-block{ display: block; }
+	.lg-inline-block{ display: inline-block; }
+	.lg-inline{ display: inline; }
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) { 
+
+	.md-block{ display: block; }
+	.md-inline-block{ display: inline-block; }
+	.md-inline{ display: inline; }
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) { 
+
+	.sm-block{ display: block; }
+	.sm-inline-block{ display: inline-block; }
+	.sm-inline{ display: inline; }
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) { 
+
+	.xs-block{ display: block; }
+	.xs-inline-block{ display: inline-block; }
+	.xs-inline{ display: inline; }
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) { 
+
+	.xs-block{ display: block; }
+	.xs-inline-block{ display: inline-block; }
+	.xs-inline{ display: inline; }
+
+}

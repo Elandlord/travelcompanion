@@ -1,0 +1,26 @@
+/* custom boostrap modal */
+
+
+.modal-header{
+	display: none;
+	max-width: 800px;
+}
+
+.modal-content {
+	background: transparent;
+	text-color: white;
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.modal-body {
+	background-color: $secondary-color;
+	max-width: 1000px;
+
+}
+
+
+
+
