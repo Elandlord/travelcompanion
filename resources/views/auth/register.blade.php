@@ -1,11 +1,21 @@
-@extends('layouts.app')
+@extends('master')
+
+@section('register')
+Register
+@stop
+
 
 @section('content')
-<div class="container">
+<div class="container space-outside-md">
     <div class="row">
+        <div class="col-md-8 col-md-offset-2 all-col-centered space-outside-md text-center">
+            <img src='images/logo-travel.png' class='center-block' style='width:300px;' />
+        </div>
+    </div>
+    <div class='row'>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading bg-main text-color-light">Register</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -62,7 +72,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">
                                     Register
                                 </button>
                             </div>

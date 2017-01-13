@@ -1,11 +1,20 @@
-@extends('layouts.app')
+@extends('master')
+
+@section('register')
+Login
+@stop
 
 @section('content')
-<div class="container">
+<div class="container space-outside-md">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 all-col-centered space-outside-md text-center">
+            <img src='images/logo-travel.png' class='center-block' style='width:300px;' />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading bg-main text-color-light">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
@@ -50,11 +59,11 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                                <a class="btn btn-link text-color-accent" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
                                 </a>
                             </div>
