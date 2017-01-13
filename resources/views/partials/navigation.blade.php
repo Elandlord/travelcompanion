@@ -24,13 +24,26 @@
                         </div>
                     </form>
                 @else
-                    <form class="navbar-form navbar-right" role="search">
+                    <form class="navbar-form navbar-right" role="form" method="POST" action="{{ url('/login') }}">
+                         {{ csrf_field() }}
                         <a class='text-color-accent text-hover-light transition-normal space-outside-right-sm' href='register'>No account?</a>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="password" placeholder="Password">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <input id="password" type="password" class="form-control" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                         </div>
                         <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">Sign In</button>
                     </form>
