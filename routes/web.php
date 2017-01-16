@@ -16,3 +16,4 @@ Route::get('/', "PagesController@homepage");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('logout', 'PagesController@logout');
