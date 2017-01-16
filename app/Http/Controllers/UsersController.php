@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+//use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -9,11 +12,11 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -23,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        // Not needed
     }
 
     /**
@@ -34,18 +37,22 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+        ]);
+        return response('', 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return User::find(Auth::user()->id);
     }
 
     /**

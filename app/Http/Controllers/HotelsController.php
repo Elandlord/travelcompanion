@@ -23,7 +23,7 @@ class HotelsController extends Controller
      */
     public function create()
     {
-        //
+        // Not needed
     }
 
     /**

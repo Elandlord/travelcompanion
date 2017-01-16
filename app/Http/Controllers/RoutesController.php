@@ -11,9 +11,9 @@ class RoutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userId)
     {
-        //
+        return Route::where('user_id', $userId)->get();
     }
 
     /**
@@ -23,7 +23,7 @@ class RoutesController extends Controller
      */
     public function create()
     {
-        //
+        // Not needed
     }
 
     /**
@@ -45,7 +45,7 @@ class RoutesController extends Controller
      */
     public function show($userId, $routeId)
     {
-        return "User id: $userId with route id: $routeId";
+        //
     }
 
     /**
