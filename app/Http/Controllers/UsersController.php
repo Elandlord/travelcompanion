@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-//use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -37,22 +36,29 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-        ]);
-        return response('', 201);
+        $name = $request['name'];
+        $email = $request['email'];
+        $password = $request['password'];
+        if (isset($name) && isset($email) && isset($password)) {
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+            ]);
+            return response('', 201);
+        }
+        return response('', 404);
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return User::find(Auth::user()->id);
+        return User::find($id);
     }
 
     /**
@@ -63,7 +69,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Not needed
     }
 
     /**
@@ -75,7 +81,21 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if (isset($user) && !empty($user)) {
+            if (isset($request['name'])) {
+                $user->name = $request['name'];
+            }
+            if (isset($request['email'])) {
+                $user->email = $request['email'];
+            }
+            if (isset($request['password'])) {
+                $user->password = bcrypt($request['password']);
+            }
+            $user->save();
+            return response('', 200);
+        }
+        return response('', 404);
     }
 
     /**
@@ -86,6 +106,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if (isset($user) && !empty($user)) {
+            $user->delete();
+            return response('', 200);
+        }
+        return response('', 404);
     }
 }

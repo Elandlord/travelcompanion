@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Route;
 use Illuminate\Http\Request;
 
 class HotelsController extends Controller
@@ -11,9 +13,10 @@ class HotelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userId, $routeId)
     {
-        //
+        $route = Route::find($routeId);
+        return $route->hotels();
     }
 
     /**
