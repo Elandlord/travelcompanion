@@ -11,8 +11,9 @@
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
                 <form class="navbar-form navbar-left hidden-sm hidden-xs" role="search">
                     <div class="form-group">
-                        <input type="text" style="width:250px;" class="form-control" name="username" placeholder="Where do you want to go?">
+                        <input type="text" style="width:250px;" class="form-control" id="searchbar" name="search" placeholder="Where do you want to go?">
                     </div>
+                    <div id="searchResults"></div>
                     <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
 
@@ -54,7 +55,29 @@
                         <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">Sign In</button>
                     </form>
                 @endif
-
             </div>
     </div>
 </nav>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#").keyup(function () {
+                var searchParameters = btoa($("#searchbar").val());
+                if (searchParameters.length < 2) {
+                    $("#searchResults").hide();
+                } else {
+                    $.getJSON('/search?param=' + searchParameters, function (data) {
+                        var html = "<ul class='result-list'>";
+                        data.forEach(function (item, index) {
+                            html += "<li><a class='searchlink' href=\"show/"+  item.recid + "\"><b>" + item.name + "</b> - " + item.description.substring(0, 50) + "... - " + item.duration_time + " min <i class='fa fa-clock-o'></i></a></li>";
+                        });
+                        html += "</ul>";
+                        $('#searchResults').html(html);
+                        $("#searchResults").slideDown();
+                    })
+                }
+
+            });
+        });
+
+</script>

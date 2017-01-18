@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width">
         <title>@yield('title') || TravelCompanion</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
         
         @include('partials.styles')
 

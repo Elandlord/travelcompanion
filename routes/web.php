@@ -13,6 +13,8 @@
 
 Route::get('/', "PagesController@homepage");
 
+Route::get('gethotel/{location}', 'HotelApiController@getHotel');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
