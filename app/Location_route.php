@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location_route extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'location_id', 
         'route_id', 

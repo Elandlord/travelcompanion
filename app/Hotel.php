@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
+    public $timestamps = false;
+
      /**
      * The attributes that are mass assignable.
      *
