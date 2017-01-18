@@ -9,9 +9,9 @@
             <a class="navbar-brand" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
         </div>
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
-                <form class="navbar-form navbar-left hidden-sm hidden-xs" method="post" role="search">
+                <form class="navbar-form navbar-left hidden-sm hidden-xs" role="search">
                     <div class="form-group">
-                        <input type="text" style="width:250px;" class="form-control" placeholder="Where do you want to go?">
+                        <input type="text" style="width:250px;" class="form-control" name="username" placeholder="Where do you want to go?">
                     </div>
                     <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
@@ -23,19 +23,16 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">MyTrip</a></li>
-                        <li><a href="#">Hotels</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="logout">Logout</a></li>
+                        		@include ('layouts.nav-vue')
+
                       </ul>
                     </div>
                 @else
                     <form class="navbar-form navbar-right border-accent sm-space-outside-xl xs-space-outside-xl" role="form" method="POST" action="{{ url('/login') }}">
                          {{ csrf_field() }}
-
-                         <router-link tag="li" to="/testjes">
+                         <router-link tag="li" to="/register">
                             <a class='text-color-accent text-hover-light transition-normal space-outside-right-sm'>No account?</a>
-                        </router-link>
+                        </router-link>  
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
