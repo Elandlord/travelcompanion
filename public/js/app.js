@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 61);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -566,7 +566,7 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(26);
+var normalizeHeaderName = __webpack_require__(27);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -667,12 +667,12 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(18);
-var buildURL = __webpack_require__(21);
-var parseHeaders = __webpack_require__(27);
-var isURLSameOrigin = __webpack_require__(25);
+var settle = __webpack_require__(19);
+var buildURL = __webpack_require__(22);
+var parseHeaders = __webpack_require__(28);
+var isURLSameOrigin = __webpack_require__(26);
 var createError = __webpack_require__(6);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(21);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -768,7 +768,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(23);
+      var cookies = __webpack_require__(24);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -889,7 +889,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(17);
+var enhanceError = __webpack_require__(18);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -926,6 +926,50 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(31)
+
+/* template */
+var __vue_template__ = __webpack_require__(53)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\components\\SearchResults.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-347852ae", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-347852ae", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] SearchResults.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3033,36 +3077,42 @@ module.exports = VueRouter;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(47);
 
+
+__webpack_require__(37);
+Vue.component('search-bar', __webpack_require__(48));
+Vue.component('search-results', __webpack_require__(8));
 
 
 new Vue({
     el: '#app',
 
-    router: __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */]
+    router: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */]
 });
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(13);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3070,7 +3120,7 @@ module.exports = __webpack_require__(12);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
-var Axios = __webpack_require__(14);
+var Axios = __webpack_require__(15);
 var defaults = __webpack_require__(2);
 
 /**
@@ -3105,14 +3155,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(4);
-axios.CancelToken = __webpack_require__(13);
+axios.CancelToken = __webpack_require__(14);
 axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(28);
+axios.spread = __webpack_require__(29);
 
 module.exports = axios;
 
@@ -3121,7 +3171,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3185,7 +3235,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3193,10 +3243,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(15);
-var dispatchRequest = __webpack_require__(16);
-var isAbsoluteURL = __webpack_require__(24);
-var combineURLs = __webpack_require__(22);
+var InterceptorManager = __webpack_require__(16);
+var dispatchRequest = __webpack_require__(17);
+var isAbsoluteURL = __webpack_require__(25);
+var combineURLs = __webpack_require__(23);
 
 /**
  * Create a new instance of Axios
@@ -3277,7 +3327,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3336,14 +3386,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(19);
+var transformData = __webpack_require__(20);
 var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(2);
 
@@ -3422,7 +3472,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3448,7 +3498,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3480,7 +3530,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3507,7 +3557,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3550,7 +3600,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3625,7 +3675,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3644,7 +3694,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3704,7 +3754,7 @@ module.exports = (
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3725,7 +3775,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3800,7 +3850,7 @@ module.exports = (
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3819,7 +3869,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3863,7 +3913,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3897,35 +3947,6 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    created: function created() {
-        // axios call here.
-    }
-};
-
-/***/ }),
 /* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3939,67 +3960,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            searchParameters: null,
+            results: null
+        };
+    },
+
+
+    methods: {
+        search: function search() {
+            var _this = this;
+
+            axios.get('search-hotels?searchParameters=' + this.searchParameters).then(function (response) {
+                // succeeded, save data to a data instance in this vue object
+                _this.results = response.data;
+                Event.fire('searchResultsFound', _this.results);
+            });
+        }
+    },
+
     mounted: function mounted() {
         console.log('Component mounted.');
     }
@@ -4019,60 +4001,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+				data: function data() {
+								return {
+												searchResults: ""
+								};
+				},
+				mounted: function mounted() {
+								console.log('Component mounted.');
+				},
+				created: function created() {
+								var _this = this;
+
+								Event.listen('searchResultsFound', function (searchResults) {
+												_this.setSearchResults(searchResults);
+								});
+				},
+
+
+				methods: {
+								/**
+        * setter for searchResults
+        * @param {[type]} searchResults [description]
+        */
+								setSearchResults: function setSearchResults(searchResults) {
+												this.searchResults = searchResults;
+								}
+				}
 };
 
 /***/ }),
@@ -4081,53 +4037,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4156,11 +4065,1095 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(43);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+};
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    created: function created() {
+        // axios call here.
+    }
+};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.API = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.vue.data = {
+         data: null
+      };
+   }
+
+   _createClass(_class, [{
+      key: 'version',
+      value: function version() {
+         return '/api/v1/';
+      }
+   }, {
+      key: 'headers',
+      value: function headers() {
+         var headers = {
+            'Authorization': 'Bearer ' + Laravel.user.api_token,
+            'X-CSRF-TOKEN': Laravel.csrfToken
+         };
+         return headers;
+      }
+   }, {
+      key: 'removeFile',
+      value: function removeFile(id) {
+         console.log('removeFile', id);
+         this.delete('upload', id);
+      }
+   }, {
+      key: 'uploadURL',
+      value: function uploadURL() {
+         return 'upload';
+      }
+      /**
+       * Simple wrapper for vue upload
+       */
+
+   }, {
+      key: 'uploadImage',
+      value: function uploadImage(base, $parameters) {
+         return this.vue.$http.post(this.uploadURL, $parameters).then(function (response) {});
+      }
+   }, {
+      key: 'put',
+      value: function put(base, data, success) {
+         var failure = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+         return this.vue.$http.put(this.version() + base, data).then(function (response) {
+            success(response);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue delete request
+       * @param  {[base]} api route
+       * @param  {[id]} object id
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'delete',
+      value: function _delete(base, id) {
+         this.vue.$http.delete(this.version() + base + '/' + id, {}).then(function () {
+            Notifier.notify('success', 'Gelukt!', 'Verwijderd');
+         }, function () {
+            Notifier.notify('failed', 'Mislukt', 'Verwijderd');
+         });
+      }
+      /**
+       * Deletes an object from an array, if the object exists in the database
+       * a call to the api is made to delete that object in the database
+       * @param  {[type]}  object  [ The object to delete ]
+       * @param  {[type]}  array   [ The target array ]
+       * @param  {String}  apiCall [ The call to the api (/users, /customers, /projects)]
+       * @param  {Boolean} confirm [ Ask the user for confirmation ]
+       * @return {[boolean]}          [Return a boolean if succeeded or not]
+       */
+
+   }, {
+      key: 'deleteObjectFrom',
+      value: function deleteObjectFrom(object, array) {
+         var apiCall = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+         var confirm = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+         if (!Helper.hasProperty(object, 'id')) {
+            Helper.removeFromArray(array, object);
+            return false;
+         }
+         if (confirm == true) {
+            this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
+               confirmButtonText: 'OK',
+               cancelButtonText: 'Cancel',
+               type: 'warning'
+            }).then(function () {
+               Helper.removeFromArray(array, object);
+               API.delete(apiCall, object.id);
+            }).catch(function () {});
+         } else {
+            Helper.removeFromArray(array, object);
+            API.delete(apiCall, object.id);
+         }
+      }
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'post',
+      value: function post(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return this.vue.$http.post(this.version() + base, parameters).then(function (response) {
+            var data = JSON.parse(response.body);
+            success(data);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'get',
+      value: function get(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var $parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return this.vue.$http.get(this.version() + base, $parameters).then(function (response) {
+            var data = JSON.parse(response.body);
+            if (success.constructor === Array) {
+               success.forEach(function (callback) {
+                  callback(data);
+               });
+            } else {
+               success(data);
+            }
+         }, failure);
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Load this file in your app.js to get access to Core classes
+ */
+// Global Exception helper class
+__webpack_require__(41);
+// Helper class 
+__webpack_require__(43);
+// Global Api Helper class
+__webpack_require__(36);
+// Global Event dispatcher class
+__webpack_require__(40);
+// Global Notifier class
+__webpack_require__(45);
+// Global message class
+__webpack_require__(44);
+// Global datehelper class
+__webpack_require__(38);
+// Global formhelper class
+__webpack_require__(42);
+// Global date-picker class
+__webpack_require__(39);
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.DateHelper = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'findMondayOfWeekAndYear',
+		value: function findMondayOfWeekAndYear(week, year) {
+			return moment().day("Monday").week(week).year(year);
+		}
+	}, {
+		key: 'setDate',
+		value: function setDate(date) {
+			this.date = moment(date);
+			return this;
+		}
+	}, {
+		key: 'getMonday',
+		value: function getMonday() {
+			this.date.startOf('isoweek').subtract(1, 'days');
+			return this;
+		}
+	}, {
+		key: 'getTuesday',
+		value: function getTuesday() {
+			this.getMonday().date.add(1, 'd');
+			return this;
+		}
+	}, {
+		key: 'getWednesday',
+		value: function getWednesday() {
+			this.getMonday().date.add(2, 'd');
+			return this;
+		}
+	}, {
+		key: 'getThursday',
+		value: function getThursday() {
+			this.getMonday().date.add(3, 'd');
+			return this;
+		}
+	}, {
+		key: 'getFriday',
+		value: function getFriday() {
+			this.getMonday().date.add(4, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSaturday',
+		value: function getSaturday() {
+			this.getMonday().date.add(5, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSunday',
+		value: function getSunday() {
+			this.getMonday().date.add(6, 'd');
+			return this;
+		}
+	}, {
+		key: 'getDate',
+		value: function getDate() {
+			return this.date;
+		}
+	}, {
+		key: 'format',
+		value: function format() {
+			var day = this.date;
+			var dag = day.get('date');
+			var month = day.get('month');
+			var year = day.get('year');
+
+			month = this.normalizeMonth(month);
+			dag = this.normalizeDay(dag);
+			return year + '-' + month + '-' + dag;
+		}
+	}, {
+		key: 'normalizeMonth',
+		value: function normalizeMonth(month) {
+			month += 1;
+			return month >= 10 ? month : '0' + month;
+		}
+	}, {
+		key: 'normalizeDay',
+		value: function normalizeDay(day) {
+			day += 1;
+			return day >= 10 ? day : '0' + day;
+		}
+	}]);
+
+	return _class;
+}())();
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.DatePicker = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.options = this.getPickerOptions();
+   }
+   /***
+    *  Set the picker from Elements to a certain day periode ( between dates )
+    */
+
+
+   _createClass(_class, [{
+      key: 'setPickerPeriod',
+      value: function setPickerPeriod(picker, days) {
+         var end = new Date();
+         var start = new Date();
+         start.setTime(start.getTime() - 3600 * 1000 * 24 * days);
+         picker.$emit('pick', [start, end]);
+      }
+   }, {
+      key: 'getPickerOptions',
+      value: function getPickerOptions() {
+         return {
+            shortcuts: [{
+               text: 'Afgelopen week',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 7);
+               }
+            }, {
+               text: 'Afgelopen maand',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 30);
+               }
+            }, {
+               text: 'Afgelopen 3 maanden',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 90);
+               }
+            }, {
+               text: 'Afgelopen half jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 180);
+               }
+            }, {
+               text: 'Afgelopen jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 365);
+               }
+            }]
+         };
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Event dispatcher class, for emitting and listening for events. 
+ * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
+ * @type {Event}
+ */
+window.Event = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+   }
+
+   /**
+    * Method which can be used to fire events.
+    * @param  {[event]} the name of the event
+    * @param  {[data]} data to send with the event 
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'fire',
+      value: function fire(event) {
+         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$emit(event, data);
+      }
+
+      /**
+       * Method which can be used to listen to events.
+       * @param  {[event]} the name of the event
+       * @param  {callback} the callback function to execute
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'listen',
+      value: function listen(event, callback) {
+         this.vue.$on(event, callback);
+      }
+
+      /**
+       * Method to start the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'startLoading',
+      value: function startLoading() {
+         Event.fire('loading_start');
+      }
+
+      /**
+       * Method to stop the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'stopLoading',
+      value: function stopLoading() {
+         setTimeout(function () {
+            Event.fire('loading_done');
+         }, 500);
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.Exception = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'isType',
+		value: function isType(prop, type) {
+			if ((typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) !== type) {
+				console.log('Helper::hasProperty expects second argument to be of type .' + type + ' ' + (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) + ' found');
+				return false;
+			}
+			return true;
+		}
+	}]);
+
+	return _class;
+}())();
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.Form = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+   }
+   // vueInstance = a this or new Vue()
+   // formName = model that has to be found. Check Elements doc for the validation of a form
+
+
+   _createClass(_class, [{
+      key: 'trackProgress',
+      value: function trackProgress(vueInstance, formName) {
+         var _this = this;
+
+         var ref = vueInstance.$refs[formName];
+         var totalValid = 0;
+         var totalValidNeeded = ref.fields.length;
+         ref.fields.forEach(function (field) {
+            if (_this.isValid(vueInstance, field.prop, formName)) {
+               totalValid++;
+            }
+         });
+         return Math.floor(100 / totalValidNeeded * totalValid);
+      }
+      // Check whether a field is valid. A function isnt defined yet for Elements. So this is a workaround
+
+   }, {
+      key: 'isValid',
+      value: function isValid(vueInstance, field, formName) {
+         var valid = false;
+         var ref = vueInstance.$refs[formName];
+         if (typeof ref !== 'undefined') {
+            ref.validateField(field, function (msg) {
+               valid = !msg;
+            });
+         }
+         return valid;
+      }
+   }, {
+      key: 'resetForm',
+      value: function resetForm(vueInstance, formName) {
+         vueInstance.$refs[formName].resetFields();
+      }
+   }, {
+      key: 'generatePassword',
+      value: function generatePassword(event, formModel, field) {
+         // let ref = vueInstance.$refs[formName];
+         var randomstring = Math.random().toString(36).slice(-8);
+         formModel[field] = randomstring.toUpperCase();
+      }
+      // reset the media to null so nothing is shown
+      // dont forget to define in :data in the uploader : { type : <insert type> }
+      // nasty work around to see which type is deleted ( which field ).
+      // goes through api and reverses the type through the api ( api/v1/upload) (  $uploader->type = $request->get('type') )
+
+   }, {
+      key: 'resetMedia',
+      value: function resetMedia(formModel) {
+         var field = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         if (field != null) {
+            formModel[field] = [];
+         }
+      }
+      // Set the properties and keys
+      // dont forget to define in :data in the uploader : { type : <insert type> }
+      // nasty work around to see which type is deleted ( which field ).
+      // goes through api and reverses the type through the api ( api/v1/upload) (  $uploader->type = $request->get('type') )
+
+   }, {
+      key: 'setMedia',
+      value: function setMedia(formModel, field, response) {
+         var media = {
+            name: response.filename,
+            url: '/storage/' + response.directory + '/' + response.filename + '.' + response.extension,
+            id: response.id,
+            type: response.type
+         };
+         var finalForm = formModel[field].push(media);
+      }
+      // Validation rule form email , used in Elements Validation for forms : http://element.eleme.io/#/en-US/component/form
+
+   }, {
+      key: 'validateMail',
+      value: function validateMail(rule, value, callback) {
+         // emailregex.com
+         var re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+         if (re.test(value)) {
+            callback();
+         } else {
+            callback(new Error('Geen valide email'));
+         }
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * A helper class. All components can use this class. 
+ * Provides one accespoint to common used functions
+ * @type {Helper}
+ */
+window.Helper = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+   }
+   /**
+    * Capitalizes strings
+    * @param  {[string]} 
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'capitalize',
+      value: function capitalize(string) {
+         console.log(string);
+         return string;
+         // @todo : Cannot read property '0' of undefined
+         // return string[0].toUpperCase() + string.slice(1);
+      }
+      /**
+       * Method for removing items from an array
+       * @param  {[array]}
+       * @param  {[toBeRemovedItem]}
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'removeFromArray',
+      value: function removeFromArray(array, toBeRemovedItem) {
+         return array.splice(array.indexOf(toBeRemovedItem), 1);
+      }
+      /**
+       * Method for checking if an object has a certain property
+       * logs error if the wrong type of property have been given.
+       * @param  {[obj]}
+       * @param  {[prop]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'hasProperty',
+      value: function hasProperty(obj, prop) {
+         if (!Exception.isType(prop, 'string')) {
+            return false;
+         } // checks if the argument given is a string
+         var proto = obj.__proto__ || obj.constructor.prototype;
+         return prop in obj && (!(prop in proto) || proto[prop] !== obj[prop]);
+      }
+      /**
+       * @param  {[number]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'isNumeric',
+      value: function isNumeric(number) {
+         return !isNaN(parseFloat(number)) && isFinite(number);
+      }
+      /**
+       * turns an array into an object
+       * @param  {[arr]} array to turn into an object
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'toObject',
+      value: function toObject(arr) {
+         var rv = {};
+         for (var i = 0; i < arr.length; ++i) {
+            rv[i] = arr[i];
+         }
+         return rv;
+      }
+   }, {
+      key: 'formatDate',
+      value: function formatDate(date) {
+         var dates = date.split([" "]);
+         return dates[0];
+      }
+   }, {
+      key: 'decimalRound',
+      value: function decimalRound(number, precision) {
+         var factor = Math.pow(10, precision);
+         var tempNumber = number * factor;
+         var roundedTempNumber = Math.round(tempNumber);
+         return roundedTempNumber / factor;
+      }
+
+      /**
+       * Method for checking if an object has a certain property
+       * logs error if the wrong type of property have been given.
+       * @param  {[obj]}
+       * @param  {[prop]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'hasProperty',
+      value: function hasProperty(obj, prop) {
+         if (!Exception.isType(prop, 'string')) {
+            return false;
+         } // checks if the argument given is a string
+         var proto = obj.__proto__ || obj.constructor.prototype;
+         return prop in obj && (!(prop in proto) || proto[prop] !== obj[prop]);
+      }
+
+      /**
+       * @param  {[number]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'isNumeric',
+      value: function isNumeric(number) {
+         return !isNaN(parseFloat(number)) && isFinite(number);
+      }
+
+      /**
+       * turns an array into an object
+       * @param  {[arr]} array to turn into an object
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'toObject',
+      value: function toObject(arr) {
+         var rv = {};
+         for (var i = 0; i < arr.length; ++i) {
+            rv[i] = arr[i];
+         }
+         return rv;
+      }
+   }, {
+      key: 'formatDate',
+      value: function formatDate(date) {
+         var dates = date.split([" "]);
+         return dates[0];
+      }
+   }, {
+      key: 'contains',
+      value: function contains($search, $array) {
+         return array.indexOf($search) !== null;
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * class that can be used for messaging the user
+ * @type {class}
+ */
+window.Messager = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.messageTypes = {
+         'success': 'success',
+         'warning': 'warning',
+         'danger': 'danger',
+         'error': 'error',
+         'info': 'info',
+         'default': 'info'
+      };
+   }
+   /**
+    * messages the user 
+    * @param  {[type]} type of message
+    * @param  {[message]}
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'message',
+      value: function message(type) {
+         var _message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$message({
+            message: _message || '',
+            type: this.messageTypes[type] || this.messageTypes['default']
+         });
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Notifier class for notifying the user with a specific message.
+ * @type {class}
+ */
+window.Notifier = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.notifyTypes = {
+         'success': 'success',
+         'warning': 'warning',
+         'danger': 'danger',
+         'error': 'error',
+         'info': 'info',
+         'default': 'info'
+      };
+   }
+   /**
+    * Ask the user for a confirmation
+    * @param  {[message]}
+    * @return {[boolean]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'askConfirmation',
+      value: function askConfirmation(procceed) {
+         var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+         }).then(function () {
+            procceed();
+         }).catch(function () {});
+      }
+      /**
+       * Notify the user 
+       * @param  {[type]} type of message
+       * @param  {[message]} 
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'notify',
+      value: function notify(type, message) {
+         var title = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+         console.log(type, message);
+         if (title == null) {
+            title = Helper.capitalize(this.notifyTypes[type]) || Helper.capitalize(this.notifyTypes['default']);
+         }
+
+         this.vue.$notify({
+            title: title,
+            message: message,
+            type: this.notifyTypes[type] || this.notifyTypes['default']
+         });
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 
 
@@ -4175,26 +5168,26 @@ window.axios.defaults.headers.common = {
 };
 
 /***/ }),
-/* 34 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_router__);
 
 
 var routes = [{
     path: '/',
-    component: __webpack_require__(36)
+    component: __webpack_require__(50)
 }, {
     path: '/about',
-    component: __webpack_require__(35)
+    component: __webpack_require__(49)
 }, {
     path: '/register',
-    component: __webpack_require__(38)
+    component: __webpack_require__(52)
 }, {
     path: '/login',
-    component: __webpack_require__(37)
+    component: __webpack_require__(51)
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = new __WEBPACK_IMPORTED_MODULE_0_vue_router___default.a({
@@ -4203,17 +5196,61 @@ var routes = [{
 });
 
 /***/ }),
-/* 35 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(29)
+__vue_exports__ = __webpack_require__(30)
 
 /* template */
-var __vue_template__ = __webpack_require__(41)
+var __vue_template__ = __webpack_require__(54)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\components\\Search.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-52f5e3bd", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-52f5e3bd", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] Search.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(32)
+
+/* template */
+var __vue_template__ = __webpack_require__(57)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4247,17 +5284,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 36 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(30)
+__vue_exports__ = __webpack_require__(33)
 
 /* template */
-var __vue_template__ = __webpack_require__(42)
+var __vue_template__ = __webpack_require__(58)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4291,17 +5328,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 37 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(31)
+__vue_exports__ = __webpack_require__(34)
 
 /* template */
-var __vue_template__ = __webpack_require__(39)
+var __vue_template__ = __webpack_require__(55)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4335,17 +5372,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 38 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(32)
+__vue_exports__ = __webpack_require__(35)
 
 /* template */
-var __vue_template__ = __webpack_require__(40)
+var __vue_template__ = __webpack_require__(56)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4379,7 +5416,84 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 39 */
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('p', {
+    staticStyle: {
+      "font-size": "20px"
+    }
+  }, [_vm._v("\n\t" + _vm._s(_vm.searchResults) + "\n\t")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-347852ae", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "space-outside-up-sm"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchParameters),
+      expression: "searchParameters"
+    }],
+    staticClass: "form-control",
+    staticStyle: {
+      "width": "250px",
+      "display": "inline-block"
+    },
+    attrs: {
+      "type": "text",
+      "placeholder": "Where do you want to go?"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchParameters)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchParameters = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
+    staticStyle: {
+      "display": "inline-block",
+      "margin-bottom": "3px"
+    },
+    on: {
+      "click": function($event) {
+        _vm.search()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-52f5e3bd", module.exports)
+  }
+}
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4482,7 +5596,7 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4608,7 +5722,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4637,119 +5751,16 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', {
+  return _c('div', [_c('section', {
     staticClass: "space-outside-md"
   }, [_c('div', {
     staticClass: "container"
-  }, [_c('section', {
-    staticClass: "col-xs-12 col-sm-6 col-md-12 space-outside-up-sm"
-  }, [_c('h1', [_vm._v("Search Results")]), _vm._v(" "), _c('h2', {
-    staticClass: "lead"
-  }, [_c('strong', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("1")]), _vm._v(" result was found for the search for "), _c('strong', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("Rome")])]), _vm._v(" "), _c('div', {
-    staticClass: "btn-group bg-main"
-  }, [_c('button', {
-    staticClass: "btn-standard bg-accent text-color-light text-hover-lighten transition-normal dropdown-toggle",
-    attrs: {
-      "type": "button",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("\r\n                Price  "), _c('span', {
-    staticClass: "caret"
-  })]), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu"
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Action")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Another action")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Something else here")])]), _vm._v(" "), _c('li', {
-    staticClass: "divider",
-    attrs: {
-      "role": "separator"
-    }
-  }), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Separated link")])])])])]), _vm._v(" "), _c('section', {
-    staticClass: "col-xs-12 col-sm-6 col-md-12 space-outside-up-sm"
-  }, [_c('div', {
-    staticClass: "search-result row"
-  }, [_c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-3"
-  }, [_c('a', {
-    staticClass: "thumbnail",
-    attrs: {
-      "href": "#",
-      "title": "Lorem ipsum"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": "https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg",
-      "alt": "Lorem ipsum"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-2"
-  }, [_c('ul', {
-    staticClass: "meta-search font-md"
-  }, [_c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-calendar"
-  }), _vm._v(" "), _c('span', [_vm._v("11-1-2017")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-time"
-  }), _vm._v(" "), _c('span', [_vm._v("9:00 AM to 6:00PM")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-tags"
-  }), _vm._v(" "), _c('span', [_vm._v("Rome")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-7"
-  }, [_c('h3', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("Hotel Villa Torlonia")]), _vm._v(" "), _c('p', {
-    staticClass: "font-weight-light"
-  }, [_vm._v("\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus molestie nunc. Donec vitae nibh velit. Nunc vulputate congue tincidunt. Quisque volutpat rutrum volutpat. Praesent ut varius mi. Donec a arcu ultrices leo porttitor cursus. Praesent consequat congue velit, a tristique dui mollis vel. Maecenas at molestie ipsum. Nullam mollis, nunc vel condimentum suscipit, lectus augue dignissim metus, vitae blandit nibh neque vel nulla. Integer ut urna vehicula, fermentum dolor volutpat, tincidunt mi. Nunc molestie mi quis aliquet ornare.\r\n                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\r\n\r\nPellentesque et arcu venenatis, semper quam eget, fringilla orci. Aliquam a eros ut purus luctus tempus. Integer velit felis, aliquet non sollicitudin eu, malesuada quis nisi. Nunc sed efficitur elit. Pellentesque ornare, elit et maximus accumsan, erat nulla imperdiet mi, sit amet venenatis neque sapien id nisl. Aliquam ultricies vel magna a sodales. Etiam vestibulum porta enim eget maximus. Aenean sed odio consectetur, suscipit ante vel, vestibulum felis.")]), _vm._v(" "), _c('div', {
-    staticClass: "row space-outside-md"
-  }, [_c('div', {
-    staticClass: "col-lg-8"
-  }, [_c('div', {
-    staticClass: "input-group date",
-    attrs: {
-      "id": "datetimepicker1"
-    }
-  }, [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-calendar"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-4"
-  }, [_c('button', {
-    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("Book now!")])])])])])])])])
-}]}
+  }, [_c('search-results')], 1)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -4759,7 +5770,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13332,10 +14343,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(44)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(60)))
 
 /***/ }),
-/* 44 */
+/* 60 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13362,11 +14373,11 @@ module.exports = g;
 
 
 /***/ }),
-/* 45 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(9);
-module.exports = __webpack_require__(10);
+__webpack_require__(10);
+module.exports = __webpack_require__(11);
 
 
 /***/ })

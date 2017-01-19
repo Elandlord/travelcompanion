@@ -43,6 +43,10 @@
     height:100px !important;
 }
 
+.navbar-collapse:before, .navbar-collapse:after{
+    content: none;
+}
+
 .container { margin-top: 20px; }
 .mb20 { margin-bottom: 20px; } 
 
