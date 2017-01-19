@@ -9,9 +9,14 @@
         <meta name="viewport" content="width=device-width">
         <title>@yield('title') || TravelCompanion</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
-
+        
         @include('partials.styles')
 
+        <script>
+            window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+                ]); ?>
+        </script>
     </head>
 
     <body>
