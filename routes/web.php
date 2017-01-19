@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', "PagesController@homepage");
+Route::get('/', "PagesController@entryPointVue");
 
 Auth::routes();
 
