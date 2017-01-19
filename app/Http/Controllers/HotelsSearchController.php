@@ -18,10 +18,6 @@ class HotelsSearchController extends Controller
 
         $searchParameters = $request->input('searchParameters');
 
-        dd($searchParameters);
-
-
-
         return response()->json($search, 200);
     }
 
