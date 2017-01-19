@@ -13,12 +13,16 @@ class HotelsSearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $hotels = ["KutHotel", "TyfusHotel", "GvdWerkEensHotel"];
+        $searchParameters = $request->input('searchParameters');
 
-        return response()->json($hotels, 200);
+        dd($searchParameters);
+
+
+
+        return response()->json($search, 200);
     }
 
     /**
