@@ -5472,7 +5472,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "20px"
     }
-  }, [_vm._v("\n\t\t" + _vm._s(_vm.searchResults) + "\n        ")]), _vm._v(" "), (_vm.loading) ? _c('i', {
+  }, [_vm._v("\n            " + _vm._s(_vm.searchResults) + "\n        ")]), _vm._v(" "), (_vm.loading) ? _c('i', {
     staticClass: "fa fa-cog fa-spin fa-3x fa-fw"
   }) : _vm._e()])
 },staticRenderFns: []}

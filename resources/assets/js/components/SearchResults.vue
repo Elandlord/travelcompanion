@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<p style='font-size:20px;'>
-		{{ searchResults }}
+            {{ searchResults }}
         </p>
 
         <i v-if="loading" class='fa fa-cog fa-spin fa-3x fa-fw'></i>
