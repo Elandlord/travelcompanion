@@ -56,35 +56,3 @@
             </div>
     </div>
 </nav>
-<div style="display: none" id="results"></div>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#searchbar").keyup(function () {
-                var searchParameters = $("#searchbar").val();
-                if (searchParameters.length < 4) {
-                    $("#searchResults").hide();
-                } else {
-                    var service = new google.maps.places.PlacesService($('#results').get(0));
-
-                    var request = {
-                        query: searchParameters,
-                        types: ['lodging']
-                    };
-                    service.textSearch(request, function (results, status){
-                        if (status == google.maps.places.PlacesServiceStatus.OK) {
-                            var html = "<ul class='result-list'>";
-                            for (var i = 0; i < results.length; i++) {
-                                html += "<li><a class='searchlink' href=\"\"><b>" + results[i].name + "</b> - " + results[i].rating + "</a></li>";
-                            }
-                            html += "</ul>";
-                            $('#searchResults').html(html).slideDown();
-                        }
-                    });
-                }
-
-            });
-        });
-
-</script>
