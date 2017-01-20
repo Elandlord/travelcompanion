@@ -18,7 +18,9 @@ class HotelsSearchController extends Controller
 
         $searchParameters = $request->input('searchParameters');
 
-        return response()->json($searchParameters, 200);
+        $json = json_decode(file_get_contents('https://jsonplaceholder.typicode.com/posts/3'), true);
+
+        return response()->json($json, 200);
     }
 
     /**

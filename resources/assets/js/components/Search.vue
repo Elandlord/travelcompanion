@@ -13,17 +13,20 @@
     	data() {
 		   return {
 		      searchParameters: null,
-		      results: null,
 		   }
 		},
 
     	methods:
     	{
     		search(){
+
+                Event.fire('searching');
+
 			   axios.get('search-hotels?searchParameters=' + this.searchParameters).then((response) => {
 			         // succeeded, save data to a data instance in this vue object
 			         this.results = response.data;
 			         Event.fire('searchResultsFound', this.results);
+
 				 });
     		}
     	},
