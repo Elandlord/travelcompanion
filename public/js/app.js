@@ -3916,6 +3916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -5504,6 +5505,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "display": "inline-block"
     },
     attrs: {
+      "id": "searchbar",
       "type": "text",
       "placeholder": "Where do you want to go?"
     },
@@ -5532,7 +5534,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "searchResults"
+    }
+  })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
