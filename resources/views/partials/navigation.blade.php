@@ -13,9 +13,9 @@
                     <div class="form-group">
                         <input type="text" style="width:250px;" class="form-control" id="searchbar" name="search" placeholder="Where do you want to go?">
                     </div>
-                    <div id="searchResults"></div>
                     <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
+            <div id="searchResults"></div>
 
                 @if (Auth::check())
                     <div class="dropdown navbar-right space-outside-up-sm sm-space-outside-xl xs-space-outside-xl">
@@ -58,23 +58,32 @@
             </div>
     </div>
 </nav>
+<div style="display: none" id="results"></div>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#").keyup(function () {
-                var searchParameters = btoa($("#searchbar").val());
-                if (searchParameters.length < 2) {
+            $("#searchbar").keyup(function () {
+                var searchParameters = $("#searchbar").val();
+                if (searchParameters.length < 4) {
                     $("#searchResults").hide();
                 } else {
-                    $.getJSON('/search?param=' + searchParameters, function (data) {
-                        var html = "<ul class='result-list'>";
-                        data.forEach(function (item, index) {
-                            html += "<li><a class='searchlink' href=\"show/"+  item.recid + "\"><b>" + item.name + "</b> - " + item.description.substring(0, 50) + "... - " + item.duration_time + " min <i class='fa fa-clock-o'></i></a></li>";
-                        });
-                        html += "</ul>";
-                        $('#searchResults').html(html);
-                        $("#searchResults").slideDown();
-                    })
+                    var service = new google.maps.places.PlacesService($('#results').get(0));
+
+                    var request = {
+                        query: searchParameters,
+                        types: ['lodging']
+                    };
+                    service.textSearch(request, function (results, status){
+                        if (status == google.maps.places.PlacesServiceStatus.OK) {
+                            var html = "<ul class='result-list'>";
+                            for (var i = 0; i < results.length; i++) {
+                                html += "<li><a class='searchlink' href=\"\"><b>" + results[i].name + "</b> - " + results[i].rating + "</a></li>";
+                            }
+                            html += "</ul>";
+                            $('#searchResults').html(html).slideDown();
+                        }
+                    });
                 }
 
             });

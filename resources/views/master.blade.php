@@ -10,6 +10,8 @@
         <title>@yield('title') || TravelCompanion</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+        @include('partials.scripts')
         
         @include('partials.styles')
 
@@ -28,8 +30,6 @@
     	@yield('content')	
 
         @include('partials.footer')
-
-        @include('partials.scripts')
 
     </body>
 
