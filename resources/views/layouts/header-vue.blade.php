@@ -29,7 +29,7 @@
                     <form class="navbar-form navbar-right border-accent sm-space-outside-xl xs-space-outside-xl" role="form" method="POST" action="{{ url('/login') }}">
                          {{ csrf_field() }}
                          <router-link tag="li" to="/register">
-                            <a class='text-color-accent text-hover-light transition-normal'>No account?</a>
+                            <a class='text-color-accent text-hover-light transition-normal'>No account yet?</a>
                         </router-link>  
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -3038,15 +3038,15 @@ module.exports = function bind(fn, thisArg) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(48);
 
 
 __webpack_require__(36);
-Vue.component('search-bar', __webpack_require__(47));
-Vue.component('search-results', __webpack_require__(48));
+Vue.component('search-bar', __webpack_require__(49));
+Vue.component('search-results', __webpack_require__(50));
 
 
 new Vue({
@@ -3908,6 +3908,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Models_Weather__ = __webpack_require__(46);
 //
 //
 //
@@ -3917,6 +3918,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -3928,14 +3930,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         search: function search() {
-            var _this = this;
-
             Event.fire('searching');
-
-            axios.get('search-hotels?searchParameters=' + this.searchParameters).then(function (response) {
-                // succeeded, save data to a data instance in this vue object
-                _this.results = response.data;
-                Event.fire('searchResultsFound', _this.results);
+            __WEBPACK_IMPORTED_MODULE_0__Models_Weather__["a" /* default */].search(this.searchParameters, function (weather) {
+                return Event.fire('weatherFound', weather);
             });
         }
     },
@@ -4000,12 +3997,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
             searchResults: "",
-            loading: false
+            loading: false,
+            weather: null,
+            foundResults: false
         };
     },
     mounted: function mounted() {
@@ -4016,6 +4043,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Event.listen('searching', function () {
             _this.loading = true;
+        });
+
+        Event.listen('weatherFound', function (weather) {
+            _this.loading = false;
+            _this.weather = weather;
+            _this.foundResults = true;
         });
 
         Event.listen('searchResultsFound', function (searchResults) {
@@ -4320,43 +4353,14 @@ window.API = new (function () {
    _createClass(_class, [{
       key: 'version',
       value: function version() {
-         return '/api/v1/';
-      }
-   }, {
-      key: 'headers',
-      value: function headers() {
-         var headers = {
-            'Authorization': 'Bearer ' + Laravel.user.api_token,
-            'X-CSRF-TOKEN': Laravel.csrfToken
-         };
-         return headers;
-      }
-   }, {
-      key: 'removeFile',
-      value: function removeFile(id) {
-         console.log('removeFile', id);
-         this.delete('upload', id);
-      }
-   }, {
-      key: 'uploadURL',
-      value: function uploadURL() {
-         return 'upload';
-      }
-      /**
-       * Simple wrapper for vue upload
-       */
-
-   }, {
-      key: 'uploadImage',
-      value: function uploadImage(base, $parameters) {
-         return this.vue.$http.post(this.uploadURL, $parameters).then(function (response) {});
+         return '';
       }
    }, {
       key: 'put',
       value: function put(base, data, success) {
          var failure = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-         return this.vue.$http.put(this.version() + base, data).then(function (response) {
+         return axios.put(this.version() + base, data).then(function (response) {
             success(response);
          }, failure);
       }
@@ -4370,46 +4374,13 @@ window.API = new (function () {
    }, {
       key: 'delete',
       value: function _delete(base, id) {
-         this.vue.$http.delete(this.version() + base + '/' + id, {}).then(function () {
-            Notifier.notify('success', 'Gelukt!', 'Verwijderd');
+         axios.delete(this.version() + base + '/' + id, {}).then(function () {
+            // Notifier.notify('success', 'Gelukt!', 'Verwijderd');
          }, function () {
-            Notifier.notify('failed', 'Mislukt', 'Verwijderd');
+            // Notifier.notify('failed', 'Mislukt', 'Verwijderd');
          });
       }
-      /**
-       * Deletes an object from an array, if the object exists in the database
-       * a call to the api is made to delete that object in the database
-       * @param  {[type]}  object  [ The object to delete ]
-       * @param  {[type]}  array   [ The target array ]
-       * @param  {String}  apiCall [ The call to the api (/users, /customers, /projects)]
-       * @param  {Boolean} confirm [ Ask the user for confirmation ]
-       * @return {[boolean]}          [Return a boolean if succeeded or not]
-       */
 
-   }, {
-      key: 'deleteObjectFrom',
-      value: function deleteObjectFrom(object, array) {
-         var apiCall = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-         var confirm = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-
-         if (!Helper.hasProperty(object, 'id')) {
-            Helper.removeFromArray(array, object);
-            return false;
-         }
-         if (confirm == true) {
-            this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
-               confirmButtonText: 'OK',
-               cancelButtonText: 'Cancel',
-               type: 'warning'
-            }).then(function () {
-               Helper.removeFromArray(array, object);
-               API.delete(apiCall, object.id);
-            }).catch(function () {});
-         } else {
-            Helper.removeFromArray(array, object);
-            API.delete(apiCall, object.id);
-         }
-      }
       /**
        * Simple wrapper for vue get request.
        * @param  {[base]}
@@ -4422,8 +4393,8 @@ window.API = new (function () {
          var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
          var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-         return this.vue.$http.post(this.version() + base, parameters).then(function (response) {
-            var data = JSON.parse(response.body);
+         return axios.post(this.version() + base, parameters).then(function (response) {
+            var data = response.data;
             success(data);
          }, failure);
       }
@@ -4439,14 +4410,14 @@ window.API = new (function () {
          var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
          var $parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-         return this.vue.$http.get(this.version() + base, $parameters).then(function (response) {
-            var data = JSON.parse(response.body);
+         return axios.get(this.version() + base, $parameters).then(function (response) {
+            var data = response.data;
             if (success.constructor === Array) {
                success.forEach(function (callback) {
-                  callback(data);
+                  callback(JSON.parse(data));
                });
             } else {
-               success(data);
+               success(JSON.parse(data));
             }
          }, failure);
       }
@@ -5112,15 +5083,18 @@ window.Notifier = new (function () {
       key: 'askConfirmation',
       value: function askConfirmation(procceed) {
          var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-         this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
-            confirmButtonText: 'OK',
-            cancelButtonText: 'Cancel',
-            type: 'warning'
-         }).then(function () {
-            procceed();
-         }).catch(function () {});
       }
+      // this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning',
+      //      {
+      //         confirmButtonText: 'OK',
+      //         cancelButtonText: 'Cancel',
+      //         type: 'warning'
+      //      }).then(() =>
+      //      {
+      //         procceed();
+      //      }).catch(() =>
+      //      {});
+
       /**
        * Notify the user 
        * @param  {[type]} type of message
@@ -5131,18 +5105,20 @@ window.Notifier = new (function () {
    }, {
       key: 'notify',
       value: function notify(type, message) {
+         // console.log(type, message);
+         // if (title == null)
+         // {
+         //    title = Helper.capitalize(this.notifyTypes[type]) || Helper.capitalize(this.notifyTypes['default']);
+         // }
+
+         // this.vue.$notify(
+         // {
+         //    title: title,
+         //    message: message,
+         //    type: this.notifyTypes[type] || this.notifyTypes['default']
+         // });
+
          var title = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-         console.log(type, message);
-         if (title == null) {
-            title = Helper.capitalize(this.notifyTypes[type]) || Helper.capitalize(this.notifyTypes['default']);
-         }
-
-         this.vue.$notify({
-            title: title,
-            message: message,
-            type: this.notifyTypes[type] || this.notifyTypes['default']
-         });
       }
    }]);
 
@@ -5154,7 +5130,166 @@ window.Notifier = new (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(59);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Model = function () {
+	function Model(data) {
+		_classCallCheck(this, Model);
+
+		this.originalData = {};
+		this.all = {};
+
+		this.originalData = data;
+		for (var field in data) {
+			this[field] = data[field];
+		}
+	}
+
+	_createClass(Model, [{
+		key: 'data',
+		value: function data() {
+			var data = Object.assign({}, this);
+
+			delete data.originalData;
+			delete data.all;
+
+			return data;
+		}
+	}], [{
+		key: 'all',
+		value: function all(apicall, factory, success, failure) {
+			API.get(apicall, function (data) {
+				var all = [];
+				for (var object in data) {
+					var newObject = factory(data[object]);
+					all.push(newObject);
+				}
+				success(all);
+			}, failure);
+		}
+	}, {
+		key: 'find',
+		value: function find(apicall, factory, success, failure) {
+			API.get(apicall + '/edit', function (data) {
+				var newObject = factory(data);
+				success(newObject);
+				Event.fire('ModelLoaded');
+			}, failure);
+		}
+	}]);
+
+	return Model;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = Model;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(45);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Weather = function (_Model) {
+	_inherits(Weather, _Model);
+
+	function Weather() {
+		_classCallCheck(this, Weather);
+
+		return _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).apply(this, arguments));
+	}
+
+	_createClass(Weather, [{
+		key: 'weatherType',
+		value: function weatherType() {
+			return this.weather[0].main;
+		}
+	}, {
+		key: 'weatherTypeDescription',
+		value: function weatherTypeDescription() {
+			return this.weather[0].description;
+		}
+	}, {
+		key: 'country',
+		value: function country() {
+			return this.sys.country;
+		}
+	}, {
+		key: 'cityName',
+		value: function cityName() {
+			return this.name;
+		}
+	}, {
+		key: 'dressingAdvice',
+		value: function dressingAdvice() {
+			if (this.temperature() <= 5) {
+				return "Woosh! It's cold outside. Better wear a scarf and gloves.";
+			} else if (this.temperature() > 5 && this.temperature() < 15) {
+				return "It'll be chilly tonight. Take your coat!";
+			} else {
+				return "It's freaking hot! You better wear sunscreen.";
+			}
+		}
+	}, {
+		key: 'icon',
+		value: function icon() {
+			return "http://openweathermap.org/img/w/" + this.weather[0].icon + ".png";
+		}
+	}, {
+		key: 'temperature',
+		value: function temperature() {
+			var temp_1_decimal = Math.round(this.main.temp * 10) / 10;
+			return temp_1_decimal;
+		}
+	}], [{
+		key: 'all',
+		value: function all(success, failure) {
+			_get(Weather.__proto__ || Object.getPrototypeOf(Weather), 'all', this).call(this, 'weather', function (data) {
+				return new Weather(data);
+			}, success, failure);
+		}
+	}, {
+		key: 'search',
+		value: function search(searchParameters, success, failure) {
+			API.get('weather?searchParameters=' + searchParameters, function (data) {
+				success(new Weather(data));
+			}, failure);
+		}
+	}, {
+		key: 'find',
+		value: function find(id, success, failure) {
+			API.get('weather/' + id + '/edit', function (data) {
+				var user = new User(data);
+				success(user);
+				Event.fire('userLoaded');
+			}, failure);
+		}
+	}]);
+
+	return Weather;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = Weather;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
@@ -5173,7 +5308,7 @@ window.axios.defaults.headers.common = {
 };
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5183,16 +5318,16 @@ window.axios.defaults.headers.common = {
 
 var routes = [{
     path: '/',
-    component: __webpack_require__(50)
-}, {
-    path: '/about',
-    component: __webpack_require__(49)
-}, {
-    path: '/register',
     component: __webpack_require__(52)
 }, {
-    path: '/login',
+    path: '/about',
     component: __webpack_require__(51)
+}, {
+    path: '/register',
+    component: __webpack_require__(54)
+}, {
+    path: '/login',
+    component: __webpack_require__(53)
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = new __WEBPACK_IMPORTED_MODULE_0_vue_router___default.a({
@@ -5201,7 +5336,7 @@ var routes = [{
 });
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5211,7 +5346,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(29)
 
 /* template */
-var __vue_template__ = __webpack_require__(54)
+var __vue_template__ = __webpack_require__(56)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5245,7 +5380,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5255,7 +5390,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(30)
 
 /* template */
-var __vue_template__ = __webpack_require__(53)
+var __vue_template__ = __webpack_require__(55)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5289,7 +5424,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5299,7 +5434,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(31)
 
 /* template */
-var __vue_template__ = __webpack_require__(57)
+var __vue_template__ = __webpack_require__(59)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5333,7 +5468,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5343,7 +5478,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(32)
 
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(60)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5377,7 +5512,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5387,7 +5522,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(33)
 
 /* template */
-var __vue_template__ = __webpack_require__(55)
+var __vue_template__ = __webpack_require__(57)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5421,7 +5556,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -5431,7 +5566,7 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(34)
 
 /* template */
-var __vue_template__ = __webpack_require__(56)
+var __vue_template__ = __webpack_require__(58)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5465,18 +5600,123 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', {
+  return _c('div', [(_vm.loading) ? _c('div', {
+    staticClass: "container text-center space-outside-md"
+  }, [_c('i', {
+    staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-accent space-outside-md font-md"
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), (_vm.foundResults) ? _c('div', {
+    staticClass: "jumbotron"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "right"
+  }, [_c('p', {
     staticStyle: {
-      "font-size": "20px"
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.temperature())
     }
-  }, [_vm._v("\n            " + _vm._s(_vm.searchResults) + "\n        ")]), _vm._v(" "), (_vm.loading) ? _c('i', {
-    staticClass: "fa fa-cog fa-spin fa-3x fa-fw"
-  }) : _vm._e()])
-},staticRenderFns: []}
+  }), _vm._v("\n\n                C\n\n                "), _c('img', {
+    staticStyle: {
+      "display": "inline",
+      "width": "70px"
+    },
+    attrs: {
+      "src": _vm.weather.icon()
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "left"
+  }, [_c('h2', {
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.cityName())
+    }
+  }), _vm._v(", "), _c('h2', {
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.country())
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-accent space-outside-xs",
+    domProps: {
+      "textContent": _vm._s(_vm.weather.weatherType())
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "space-outside-xs",
+    domProps: {
+      "textContent": _vm._s(_vm.weather.dressingAdvice())
+    }
+  })])])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "search-result row"
+  }, [_c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-3"
+  }, [_c('a', {
+    staticClass: "thumbnail",
+    attrs: {
+      "href": "#",
+      "title": "Lorem ipsum"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg",
+      "alt": "Lorem ipsum"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-2"
+  }, [_c('ul', {
+    staticClass: "meta-search font-md"
+  }, [_c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-calendar"
+  }), _vm._v(" "), _c('span', [_vm._v("11-1-2017")])]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-time"
+  }), _vm._v(" "), _c('span', [_vm._v("9:00 AM to 6:00PM")])]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-tags"
+  }), _vm._v(" "), _c('span', [_vm._v("Rome")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-7"
+  }, [_c('h3', {
+    staticClass: "text-color-accent"
+  }, [_vm._v("Hotel Villa Torlonia")]), _vm._v(" "), _c('p', {
+    staticClass: "font-weight-light"
+  }, [_vm._v("\n                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus molestie nunc. Donec vitae nibh velit. Nunc vulputate congue tincidunt. Quisque volutpat rutrum volutpat. Praesent ut varius mi. Donec a arcu ultrices leo porttitor cursus. Praesent consequat congue velit, a tristique dui mollis vel. Maecenas at molestie ipsum. Nullam mollis, nunc vel condimentum suscipit, lectus augue dignissim metus, vitae blandit nibh neque vel nulla. Integer ut urna vehicula, fermentum dolor volutpat, tincidunt mi. Nunc molestie mi quis aliquet ornare.\n                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\n                            Pellentesque et arcu venenatis, semper quam eget, fringilla orci. Aliquam a eros ut purus luctus tempus. Integer velit felis, aliquet non sollicitudin eu, malesuada quis nisi. Nunc sed efficitur elit. Pellentesque ornare, elit et maximus accumsan, erat nulla imperdiet mi, sit amet venenatis neque sapien id nisl. Aliquam ultricies vel magna a sodales. Etiam vestibulum porta enim eget maximus. Aenean sed odio consectetur, suscipit ante vel, vestibulum felis.\n                        ")]), _vm._v(" "), _c('div', {
+    staticClass: "row space-outside-md"
+  }, [_c('div', {
+    staticClass: "col-lg-8"
+  }, [_c('div', {
+    staticClass: "input-group date",
+    attrs: {
+      "id": "datetimepicker1"
+    }
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-calendar"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4"
+  }, [_c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Book now!")])])])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -5486,7 +5726,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5549,7 +5789,7 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5652,7 +5892,7 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5778,7 +6018,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5807,7 +6047,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5826,7 +6066,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14399,10 +14639,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(60)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(62)))
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports) {
 
 var g;
@@ -14429,7 +14669,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
