@@ -18,9 +18,20 @@ class HotelsSearchController extends Controller
 
         $searchParameters = $request->input('searchParameters');
 
-        $json = json_decode(file_get_contents('https://jsonplaceholder.typicode.com/posts/3'), true);
+        $call = "api.openweathermap.org/data/2.5/weather?q=". $searchParameters ."&units=metric&APPID=02be207d7fffed857eba62680e8e66be";
 
-        return response()->json($json, 200);
+        $link = str_ireplace('&amp;','&', html_entity_decode(urldecode($call)));
+
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_URL, $link);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // if you want to follow redirects
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return response()->json($data, 200);
     }
 
     /**
