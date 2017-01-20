@@ -8,8 +8,8 @@ use App\User;
 
 class PagesController extends Controller
 {
-    public function homepage(){
-    	return view("pages.homepage");
+    public function entryPointVue(){
+    	return view("master");
     }
 
     public function logout(){

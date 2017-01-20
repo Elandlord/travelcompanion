@@ -7,10 +7,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
+
+        </div>
+        <div class='navbar pull-left'>
+             <search-bar></search-bar>
         </div>
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
-
-                <search-bar></search-bar>
 
                 @if (Auth::check())
                     <div class="dropdown navbar-right space-outside-up-sm sm-space-outside-xl xs-space-outside-xl">
@@ -19,19 +21,15 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">MyTrip</a></li>
-                        <li><a href="#">Hotels</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="logout">Logout</a></li>
+                        @include ('layouts.nav-vue')
                       </ul>
                     </div>
                 @else
                     <form class="navbar-form navbar-right border-accent sm-space-outside-xl xs-space-outside-xl" role="form" method="POST" action="{{ url('/login') }}">
                          {{ csrf_field() }}
-
-                         <router-link tag="li" to="/testjes">
-                            <a class='text-color-accent text-hover-light transition-normal space-outside-right-sm'>No account?</a>
-                        </router-link>
+                         <router-link tag="li" to="/register">
+                            <a class='text-color-accent text-hover-light transition-normal'>No account?</a>
+                        </router-link>  
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
@@ -53,38 +51,9 @@
                         <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">Sign In</button>
                     </form>
                 @endif
+
             </div>
     </div>
 </nav>
-<div style="display: none" id="results"></div>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#searchbar").keyup(function () {
-                var searchParameters = $("#searchbar").val();
-                if (searchParameters.length < 4) {
-                    $("#searchResults").hide();
-                } else {
-                    var service = new google.maps.places.PlacesService($('#results').get(0));
 
-                    var request = {
-                        query: searchParameters,
-                        types: ['lodging']
-                    };
-                    service.textSearch(request, function (results, status){
-                        if (status == google.maps.places.PlacesServiceStatus.OK) {
-                            var html = "<ul class='result-list'>";
-                            for (var i = 0; i < results.length; i++) {
-                                html += "<li><a class='searchlink' href=\"\"><b>" + results[i].name + "</b> - " + results[i].rating + "</a></li>";
-                            }
-                            html += "</ul>";
-                            $('#searchResults').html(html).slideDown();
-                        }
-                    });
-                }
-
-            });
-        });
-
-</script>
