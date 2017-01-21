@@ -27,8 +27,10 @@ class Weather extends Model{
 	dressingAdvice(){
 		if(this.temperature() <= 5){
 			return "Woosh! It's cold outside. Better wear a scarf and gloves.";
-		}else if(this.temperature() > 5 && this.temperature() < 15){
+		}else if(this.temperature() > 5 && this.temperature() <= 10){
 			return "It'll be chilly tonight. Take your coat!";
+		}else if(this.temperature() > 11 && this.temperature() < 20){
+			return "It's pleasant outside, although it will cool down. Wear a vest to be sure!";
 		}else{
 			return "It's freaking hot! You better wear sunscreen.";
 		}
