@@ -1756,3 +1756,7 @@ img .image-greyscale-none{ -webkit-filter: greyscale(0%); filter: grayscale(0%);
 
 	display: none;
 }
+
+.hr-orange{
+	border-color: $accent-color;
+}

@@ -1,9 +1,8 @@
-    
+
 <template>
 	<div class='space-outside-up-sm'>
         <input id="searchbar" type="text" style="width:250px; display:inline-block;" class="form-control" placeholder="Where do you want to go?" v-model="searchParameters">
-    	<button @click="search()" style="display: inline-block; margin-bottom:3px;" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <div id="searchResults"></div>
+    	<button @click="search()" onclick="searchHotelApi()" style="display: inline-block; margin-bottom:3px;" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
 </template>
 
