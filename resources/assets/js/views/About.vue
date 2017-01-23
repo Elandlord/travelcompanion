@@ -5,7 +5,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">The About Page</div>
 
-                    <div class="panel-body">
+                    <div class="panel-body ">
                         I'm an example component!
                     </div>
                 </div>

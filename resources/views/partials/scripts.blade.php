@@ -8,10 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-    new WOW().init();
-</script>
-ma 23/1 om  13.30 uur
-<script>
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     });
@@ -53,7 +49,7 @@ ma 23/1 om  13.30 uur
                 }
                 html += `<div class=\"row\">
     <div class=\"col-lm-12\">
-        <div class=\"search-result row\">
+        <div class=\"search-result row animated fadeInLeft wow\">
             <div class=\"col-xs-12 col-sm-12 col-md-3\">
                 <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img
                             src=\"http://lorempixel.com/400/200/city/\"
@@ -94,3 +90,7 @@ ma 23/1 om  13.30 uur
 </script>
 
 
+
+<script>
+    new WOW().init();
+</script>

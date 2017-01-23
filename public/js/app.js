@@ -5758,9 +5758,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
   }), _vm._v(" "), _c('p', {
-    staticClass: "text-color-accent space-outside-md font-md"
+    staticClass: "text-color-accent space-outside-md font-md "
   }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), (_vm.foundResults) ? _c('div', {
-    staticClass: "jumbotron"
+    staticClass: "jumbotron animated fadeInLeft wow"
   }, [_c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -6121,7 +6121,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
-    staticClass: "row"
+    staticClass: "row animated fadeInLeft wow"
   }, [_c('div', {
     staticClass: "col-md-8 col-md-offset-2"
   }, [_c('div', {
@@ -6175,7 +6175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "panel-heading"
   }, [_vm._v("The About Page")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
+    staticClass: "panel-body "
   }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
 }]}
 module.exports.render._withStripped = true
