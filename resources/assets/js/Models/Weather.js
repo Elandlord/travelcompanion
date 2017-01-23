@@ -48,7 +48,7 @@ class Weather extends Model{
 
 	static search(searchParameters, success, failure) {
 		API.get('weather?searchParameters=' + searchParameters, (data) => {
-			success(new Weather(data));
+			success(new Weather(JSON.parse(data)));
 		}, failure);
 
 	}
