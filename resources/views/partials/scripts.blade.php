@@ -47,9 +47,12 @@ ma 23/1 om  13.30 uur
             var html = "";
             console.log(results);
             for (var i = 0; i < results.length; i++) {
+                var rating = "";
+                if(results[i].rating){
+                    rating = " - " + results[i].rating;
+                }
                 html += `<div class=\"row\">
     <div class=\"col-lm-12\">
-        <i v-if=\"loading\" class=\'fa fa-cog fa-spin fa-3x fa-fw\'></i>
         <div class=\"search-result row\">
             <div class=\"col-xs-12 col-sm-12 col-md-3\">
                 <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img
@@ -57,7 +60,7 @@ ma 23/1 om  13.30 uur
                             alt=\"Lorem ipsum\"/></a>
             </div>
             <div class=\"col-xs-12 col-sm-12 col-md-7\">
-                <h3 class=\'text-color-accent\'>` + results[i].name + `</h3>
+                <h3 class=\'text-color-accent\'>` + results[i].name + rating + `</h3>
                 <p class=\'font-weight-light\'>
                     ` + results[i].formatted_address + `
                 </p>
