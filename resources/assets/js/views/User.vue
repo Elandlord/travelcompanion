@@ -30,9 +30,6 @@ import User from '../Models/User';
             mounted() {
                 User.getAuthenticated((user) => this.user = user);
 
-
-                    console.log(this.user);
-
             },
 
 
