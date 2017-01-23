@@ -13,9 +13,10 @@ class CreateLocationsRoutesTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations_routes', function (Blueprint $table) {
+        Schema::create('location_route', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('location_id');
+            $table->increments('id');
+            $table->integer('location_id')->nullable();
             $table->integer('route_id')->nullable();
             $table->date('arrival_date')->nullable();
             $table->date('departure_date')->nullable();

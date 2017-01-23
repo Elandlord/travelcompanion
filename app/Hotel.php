@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
+    public $timestamps = false;
+
      /**
      * The attributes that are mass assignable.
      *
@@ -22,8 +24,13 @@ class Hotel extends Model
         'zip_code', 
     ];
 
-    public function routes()
+    public function route()
     {
-        return $this->belongsToMany('App\Route');
+        return $this->hasMany('App\Hotel_route');
+    }
+
+    public function location()
+    {
+        return $this->hasOne('App\Location');
     }
 }
