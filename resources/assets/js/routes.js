@@ -19,6 +19,11 @@ let routes = [
     {
         path: '/login',
         component: require('./views/Login')
+    },
+
+    {
+        path: '/profile',
+        component: require('./views/Profile')
     }
 ];
 
