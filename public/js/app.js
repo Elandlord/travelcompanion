@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 
 /*global toString:true*/
 
@@ -583,10 +583,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   }
   return adapter;
 }
@@ -661,271 +661,6 @@ module.exports = defaults;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var settle = __webpack_require__(18);
-var buildURL = __webpack_require__(21);
-var parseHeaders = __webpack_require__(27);
-var isURLSameOrigin = __webpack_require__(25);
-var createError = __webpack_require__(6);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (process.env.NODE_ENV !== 'test' &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
-        return;
-      }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-      var response = {
-        data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED'));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(23);
-
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
-    }
-
-    // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        if (request.responseType !== 'json') {
-          throw e;
-        }
-      }
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
-          return;
-        }
-
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (requestData === undefined) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-module.exports = Cancel;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__(17);
-
-/**
- * Create an Error with the specified message, config, error code, and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- @ @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-module.exports = function createError(message, config, code, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, response);
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
-
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3033,20 +2768,291 @@ module.exports = VueRouter;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(18);
+var buildURL = __webpack_require__(21);
+var parseHeaders = __webpack_require__(27);
+var isURLSameOrigin = __webpack_require__(25);
+var createError = __webpack_require__(7);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if (process.env.NODE_ENV !== 'test' &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED'));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(23);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+          cookies.read(config.xsrfCookieName) :
+          undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        if (request.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(17);
+
+/**
+ * Create an Error with the specified message, config, error code, and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ @ @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, response);
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(48);
 
+
+__webpack_require__(36);
+Vue.component('search-bar', __webpack_require__(49));
+Vue.component('search-results', __webpack_require__(50));
 
 
 new Vue({
     el: '#app',
 
-    router: __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */]
+    router: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */]
 });
 
 /***/ }),
@@ -3069,7 +3075,7 @@ module.exports = __webpack_require__(12);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 var Axios = __webpack_require__(14);
 var defaults = __webpack_require__(2);
 
@@ -3104,9 +3110,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(4);
+axios.Cancel = __webpack_require__(5);
 axios.CancelToken = __webpack_require__(13);
-axios.isCancel = __webpack_require__(5);
+axios.isCancel = __webpack_require__(6);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -3127,7 +3133,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var Cancel = __webpack_require__(4);
+var Cancel = __webpack_require__(5);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -3344,7 +3350,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(19);
-var isCancel = __webpack_require__(5);
+var isCancel = __webpack_require__(6);
 var defaults = __webpack_require__(2);
 
 /**
@@ -3454,7 +3460,7 @@ module.exports = function enhanceError(error, config, code, response) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -3902,13 +3908,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Models_Weather__ = __webpack_require__(46);
 //
 //
 //
@@ -3919,9 +3919,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    created: function created() {
-        // axios call here.
+    data: function data() {
+        return {
+            searchParameters: null
+        };
+    },
+
+
+    methods: {
+        search: function search() {
+            Event.fire('searching');
+            __WEBPACK_IMPORTED_MODULE_0__Models_Weather__["a" /* default */].search(this.searchParameters, function (weather) {
+                return Event.fire('weatherFound', weather);
+            });
+        }
+    },
+
+    mounted: function mounted() {
+        console.log('Component mounted.');
     }
 };
 
@@ -3998,6 +4015,166 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            searchResults: "",
+            loading: false,
+            weather: null,
+            foundResults: false
+        };
+    },
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+    created: function created() {
+        var _this = this;
+
+        Event.listen('searching', function () {
+            _this.loading = true;
+        });
+
+        Event.listen('weatherFound', function (weather) {
+            _this.loading = false;
+            _this.weather = weather;
+            _this.foundResults = true;
+        });
+
+        Event.listen('searchResultsFound', function (searchResults) {
+            _this.loading = false;
+            _this.setSearchResults(searchResults);
+        });
+    },
+
+
+    methods: {
+        /**
+        * setter for searchResults
+        * @param {[type]} searchResults [description]
+        */
+        setSearchResults: function setSearchResults(searchResults) {
+            this.searchResults = searchResults;
+        }
+    }
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    created: function created() {
+        // axios call here.
+    }
+};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -4006,7 +4183,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4076,7 +4253,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4152,13 +4329,971 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 33 */
+/* 35 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.API = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.vue.data = {
+         data: null
+      };
+   }
+
+   _createClass(_class, [{
+      key: 'version',
+      value: function version() {
+         return '';
+      }
+   }, {
+      key: 'put',
+      value: function put(base, data, success) {
+         var failure = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+         return axios.put(this.version() + base, data).then(function (response) {
+            success(response);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue delete request
+       * @param  {[base]} api route
+       * @param  {[id]} object id
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'delete',
+      value: function _delete(base, id) {
+         axios.delete(this.version() + base + '/' + id, {}).then(function () {
+            // Notifier.notify('success', 'Gelukt!', 'Verwijderd');
+         }, function () {
+            // Notifier.notify('failed', 'Mislukt', 'Verwijderd');
+         });
+      }
+
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'post',
+      value: function post(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return axios.post(this.version() + base, parameters).then(function (response) {
+            var data = response.data;
+            success(data);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'get',
+      value: function get(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var $parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return axios.get(this.version() + base, $parameters).then(function (response) {
+            var data = response.data;
+            if (success.constructor === Array) {
+               success.forEach(function (callback) {
+                  callback(JSON.parse(data));
+               });
+            } else {
+               success(JSON.parse(data));
+            }
+         }, failure);
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Load this file in your app.js to get access to Core classes
+ */
+// Global Exception helper class
+__webpack_require__(40);
+// Helper class 
+__webpack_require__(42);
+// Global Api Helper class
+__webpack_require__(35);
+// Global Event dispatcher class
+__webpack_require__(39);
+// Global Notifier class
+__webpack_require__(44);
+// Global message class
+__webpack_require__(43);
+// Global datehelper class
+__webpack_require__(37);
+// Global formhelper class
+__webpack_require__(41);
+// Global date-picker class
+__webpack_require__(38);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.DateHelper = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'findMondayOfWeekAndYear',
+		value: function findMondayOfWeekAndYear(week, year) {
+			return moment().day("Monday").week(week).year(year);
+		}
+	}, {
+		key: 'setDate',
+		value: function setDate(date) {
+			this.date = moment(date);
+			return this;
+		}
+	}, {
+		key: 'getMonday',
+		value: function getMonday() {
+			this.date.startOf('isoweek').subtract(1, 'days');
+			return this;
+		}
+	}, {
+		key: 'getTuesday',
+		value: function getTuesday() {
+			this.getMonday().date.add(1, 'd');
+			return this;
+		}
+	}, {
+		key: 'getWednesday',
+		value: function getWednesday() {
+			this.getMonday().date.add(2, 'd');
+			return this;
+		}
+	}, {
+		key: 'getThursday',
+		value: function getThursday() {
+			this.getMonday().date.add(3, 'd');
+			return this;
+		}
+	}, {
+		key: 'getFriday',
+		value: function getFriday() {
+			this.getMonday().date.add(4, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSaturday',
+		value: function getSaturday() {
+			this.getMonday().date.add(5, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSunday',
+		value: function getSunday() {
+			this.getMonday().date.add(6, 'd');
+			return this;
+		}
+	}, {
+		key: 'getDate',
+		value: function getDate() {
+			return this.date;
+		}
+	}, {
+		key: 'format',
+		value: function format() {
+			var day = this.date;
+			var dag = day.get('date');
+			var month = day.get('month');
+			var year = day.get('year');
+
+			month = this.normalizeMonth(month);
+			dag = this.normalizeDay(dag);
+			return year + '-' + month + '-' + dag;
+		}
+	}, {
+		key: 'normalizeMonth',
+		value: function normalizeMonth(month) {
+			month += 1;
+			return month >= 10 ? month : '0' + month;
+		}
+	}, {
+		key: 'normalizeDay',
+		value: function normalizeDay(day) {
+			day += 1;
+			return day >= 10 ? day : '0' + day;
+		}
+	}]);
+
+	return _class;
+}())();
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.DatePicker = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.options = this.getPickerOptions();
+   }
+   /***
+    *  Set the picker from Elements to a certain day periode ( between dates )
+    */
+
+
+   _createClass(_class, [{
+      key: 'setPickerPeriod',
+      value: function setPickerPeriod(picker, days) {
+         var end = new Date();
+         var start = new Date();
+         start.setTime(start.getTime() - 3600 * 1000 * 24 * days);
+         picker.$emit('pick', [start, end]);
+      }
+   }, {
+      key: 'getPickerOptions',
+      value: function getPickerOptions() {
+         return {
+            shortcuts: [{
+               text: 'Afgelopen week',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 7);
+               }
+            }, {
+               text: 'Afgelopen maand',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 30);
+               }
+            }, {
+               text: 'Afgelopen 3 maanden',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 90);
+               }
+            }, {
+               text: 'Afgelopen half jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 180);
+               }
+            }, {
+               text: 'Afgelopen jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 365);
+               }
+            }]
+         };
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Event dispatcher class, for emitting and listening for events. 
+ * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
+ * @type {Event}
+ */
+window.Event = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+   }
+
+   /**
+    * Method which can be used to fire events.
+    * @param  {[event]} the name of the event
+    * @param  {[data]} data to send with the event 
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'fire',
+      value: function fire(event) {
+         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$emit(event, data);
+      }
+
+      /**
+       * Method which can be used to listen to events.
+       * @param  {[event]} the name of the event
+       * @param  {callback} the callback function to execute
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'listen',
+      value: function listen(event, callback) {
+         this.vue.$on(event, callback);
+      }
+
+      /**
+       * Method to start the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'startLoading',
+      value: function startLoading() {
+         Event.fire('loading_start');
+      }
+
+      /**
+       * Method to stop the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'stopLoading',
+      value: function stopLoading() {
+         setTimeout(function () {
+            Event.fire('loading_done');
+         }, 500);
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.Exception = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'isType',
+		value: function isType(prop, type) {
+			if ((typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) !== type) {
+				console.log('Helper::hasProperty expects second argument to be of type .' + type + ' ' + (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) + ' found');
+				return false;
+			}
+			return true;
+		}
+	}]);
+
+	return _class;
+}())();
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.Form = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+   }
+   // vueInstance = a this or new Vue()
+   // formName = model that has to be found. Check Elements doc for the validation of a form
+
+
+   _createClass(_class, [{
+      key: 'trackProgress',
+      value: function trackProgress(vueInstance, formName) {
+         var _this = this;
+
+         var ref = vueInstance.$refs[formName];
+         var totalValid = 0;
+         var totalValidNeeded = ref.fields.length;
+         ref.fields.forEach(function (field) {
+            if (_this.isValid(vueInstance, field.prop, formName)) {
+               totalValid++;
+            }
+         });
+         return Math.floor(100 / totalValidNeeded * totalValid);
+      }
+      // Check whether a field is valid. A function isnt defined yet for Elements. So this is a workaround
+
+   }, {
+      key: 'isValid',
+      value: function isValid(vueInstance, field, formName) {
+         var valid = false;
+         var ref = vueInstance.$refs[formName];
+         if (typeof ref !== 'undefined') {
+            ref.validateField(field, function (msg) {
+               valid = !msg;
+            });
+         }
+         return valid;
+      }
+   }, {
+      key: 'resetForm',
+      value: function resetForm(vueInstance, formName) {
+         vueInstance.$refs[formName].resetFields();
+      }
+   }, {
+      key: 'generatePassword',
+      value: function generatePassword(event, formModel, field) {
+         // let ref = vueInstance.$refs[formName];
+         var randomstring = Math.random().toString(36).slice(-8);
+         formModel[field] = randomstring.toUpperCase();
+      }
+      // reset the media to null so nothing is shown
+      // dont forget to define in :data in the uploader : { type : <insert type> }
+      // nasty work around to see which type is deleted ( which field ).
+      // goes through api and reverses the type through the api ( api/v1/upload) (  $uploader->type = $request->get('type') )
+
+   }, {
+      key: 'resetMedia',
+      value: function resetMedia(formModel) {
+         var field = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         if (field != null) {
+            formModel[field] = [];
+         }
+      }
+      // Set the properties and keys
+      // dont forget to define in :data in the uploader : { type : <insert type> }
+      // nasty work around to see which type is deleted ( which field ).
+      // goes through api and reverses the type through the api ( api/v1/upload) (  $uploader->type = $request->get('type') )
+
+   }, {
+      key: 'setMedia',
+      value: function setMedia(formModel, field, response) {
+         var media = {
+            name: response.filename,
+            url: '/storage/' + response.directory + '/' + response.filename + '.' + response.extension,
+            id: response.id,
+            type: response.type
+         };
+         var finalForm = formModel[field].push(media);
+      }
+      // Validation rule form email , used in Elements Validation for forms : http://element.eleme.io/#/en-US/component/form
+
+   }, {
+      key: 'validateMail',
+      value: function validateMail(rule, value, callback) {
+         // emailregex.com
+         var re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+         if (re.test(value)) {
+            callback();
+         } else {
+            callback(new Error('Geen valide email'));
+         }
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * A helper class. All components can use this class. 
+ * Provides one accespoint to common used functions
+ * @type {Helper}
+ */
+window.Helper = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+   }
+   /**
+    * Capitalizes strings
+    * @param  {[string]} 
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'capitalize',
+      value: function capitalize(string) {
+         console.log(string);
+         return string;
+         // @todo : Cannot read property '0' of undefined
+         // return string[0].toUpperCase() + string.slice(1);
+      }
+      /**
+       * Method for removing items from an array
+       * @param  {[array]}
+       * @param  {[toBeRemovedItem]}
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'removeFromArray',
+      value: function removeFromArray(array, toBeRemovedItem) {
+         return array.splice(array.indexOf(toBeRemovedItem), 1);
+      }
+      /**
+       * Method for checking if an object has a certain property
+       * logs error if the wrong type of property have been given.
+       * @param  {[obj]}
+       * @param  {[prop]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'hasProperty',
+      value: function hasProperty(obj, prop) {
+         if (!Exception.isType(prop, 'string')) {
+            return false;
+         } // checks if the argument given is a string
+         var proto = obj.__proto__ || obj.constructor.prototype;
+         return prop in obj && (!(prop in proto) || proto[prop] !== obj[prop]);
+      }
+      /**
+       * @param  {[number]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'isNumeric',
+      value: function isNumeric(number) {
+         return !isNaN(parseFloat(number)) && isFinite(number);
+      }
+      /**
+       * turns an array into an object
+       * @param  {[arr]} array to turn into an object
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'toObject',
+      value: function toObject(arr) {
+         var rv = {};
+         for (var i = 0; i < arr.length; ++i) {
+            rv[i] = arr[i];
+         }
+         return rv;
+      }
+   }, {
+      key: 'formatDate',
+      value: function formatDate(date) {
+         var dates = date.split([" "]);
+         return dates[0];
+      }
+   }, {
+      key: 'decimalRound',
+      value: function decimalRound(number, precision) {
+         var factor = Math.pow(10, precision);
+         var tempNumber = number * factor;
+         var roundedTempNumber = Math.round(tempNumber);
+         return roundedTempNumber / factor;
+      }
+
+      /**
+       * Method for checking if an object has a certain property
+       * logs error if the wrong type of property have been given.
+       * @param  {[obj]}
+       * @param  {[prop]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'hasProperty',
+      value: function hasProperty(obj, prop) {
+         if (!Exception.isType(prop, 'string')) {
+            return false;
+         } // checks if the argument given is a string
+         var proto = obj.__proto__ || obj.constructor.prototype;
+         return prop in obj && (!(prop in proto) || proto[prop] !== obj[prop]);
+      }
+
+      /**
+       * @param  {[number]}
+       * @return {Boolean}
+       */
+
+   }, {
+      key: 'isNumeric',
+      value: function isNumeric(number) {
+         return !isNaN(parseFloat(number)) && isFinite(number);
+      }
+
+      /**
+       * turns an array into an object
+       * @param  {[arr]} array to turn into an object
+       * @return {[type]}
+       */
+
+   }, {
+      key: 'toObject',
+      value: function toObject(arr) {
+         var rv = {};
+         for (var i = 0; i < arr.length; ++i) {
+            rv[i] = arr[i];
+         }
+         return rv;
+      }
+   }, {
+      key: 'formatDate',
+      value: function formatDate(date) {
+         var dates = date.split([" "]);
+         return dates[0];
+      }
+   }, {
+      key: 'contains',
+      value: function contains($search, $array) {
+         return array.indexOf($search) !== null;
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * class that can be used for messaging the user
+ * @type {class}
+ */
+window.Messager = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.messageTypes = {
+         'success': 'success',
+         'warning': 'warning',
+         'danger': 'danger',
+         'error': 'error',
+         'info': 'info',
+         'default': 'info'
+      };
+   }
+   /**
+    * messages the user 
+    * @param  {[type]} type of message
+    * @param  {[message]}
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'message',
+      value: function message(type) {
+         var _message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$message({
+            message: _message || '',
+            type: this.messageTypes[type] || this.messageTypes['default']
+         });
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Notifier class for notifying the user with a specific message.
+ * @type {class}
+ */
+window.Notifier = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.notifyTypes = {
+         'success': 'success',
+         'warning': 'warning',
+         'danger': 'danger',
+         'error': 'error',
+         'info': 'info',
+         'default': 'info'
+      };
+   }
+   /**
+    * Ask the user for a confirmation
+    * @param  {[message]}
+    * @return {[boolean]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'askConfirmation',
+      value: function askConfirmation(procceed) {
+         var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      }
+      // this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning',
+      //      {
+      //         confirmButtonText: 'OK',
+      //         cancelButtonText: 'Cancel',
+      //         type: 'warning'
+      //      }).then(() =>
+      //      {
+      //         procceed();
+      //      }).catch(() =>
+      //      {});
+
+      /**
+       * Notify the user 
+       * @param  {[type]} type of message
+       * @param  {[message]} 
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'notify',
+      value: function notify(type, message) {
+         // console.log(type, message);
+         // if (title == null)
+         // {
+         //    title = Helper.capitalize(this.notifyTypes[type]) || Helper.capitalize(this.notifyTypes['default']);
+         // }
+
+         // this.vue.$notify(
+         // {
+         //    title: title,
+         //    message: message,
+         //    type: this.notifyTypes[type] || this.notifyTypes['default']
+         // });
+
+         var title = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(43);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Model = function () {
+	function Model(data) {
+		_classCallCheck(this, Model);
+
+		this.originalData = {};
+		this.all = {};
+
+		this.originalData = data;
+		for (var field in data) {
+			this[field] = data[field];
+		}
+	}
+
+	_createClass(Model, [{
+		key: 'data',
+		value: function data() {
+			var data = Object.assign({}, this);
+
+			delete data.originalData;
+			delete data.all;
+
+			return data;
+		}
+	}], [{
+		key: 'all',
+		value: function all(apicall, factory, success, failure) {
+			API.get(apicall, function (data) {
+				var all = [];
+				for (var object in data) {
+					var newObject = factory(data[object]);
+					all.push(newObject);
+				}
+				success(all);
+			}, failure);
+		}
+	}, {
+		key: 'find',
+		value: function find(apicall, factory, success, failure) {
+			API.get(apicall + '/edit', function (data) {
+				var newObject = factory(data);
+				success(newObject);
+				Event.fire('ModelLoaded');
+			}, failure);
+		}
+	}]);
+
+	return Model;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = Model;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(45);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Weather = function (_Model) {
+	_inherits(Weather, _Model);
+
+	function Weather() {
+		_classCallCheck(this, Weather);
+
+		return _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).apply(this, arguments));
+	}
+
+	_createClass(Weather, [{
+		key: 'weatherType',
+		value: function weatherType() {
+			return this.weather[0].main;
+		}
+	}, {
+		key: 'weatherTypeDescription',
+		value: function weatherTypeDescription() {
+			return this.weather[0].description;
+		}
+	}, {
+		key: 'country',
+		value: function country() {
+			return this.sys.country;
+		}
+	}, {
+		key: 'cityName',
+		value: function cityName() {
+			return this.name;
+		}
+	}, {
+		key: 'dressingAdvice',
+		value: function dressingAdvice() {
+			if (this.temperature() <= 5) {
+				return "Woosh! It's cold outside. Better wear a scarf and gloves.";
+			} else if (this.temperature() > 5 && this.temperature() <= 10) {
+				return "It'll be chilly tonight. Take your coat!";
+			} else if (this.temperature() > 11 && this.temperature() < 20) {
+				return "It's pleasant outside, although it will cool down. Wear a vest to be sure!";
+			} else {
+				return "It's freaking hot! You better wear sunscreen.";
+			}
+		}
+	}, {
+		key: 'icon',
+		value: function icon() {
+			return "http://openweathermap.org/img/w/" + this.weather[0].icon + ".png";
+		}
+	}, {
+		key: 'temperature',
+		value: function temperature() {
+			var temp_1_decimal = Math.round(this.main.temp * 10) / 10;
+			return temp_1_decimal;
+		}
+	}], [{
+		key: 'all',
+		value: function all(success, failure) {
+			_get(Weather.__proto__ || Object.getPrototypeOf(Weather), 'all', this).call(this, 'weather', function (data) {
+				return new Weather(data);
+			}, success, failure);
+		}
+	}, {
+		key: 'search',
+		value: function search(searchParameters, success, failure) {
+			API.get('weather?searchParameters=' + searchParameters, function (data) {
+				success(new Weather(data));
+			}, failure);
+		}
+	}, {
+		key: 'find',
+		value: function find(id, success, failure) {
+			API.get('weather/' + id + '/edit', function (data) {
+				var user = new User(data);
+				success(user);
+				Event.fire('userLoaded');
+			}, failure);
+		}
+	}]);
+
+	return Weather;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = Weather;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
@@ -4175,26 +5310,26 @@ window.axios.defaults.headers.common = {
 };
 
 /***/ }),
-/* 34 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_router__);
 
 
 var routes = [{
     path: '/',
-    component: __webpack_require__(36)
+    component: __webpack_require__(52)
 }, {
     path: '/about',
-    component: __webpack_require__(35)
+    component: __webpack_require__(51)
 }, {
     path: '/register',
-    component: __webpack_require__(38)
+    component: __webpack_require__(54)
 }, {
     path: '/login',
-    component: __webpack_require__(37)
+    component: __webpack_require__(53)
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = new __WEBPACK_IMPORTED_MODULE_0_vue_router___default.a({
@@ -4203,7 +5338,7 @@ var routes = [{
 });
 
 /***/ }),
-/* 35 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
@@ -4213,7 +5348,95 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(29)
 
 /* template */
-var __vue_template__ = __webpack_require__(41)
+var __vue_template__ = __webpack_require__(56)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\components\\Search.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-52f5e3bd", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-52f5e3bd", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] Search.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(30)
+
+/* template */
+var __vue_template__ = __webpack_require__(55)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\components\\SearchResults.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-347852ae", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-347852ae", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] SearchResults.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(31)
+
+/* template */
+var __vue_template__ = __webpack_require__(59)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4247,17 +5470,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 36 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(30)
+__vue_exports__ = __webpack_require__(32)
 
 /* template */
-var __vue_template__ = __webpack_require__(42)
+var __vue_template__ = __webpack_require__(60)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4291,17 +5514,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 37 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(31)
+__vue_exports__ = __webpack_require__(33)
 
 /* template */
-var __vue_template__ = __webpack_require__(39)
+var __vue_template__ = __webpack_require__(57)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4335,17 +5558,17 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 38 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(32)
+__vue_exports__ = __webpack_require__(34)
 
 /* template */
-var __vue_template__ = __webpack_require__(40)
+var __vue_template__ = __webpack_require__(58)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -4379,7 +5602,196 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 39 */
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [(_vm.loading) ? _c('div', {
+    staticClass: "container text-center space-outside-md"
+  }, [_c('i', {
+    staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-accent space-outside-md font-md"
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), (_vm.foundResults) ? _c('div', {
+    staticClass: "jumbotron"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "right"
+  }, [_c('p', {
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.temperature())
+    }
+  }), _vm._v("\n\n                C\n\n                "), _c('img', {
+    staticStyle: {
+      "display": "inline",
+      "width": "70px"
+    },
+    attrs: {
+      "src": _vm.weather.icon()
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "left"
+  }, [_c('h2', {
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.cityName())
+    }
+  }), _vm._v(", "), _c('h2', {
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.weather.country())
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-accent space-outside-xs",
+    domProps: {
+      "textContent": _vm._s(_vm.weather.weatherType())
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "space-outside-xs",
+    domProps: {
+      "textContent": _vm._s(_vm.weather.dressingAdvice())
+    }
+  })])])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "search-result row"
+  }, [_c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-3"
+  }, [_c('a', {
+    staticClass: "thumbnail",
+    attrs: {
+      "href": "#",
+      "title": "Lorem ipsum"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg",
+      "alt": "Lorem ipsum"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-2"
+  }, [_c('ul', {
+    staticClass: "meta-search font-md"
+  }, [_c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-calendar"
+  }), _vm._v(" "), _c('span', [_vm._v("11-1-2017")])]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-time"
+  }), _vm._v(" "), _c('span', [_vm._v("9:00 AM to 6:00PM")])]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "glyphicon glyphicon-tags"
+  }), _vm._v(" "), _c('span', [_vm._v("Rome")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-7"
+  }, [_c('h3', {
+    staticClass: "text-color-accent"
+  }, [_vm._v("Hotel Villa Torlonia")]), _vm._v(" "), _c('p', {
+    staticClass: "font-weight-light"
+  }, [_vm._v("\n                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus molestie nunc. Donec vitae nibh velit. Nunc vulputate congue tincidunt. Quisque volutpat rutrum volutpat. Praesent ut varius mi. Donec a arcu ultrices leo porttitor cursus. Praesent consequat congue velit, a tristique dui mollis vel. Maecenas at molestie ipsum. Nullam mollis, nunc vel condimentum suscipit, lectus augue dignissim metus, vitae blandit nibh neque vel nulla. Integer ut urna vehicula, fermentum dolor volutpat, tincidunt mi. Nunc molestie mi quis aliquet ornare.\n                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\n                            Pellentesque et arcu venenatis, semper quam eget, fringilla orci. Aliquam a eros ut purus luctus tempus. Integer velit felis, aliquet non sollicitudin eu, malesuada quis nisi. Nunc sed efficitur elit. Pellentesque ornare, elit et maximus accumsan, erat nulla imperdiet mi, sit amet venenatis neque sapien id nisl. Aliquam ultricies vel magna a sodales. Etiam vestibulum porta enim eget maximus. Aenean sed odio consectetur, suscipit ante vel, vestibulum felis.\n                        ")]), _vm._v(" "), _c('div', {
+    staticClass: "row space-outside-md"
+  }, [_c('div', {
+    staticClass: "col-lg-8"
+  }, [_c('div', {
+    staticClass: "input-group date",
+    attrs: {
+      "id": "datetimepicker1"
+    }
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-calendar"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4"
+  }, [_c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Book now!")])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-347852ae", module.exports)
+  }
+}
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "space-outside-up-sm"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchParameters),
+      expression: "searchParameters"
+    }],
+    staticClass: "form-control",
+    staticStyle: {
+      "width": "250px",
+      "display": "inline-block"
+    },
+    attrs: {
+      "id": "searchbar",
+      "type": "text",
+      "placeholder": "Where do you want to go?"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchParameters)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchParameters = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
+    staticStyle: {
+      "display": "inline-block",
+      "margin-bottom": "3px"
+    },
+    on: {
+      "click": function($event) {
+        _vm.search()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "searchResults"
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-52f5e3bd", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4482,7 +5894,7 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4608,7 +6020,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4637,119 +6049,16 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', {
+  return _c('div', [_c('section', {
     staticClass: "space-outside-md"
   }, [_c('div', {
     staticClass: "container"
-  }, [_c('section', {
-    staticClass: "col-xs-12 col-sm-6 col-md-12 space-outside-up-sm"
-  }, [_c('h1', [_vm._v("Search Results")]), _vm._v(" "), _c('h2', {
-    staticClass: "lead"
-  }, [_c('strong', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("1")]), _vm._v(" result was found for the search for "), _c('strong', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("Rome")])]), _vm._v(" "), _c('div', {
-    staticClass: "btn-group bg-main"
-  }, [_c('button', {
-    staticClass: "btn-standard bg-accent text-color-light text-hover-lighten transition-normal dropdown-toggle",
-    attrs: {
-      "type": "button",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("\r\n                Price  "), _c('span', {
-    staticClass: "caret"
-  })]), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu"
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Action")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Another action")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Something else here")])]), _vm._v(" "), _c('li', {
-    staticClass: "divider",
-    attrs: {
-      "role": "separator"
-    }
-  }), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Separated link")])])])])]), _vm._v(" "), _c('section', {
-    staticClass: "col-xs-12 col-sm-6 col-md-12 space-outside-up-sm"
-  }, [_c('div', {
-    staticClass: "search-result row"
-  }, [_c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-3"
-  }, [_c('a', {
-    staticClass: "thumbnail",
-    attrs: {
-      "href": "#",
-      "title": "Lorem ipsum"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": "https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg",
-      "alt": "Lorem ipsum"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-2"
-  }, [_c('ul', {
-    staticClass: "meta-search font-md"
-  }, [_c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-calendar"
-  }), _vm._v(" "), _c('span', [_vm._v("11-1-2017")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-time"
-  }), _vm._v(" "), _c('span', [_vm._v("9:00 AM to 6:00PM")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-tags"
-  }), _vm._v(" "), _c('span', [_vm._v("Rome")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-7"
-  }, [_c('h3', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("Hotel Villa Torlonia")]), _vm._v(" "), _c('p', {
-    staticClass: "font-weight-light"
-  }, [_vm._v("\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus molestie nunc. Donec vitae nibh velit. Nunc vulputate congue tincidunt. Quisque volutpat rutrum volutpat. Praesent ut varius mi. Donec a arcu ultrices leo porttitor cursus. Praesent consequat congue velit, a tristique dui mollis vel. Maecenas at molestie ipsum. Nullam mollis, nunc vel condimentum suscipit, lectus augue dignissim metus, vitae blandit nibh neque vel nulla. Integer ut urna vehicula, fermentum dolor volutpat, tincidunt mi. Nunc molestie mi quis aliquet ornare.\r\n                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\r\n\r\nPellentesque et arcu venenatis, semper quam eget, fringilla orci. Aliquam a eros ut purus luctus tempus. Integer velit felis, aliquet non sollicitudin eu, malesuada quis nisi. Nunc sed efficitur elit. Pellentesque ornare, elit et maximus accumsan, erat nulla imperdiet mi, sit amet venenatis neque sapien id nisl. Aliquam ultricies vel magna a sodales. Etiam vestibulum porta enim eget maximus. Aenean sed odio consectetur, suscipit ante vel, vestibulum felis.")]), _vm._v(" "), _c('div', {
-    staticClass: "row space-outside-md"
-  }, [_c('div', {
-    staticClass: "col-lg-8"
-  }, [_c('div', {
-    staticClass: "input-group date",
-    attrs: {
-      "id": "datetimepicker1"
-    }
-  }, [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-calendar"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-4"
-  }, [_c('button', {
-    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("Book now!")])])])])])])])])
-}]}
+  }, [_c('search-results')], 1)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -4759,7 +6068,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13332,10 +14641,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(44)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(62)))
 
 /***/ }),
-/* 44 */
+/* 62 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13362,7 +14671,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 45 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);

@@ -9,12 +9,8 @@
             <a class="navbar-brand" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
         </div>
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
-                <form class="navbar-form navbar-left hidden-sm hidden-xs" method="post" role="search">
-                    <div class="form-group">
-                        <input type="text" style="width:250px;" class="form-control" placeholder="Where do you want to go?">
-                    </div>
-                    <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
+
+                <search-bar></search-bar>
 
                 @if (Auth::check())
                     <div class="dropdown navbar-right space-outside-up-sm sm-space-outside-xl xs-space-outside-xl">
@@ -57,7 +53,6 @@
                         <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal">Sign In</button>
                     </form>
                 @endif
-
             </div>
     </div>
 </nav>

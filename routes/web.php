@@ -17,3 +17,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('logout', 'PagesController@logout');
+
+Route::get('search-hotels', 'HotelsSearchController@index');
+Route::get('weather', 'WeatherController@index');

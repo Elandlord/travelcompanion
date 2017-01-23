@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default navbar-fixed-top bg-main">
     <div class="container">
         <div class="navbar-header">
@@ -7,14 +8,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
+
+        </div>
+        <div class='navbar pull-left'>
+             <search-bar></search-bar>
         </div>
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
-                <form class="navbar-form navbar-left hidden-sm hidden-xs" role="search">
-                    <div class="form-group">
-                        <input type="text" style="width:250px;" class="form-control" name="username" placeholder="Where do you want to go?">
-                    </div>
-                    <button type="submit" class="btn bg-accent text-color-light hover-darken-accent transition-normal"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
 
                 @if (Auth::check())
                     <div class="dropdown navbar-right space-outside-up-sm sm-space-outside-xl xs-space-outside-xl">
@@ -23,15 +22,14 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        		@include ('layouts.nav-vue')
-
+                        @include ('layouts.nav-vue')
                       </ul>
                     </div>
                 @else
                     <form class="navbar-form navbar-right border-accent sm-space-outside-xl xs-space-outside-xl" role="form" method="POST" action="{{ url('/login') }}">
                          {{ csrf_field() }}
                          <router-link tag="li" to="/register">
-                            <a class='text-color-accent text-hover-light transition-normal space-outside-right-sm'>No account?</a>
+                            <a class='text-color-accent text-hover-light transition-normal'>No account yet?</a>
                         </router-link>  
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
@@ -58,3 +56,7 @@
             </div>
     </div>
 </nav>
+
+
+
+
