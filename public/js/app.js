@@ -4414,10 +4414,10 @@ window.API = new (function () {
             var data = response.data;
             if (success.constructor === Array) {
                success.forEach(function (callback) {
-                  callback(JSON.parse(data));
+                  callback(data);
                });
             } else {
-               success(JSON.parse(data));
+               success(data);
             }
          }, failure);
       }
@@ -5267,7 +5267,7 @@ var Weather = function (_Model) {
 		key: 'search',
 		value: function search(searchParameters, success, failure) {
 			API.get('weather?searchParameters=' + searchParameters, function (data) {
-				success(new Weather(data));
+				success(new Weather(JSON.parse(data)));
 			}, failure);
 		}
 	}, {
@@ -5332,7 +5332,7 @@ var routes = [{
     component: __webpack_require__(53)
 }, {
     path: '/profile',
-    component: __webpack_require__(73)
+    component: __webpack_require__(78)
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = new __WEBPACK_IMPORTED_MODULE_0_vue_router___default.a({
@@ -14690,11 +14690,19 @@ module.exports = __webpack_require__(10);
 /* 69 */,
 /* 70 */,
 /* 71 */,
-/* 72 */
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Models_User__ = __webpack_require__(77);
+//
+//
+//
 //
 //
 //
@@ -14712,24 +14720,131 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    created: function created() {
-        // axios call here.
-    }
+    data: function data() {
+        return {
+            user: null
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__Models_User__["a" /* default */].getAuthenticated(function (user) {
+            return _this.user = user;
+        });
+
+        console.log(this.user);
+    },
+
+
+    methods: {}
+
 };
 
 /***/ }),
-/* 73 */
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(45);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var User = function (_Model) {
+	_inherits(User, _Model);
+
+	function User() {
+		_classCallCheck(this, User);
+
+		return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+	}
+
+	_createClass(User, [{
+		key: 'save',
+		value: function save() {
+			API.post('users/save', this.data(), this.success, function () {
+				// notify the user if something went wrong. 
+			});
+		}
+	}, {
+		key: 'update',
+		value: function update() {
+			API.post('users/update/' + this.id, this.data(), this.success, function () {
+				// notify the user if something went wrong. 
+			});
+		}
+	}, {
+		key: 'delete',
+		value: function _delete() {
+			var _this2 = this;
+
+			var confirm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+			var success = arguments[1];
+
+			if (confirm == true) {
+				Notifier.askConfirmation(function () {
+					API.delete('users/remove', _this2.id);
+					success();
+				});
+			} else {
+				API.delete('users/remove', this.id);
+				success();
+			}
+		}
+	}], [{
+		key: 'all',
+		value: function all(success, failure) {
+			_get(User.__proto__ || Object.getPrototypeOf(User), 'all', this).call(this, 'users', function (data) {
+				return new User(data);
+			}, success, failure);
+		}
+	}, {
+		key: 'find',
+		value: function find(id, success, failure) {
+			API.get('users/' + id, function (data) {
+				var user = new User(data);
+				success(user);
+				Event.fire('userLoaded');
+			}, failure);
+		}
+	}, {
+		key: 'getAuthenticated',
+		value: function getAuthenticated(success, failure) {
+			API.get('user/authenticated', function (data) {
+				var user = new User(data);
+				success(user);
+				Event.fire('userLoaded');
+			}, failure);
+		}
+	}]);
+
+	return User;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = User;
+
+/***/ }),
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(72)
+__vue_exports__ = __webpack_require__(76)
 
 /* template */
-var __vue_template__ = __webpack_require__(74)
+var __vue_template__ = __webpack_require__(79)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -14741,7 +14856,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\views\\Profile.vue"
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\views\\User.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -14752,23 +14867,21 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6f479cec", __vue_options__)
+    hotAPI.createRecord("data-v-d817688c", __vue_options__)
   } else {
-    hotAPI.reload("data-v-6f479cec", __vue_options__)
+    hotAPI.reload("data-v-d817688c", __vue_options__)
   }
 })()}
-if (__vue_options__.functional) {console.error("[vue-loader] Profile.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+if (__vue_options__.functional) {console.error("[vue-loader] User.vue: functional components are not supported and should be defined in plain js files using render functions.")}
 
 module.exports = __vue_exports__
 
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -14779,15 +14892,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("The Profile Page")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Profieloverzicht")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
+  }, [_c('img', {
+    staticClass: "img-responsive",
+    attrs: {
+      "src": _vm.user.photo_link
+    }
+  }), _vm._v(" "), _c('p', {
+    domProps: {
+      "textContent": _vm._s(_vm.user.email)
+    }
+  }), _vm._v(" "), _c('p', {
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  }), _vm._v(" "), _c('p', {
+    domProps: {
+      "textContent": _vm._s(_vm.user.created_at)
+    }
+  })]) : _vm._e()])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6f479cec", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-d817688c", module.exports)
   }
 }
 

@@ -68,12 +68,12 @@
            {
               success.forEach(function(callback)
               {
-                 callback(JSON.parse(data));
+                 callback(data);
               });
            }
            else
            {
-              success(JSON.parse(data));
+              success(data);
            }
         }, failure);
      }

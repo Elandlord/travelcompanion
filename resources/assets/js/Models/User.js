@@ -32,12 +32,21 @@ class User extends Model{
 	}
 
 	static find(id, success, failure) {
-		API.get('users/' + id + '/edit', function(data){
+		API.get('users/' + id, function(data){
 			let user = new User(data);
 			success(user);
 			Event.fire('userLoaded');
 		}, failure);
 	}
+
+	static getAuthenticated(success, failure) {
+		API.get('user/authenticated', function(data){
+			let user = new User(data);
+			success(user);
+			Event.fire('userLoaded');
+		}, failure);	
+	}
+
 
 }
 
