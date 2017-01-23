@@ -56,7 +56,7 @@ ma 23/1 om  13.30 uur
         <div class=\"search-result row\">
             <div class=\"col-xs-12 col-sm-12 col-md-3\">
                 <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img
-                            src=\"https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg\"
+                            src=\"http://lorempixel.com/400/200/city/\"
                             alt=\"Lorem ipsum\"/></a>
             </div>
             <div class=\"col-xs-12 col-sm-12 col-md-7\">

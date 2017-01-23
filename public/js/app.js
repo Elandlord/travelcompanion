@@ -3977,7 +3977,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -4008,43 +4007,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5844,66 +5806,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.weather.dressingAdvice())
     }
-  })])])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "search-result row"
-  }, [_c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-3"
-  }, [_c('a', {
-    staticClass: "thumbnail",
+  })])]), _vm._v(" "), _c('hr', {
+    staticClass: "hr-orange"
+  }), _vm._v(" "), _c('div', {
     attrs: {
-      "href": "#",
-      "title": "Lorem ipsum"
+      "id": "hotel-results"
     }
-  }, [_c('img', {
-    attrs: {
-      "src": "https://exp.cdn-hotels.com/hotels/11000000/10980000/10977200/10977169/10977169_80_z.jpg",
-      "alt": "Lorem ipsum"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-2"
-  }, [_c('ul', {
-    staticClass: "meta-search font-md"
-  }, [_c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-calendar"
-  }), _vm._v(" "), _c('span', [_vm._v("11-1-2017")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-time"
-  }), _vm._v(" "), _c('span', [_vm._v("9:00 AM to 6:00PM")])]), _vm._v(" "), _c('li', [_c('i', {
-    staticClass: "glyphicon glyphicon-tags"
-  }), _vm._v(" "), _c('span', [_vm._v("Rome")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-12 col-md-7"
-  }, [_c('h3', {
-    staticClass: "text-color-accent"
-  }, [_vm._v("Hotel Villa Torlonia")]), _vm._v(" "), _c('p', {
-    staticClass: "font-weight-light"
-  }, [_vm._v("\n                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus molestie nunc. Donec vitae nibh velit. Nunc vulputate congue tincidunt. Quisque volutpat rutrum volutpat. Praesent ut varius mi. Donec a arcu ultrices leo porttitor cursus. Praesent consequat congue velit, a tristique dui mollis vel. Maecenas at molestie ipsum. Nullam mollis, nunc vel condimentum suscipit, lectus augue dignissim metus, vitae blandit nibh neque vel nulla. Integer ut urna vehicula, fermentum dolor volutpat, tincidunt mi. Nunc molestie mi quis aliquet ornare.\n                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\n                            Pellentesque et arcu venenatis, semper quam eget, fringilla orci. Aliquam a eros ut purus luctus tempus. Integer velit felis, aliquet non sollicitudin eu, malesuada quis nisi. Nunc sed efficitur elit. Pellentesque ornare, elit et maximus accumsan, erat nulla imperdiet mi, sit amet venenatis neque sapien id nisl. Aliquam ultricies vel magna a sodales. Etiam vestibulum porta enim eget maximus. Aenean sed odio consectetur, suscipit ante vel, vestibulum felis.\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "row space-outside-md"
-  }, [_c('div', {
-    staticClass: "col-lg-8"
-  }, [_c('div', {
-    staticClass: "input-group date",
-    attrs: {
-      "id": "datetimepicker1"
-    }
-  }, [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-calendar"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-4"
-  }, [_c('button', {
-    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("Book now!")])])])])])
-}]}
+  })]) : _vm._e()])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -5951,6 +5861,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "display": "inline-block",
       "margin-bottom": "3px"
     },
+    attrs: {
+      "onclick": "searchHotelApi()"
+    },
     on: {
       "click": function($event) {
         _vm.search()
@@ -5961,11 +5874,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _c('div', {
-    attrs: {
-      "id": "searchResults"
-    }
-  })])
+  })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
