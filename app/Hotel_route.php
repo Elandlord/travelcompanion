@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel_route extends Model
 {
+    protected $table = 'hotel_route';
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,11 +22,11 @@ class Hotel_route extends Model
 
     public function routes()
     {
-    	return $this->hasMany('App\Models\Route');
+    	return $this->belongsTo('App\Route');
     }
 
     public function hotels()
     {
-    	return $this->hasMany('App\Models\Hotel');
+    	return $this->hasMany('App\Hotel');
     }
 }

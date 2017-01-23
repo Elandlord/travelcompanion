@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location_route extends Model
 {
+    protected $table = 'location_route';
     public $timestamps = false;
 
     protected $fillable = [
@@ -17,11 +18,11 @@ class Location_route extends Model
 
     public function routes()
     {
-    	return $this->hasMany('App\Models\Route');
+    	return $this->hasMany('App\Route');
     }
 
     public function locations()
     {
-    	return $this->hasMany('App\Models\Location');
+    	return $this->hasMany('App\Location');
     }
 }

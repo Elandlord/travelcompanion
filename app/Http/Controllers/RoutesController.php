@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Route;
 use Illuminate\Http\Request;
 
 class RoutesController extends Controller
@@ -57,7 +58,7 @@ class RoutesController extends Controller
      */
     public function show($userId, $routeId)
     {
-        $route = Route::where('id', $routeId);
+        $route = Route::where('id', $routeId)->get();
         if (isset($route)) {
             return $route;
         }

@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $ruben = new User();
         $ruben->name = 'Ruben';
-        $ruben->email = 'ruben@hanzenl';
+        $ruben->email = 'ruben@hanze.nl';
         $ruben->password = bcrypt('secret');
         $ruben->photo_link = $faker->imageUrl($width = 640, $height = 480);
         $ruben->save();

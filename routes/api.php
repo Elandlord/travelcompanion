@@ -20,4 +20,5 @@ Route::get('/user', function (Request $request) {
 
 Route::resource('users', 'UsersController');
 Route::resource('users.routes', 'RoutesController');
+Route::resource('users.routes.locations', 'LocationsController');
 Route::resource('users.routes.hotels', 'HotelsController');
