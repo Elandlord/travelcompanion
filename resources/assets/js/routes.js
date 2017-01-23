@@ -23,7 +23,7 @@ let routes = [
 
     {
         path: '/profile',
-        component: require('./views/Profile')
+        component: require('./views/User')
     }
 ];
 
