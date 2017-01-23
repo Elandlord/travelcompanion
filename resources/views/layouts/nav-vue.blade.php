@@ -5,6 +5,12 @@
                 </router-link>
             </li>
 
+            <li>
+                <router-link tag="li" to="/profile" exact>
+                    <a>Profile</a>
+                </router-link>
+            </li>
+
 
             <li>
                 <router-link tag="li" to="/mytrip" exact>

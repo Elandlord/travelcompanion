@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HotelsSearchController extends Controller
+
+class WeatherController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +14,7 @@ class HotelsSearchController extends Controller
      */
     public function index(Request $request)
     {
+
         $searchParameters = $request->input('searchParameters');
 
         $call = "api.openweathermap.org/data/2.5/weather?q=". $searchParameters ."&units=metric&APPID=02be207d7fffed857eba62680e8e66be";

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+    import Weather from '../Models/Weather';
     export default {
 
 
@@ -20,14 +21,9 @@
     	{
     		search(){
                 Event.fire('searching');
-
-			   axios.get('search-hotels?searchParameters=' + this.searchParameters).then((response) => {
-			         // succeeded, save data to a data instance in this vue object
-			         this.results = response.data;
-			         Event.fire('searchResultsFound', this.results);
-
-				 });
+                Weather.search(this.searchParameters, weather => Event.fire('weatherFound', weather) );
     		}
+
     	},
 
 
