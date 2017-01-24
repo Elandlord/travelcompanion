@@ -4,8 +4,13 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "hash": "a7740dde2f19ace4e4c3fc0e6e287fd4",
+    "content-hash": "a46576fd66bf310779d57ca4e1479190",
+=======
     "hash": "27af06e68a7b7eef5109d68006e0d2b2",
     "content-hash": "76036da3b5b55b91dbe1e1affa01bf9e",
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -160,6 +165,56 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+<<<<<<< HEAD
+        },
+        {
+            "name": "illuminate/html",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/html.git",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/html/zipball/3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.0",
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Html\\": ""
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "abandoned": "laravelcollective/html",
+            "time": "2015-01-01 16:31:18"
+=======
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -690,7 +745,11 @@
                 "datetime",
                 "time"
             ],
+<<<<<<< HEAD
+            "time": "2015-11-04 20:07:17"
+=======
             "time": "2017-01-16 07:55:07"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "nikic/php-parser",
@@ -909,7 +968,11 @@
                 "interactive",
                 "shell"
             ],
+<<<<<<< HEAD
+            "time": "2016-12-07 17:15:07"
+=======
             "time": "2017-01-15 17:54:13"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "ramsey/uuid",
@@ -1106,7 +1169,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-12-08 14:58:14"
+=======
             "time": "2017-01-08 20:43:43"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/debug",
@@ -1163,7 +1230,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-11-15 12:55:20"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1223,7 +1294,11 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-10-13 06:29:04"
+=======
             "time": "2017-01-02 20:32:22"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/finder",
@@ -1272,7 +1347,11 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-12-13 09:38:21"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/http-foundation",
@@ -1325,7 +1404,11 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-11-27 04:21:07"
+=======
             "time": "2017-01-08 20:43:43"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/http-kernel",
@@ -1407,7 +1490,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-12-13 12:52:10"
+=======
             "time": "2017-01-12 20:43:39"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1623,7 +1710,11 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-11-24 01:08:05"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/routing",
@@ -1698,7 +1789,11 @@
                 "uri",
                 "url"
             ],
+<<<<<<< HEAD
+            "time": "2016-11-25 12:27:14"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/translation",
@@ -1762,7 +1857,11 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-11-18 21:15:08"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/var-dumper",
@@ -1825,7 +1924,11 @@
                 "debug",
                 "dump"
             ],
+<<<<<<< HEAD
+            "time": "2016-12-08 14:58:14"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3291,7 +3394,11 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-11-03 08:04:31"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/dom-crawler",
@@ -3347,7 +3454,11 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-12-10 14:24:45"
+=======
             "time": "2017-01-02 20:31:54"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "symfony/yaml",
@@ -3402,7 +3513,11 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2016-12-10 10:07:06"
+=======
             "time": "2017-01-03 13:51:32"
+>>>>>>> 291c377643b45981c2331c0ac80e4f4669eb9a2d
         },
         {
             "name": "webmozart/assert",
