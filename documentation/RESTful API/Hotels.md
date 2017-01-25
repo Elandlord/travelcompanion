@@ -13,6 +13,8 @@
 `POST`
 
     {
+        "city_name": "Amsterdam",
+        "country": "Netherlands",
         "route_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
@@ -21,7 +23,6 @@
         "paid": 1,
         "bank_account_number": "5275225665733200",
         "hotels": {
-            "location_id": "1",
             "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
             "name": "Ashtyn Nitzsche DVM Hotel",
             "road_name": "Shyanne Manor",
