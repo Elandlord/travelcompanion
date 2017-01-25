@@ -53,14 +53,11 @@ $(document).on('click','.vue-nav',function(e) {
                 </p>
                 <div class=\'row space-outside-md\'>
                     <div class=\'col-lg-8\'>
-                        <div class=\'input-group date\' id=\'`+ i +`\'>
-                            <input type=\'text\' class=\"form-control\"/>
-                            <span class=\"input-group-addon\">
-                                            <span class=\"glyphicon glyphicon-calendar\"></span>
-                                        </span>
-                        </div>
+                        <input type=\"date\" id=\"arrival` + i + `\" name="date" onclick="setMinToday()" onchange=\"setMinDate()\" required>
+                    <input type=\"date\" id=\"departure` + i + `\" name=\"date\" min=\"\" required>
                     </div>
                     <div class=\'col-lg-4\'>
+
                         <button type=\"submit\" onclick=\"bookHotel(\'` + results[i].name + `\',\'` + results[i].formatted_address + `\',\'`+ i +`\')\"
                                 class=\"btn bg-accent text-color-light hover-darken-accent transition-normal\">
                             Book
@@ -79,9 +76,13 @@ $(document).on('click','.vue-nav',function(e) {
     }
 
     function bookHotel(hotelname, adress, dateTimeId) {
-        var post = [];
-        post['arrival_date'] = "test";
-        post['departure_date'] = "test";
+        var post = {};
+
+        //TODO check id date is selected
+        var arrivalid = "arrival" + dateTimeId;
+        var departureid = "departure" + dateTimeId;
+        post['arrival_date'] = document.getElementById(arrivalid).value;
+        post['departure_date'] = document.getElementById(departureid).value;
         //seperate the whole string by comma
         var adressArray = adress.split(",");
 
@@ -110,7 +111,8 @@ $(document).on('click','.vue-nav',function(e) {
         //the last index of the entire adress array is the countryname
         var countryName = adressArray[adressArray.length -1];
 
-        post['hotel'] = [];
+        post['hotel'] = {};
+        post['hotel']['name'] = hotelname;
         post['hotel']['road_name'] = roadname.trim();
         post['hotel']['house_number'] = houseNumber.trim();
         post['hotel']['zip_code'] = zipCode.trim();
@@ -129,6 +131,23 @@ $(document).on('click','.vue-nav',function(e) {
 
 </script>
 
+<script type="text/javascript">
+
+    function setMinDate() {
+        var returnDateElements = document.getElementsByName('date');
+        var minDate = new Date(returnDateElements[0].value);
+        minDate.setDate(minDate.getDate() + 1);
+        minDateFormated = minDate.toISOString().substring(0, 10);
+        returnDateElements[1].min = minDateFormated;
+    }
+
+    function setMinToday() {
+        var returnDateElements = document.getElementsByName('date');
+        var nowDate = new Date();
+        var nowDateFormatted = nowDate.toISOString().substring(0, 10);
+        returnDateElements[0].min = nowDateFormatted;
+    }
+</script>
 
 
 <script>
