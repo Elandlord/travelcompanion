@@ -5,23 +5,84 @@
   @stop
 
   @section('content')
+
+
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 <!-- Style to put some height on the map -->
 <style type="text/css">
     #map-canvas { height: 500px };
 </style>
 
-
+<!-- Remove <br> when going online -->
 <br>
 <br>
-<input id="locationText" type="text" />
-<button id="addNewLocation" onclick="addNewLocation();">Add</button>
-<button onclick="init();"type="button" name="button">goo</button>
 
-<div id="locationList">
+<div id="maps_interface" class="bg-main space-inside-xs">
+  <div class="row">
+    <div class="container">
+      <div class="col-lg-12">
+        <div class="col-lg-3">
+          <input class="form-control" id="start" type="text" placeholder="Vertrek" />
+        </div>
+
+        <div class="col-lg-3">
+          <input class="form-control" id="locationText" type="text" placeholder="Bestemming" />
+        </div>
+        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" id="addNewLocation" onclick="addNewLocation();">Voeg Bestemming toe</button>
+        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" onclick="generateRequests();"type="button" name="button">Maak Trip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="google_maps">
+  <div class="row">
+    <div class="container">
+      <div class="col-lg-9">
+
+      </div>
+
+      <div class="col-lg-3">
+        <h3>Locaties</h3>
+
+        <!-- <ul id="list" class="cbp_tmtimeline">
+            <li>
+                <time class="cbp_tmtime"><span>from 21/1/17 to 24/1/17</span> <span>Groningen</span></time>
+                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                    <h2 class='text-color-light'>Hotel Villa Torlania</h2>
+                    <p class='text-color-light'>Generic Road 17, DD0123 Groningen</p>
+                </div>
+            </li>
+            <li>
+                <time class="cbp_tmtime"><span>from 24/1/17 to 26/1/17</span> <span>Berlin</span></time>
+                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                    <h2 class='text-color-light'>Hotel Boiler Room</h2>
+                    <p class='text-color-light'>Generic Road 17, DD0123 Berlin</p>
+                </div>
+            </li>
+            <li>
+                <time class="cbp_tmtime"><span>from 26/1/17 to 29/1/17</span> <span>Warschau</span></time>
+                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                    <h2 class='text-color-light'>Hotel Spierdalaj Kurwa</h2>
+                    <p class='text-color-light'>Generic Road 17, DD0123 Warschau</p>
+                </div>
+            </li>
+             <li>
+                <time class="cbp_tmtime"><span>30/1/17</span> <span>Return date</span></time>
+                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                    <h2 class='text-color-light'>Return to Groningen</h2>
+                    <p class='text-color-light'></p>
+                </div>
+            </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -32,25 +93,37 @@ var locations = [];
 var locationButton = document.getElementById("addNewLocation");
 locationButton.onclick = addNewLocation;
 
-// Button functions
+// Add new location to Maps
 function addNewLocation() {
+  // get Location from inputfrield by ID
   var location = document.getElementById("locationText").value;
+
+  // Push Location in Array
   locations.push(location);
+
+  // Reset inputfield for another location
   document.getElementById("locationText").value = "";
+
+  // Create Li element
+  var node = document.createElement("LI");
+
+  // Create tekst for element
+  var textnode = document.createTextNode(location);
+
+  //Append element
+  node.appendChild(textnode);
+
+  document.getElementById("list").appendChild(node);
+
 }
 
 // Create Json Object function
 function makeJsonObject() {
   var json = {
     location : locations
-}
+  }
   return json;
 }
-
-// Write location to Screen function
-function writeLocation () {
-}
-
 
 // Initialise some variables
 var directionsService = new google.maps.DirectionsService();
@@ -101,11 +174,12 @@ function generateRequests(){
 
         // Grab the first waypoint for the 'start' location
         start = (waypts.shift()).location;
+        // start = document.getElementById('start').value;
         // Grab the last waypoint for use as a 'finish' location
         finish = waypts.pop();
         if(finish === undefined){
             // Unless there was no finish location for some reason?
-            finish = start;
+            // finish = start;
         } else {
             finish = finish.location;
         }
@@ -143,7 +217,7 @@ function processRequests(){
             renderArray[i] = new google.maps.DirectionsRenderer();
             renderArray[i].setMap(map);
 
-            // // Some unique options from the colorArray so we can see the routes
+            // Some unique options from the colorArray so we can see the routes
             // renderArray[i].setOptions({
             //     preserveViewport: true,
             //     suppressInfoWindows: true,
@@ -198,16 +272,16 @@ function init() {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    // Start the request making
-    generateRequests()
+    console.log('iets');
+    console.log(map);
 }
 
     // Get the ball rolling and trigger our init() on 'load'
-    // google.maps.event.addDomListener(window, 'load', init);
+    google.maps.event.addDomListener(window, 'load', init);
 </script>
 
-<!-- Somewhere in the DOM for the map to be rendered -->
-<div id="map-canvas"></div>
+<div id="map-canvas">
+
+</div>
 
 @stop

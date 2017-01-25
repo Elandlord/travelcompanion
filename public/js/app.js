@@ -4048,6 +4048,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -4115,6 +4124,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     created: function created() {
@@ -4128,7 +4169,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -4507,7 +4547,7 @@ window.API = new (function () {
  */
 // Global Exception helper class
 __webpack_require__(42);
-// Helper class
+// Helper class 
 __webpack_require__(44);
 // Global Api Helper class
 __webpack_require__(37);
@@ -4702,7 +4742,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Event dispatcher class, for emitting and listening for events.
+ * Event dispatcher class, for emitting and listening for events. 
  * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
  * @type {Event}
  */
@@ -4716,7 +4756,7 @@ window.Event = new (function () {
    /**
     * Method which can be used to fire events.
     * @param  {[event]} the name of the event
-    * @param  {[data]} data to send with the event
+    * @param  {[data]} data to send with the event 
     * @return {[void]}
     */
 
@@ -4917,7 +4957,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * A helper class. All components can use this class.
+ * A helper class. All components can use this class. 
  * Provides one accespoint to common used functions
  * @type {Helper}
  */
@@ -4927,7 +4967,7 @@ window.Helper = new (function () {
    }
    /**
     * Capitalizes strings
-    * @param  {[string]}
+    * @param  {[string]} 
     * @return {[void]}
     */
 
@@ -5096,7 +5136,7 @@ window.Messager = new (function () {
       };
    }
    /**
-    * messages the user
+    * messages the user 
     * @param  {[type]} type of message
     * @param  {[message]}
     * @return {[void]}
@@ -5168,9 +5208,9 @@ window.Notifier = new (function () {
       //      {});
 
       /**
-       * Notify the user
+       * Notify the user 
        * @param  {[type]} type of message
-       * @param  {[message]}
+       * @param  {[message]} 
        * @return {[void]}
        */
 
@@ -5228,14 +5268,14 @@ var User = function (_Model) {
 		key: 'save',
 		value: function save() {
 			API.post('users/save', this.data(), this.success, function () {
-				// notify the user if something went wrong.
+				// notify the user if something went wrong. 
 			});
 		}
 	}, {
 		key: 'update',
 		value: function update() {
 			API.post('users/update/' + this.id, this.data(), this.success, function () {
-				// notify the user if something went wrong.
+				// notify the user if something went wrong. 
 			});
 		}
 	}, {
@@ -5866,14 +5906,74 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("The About Page")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body "
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+    staticClass: "col-md-12"
+  }, [_c('h1', {
+    staticClass: "text-center"
+  }, [_vm._v("Trip: Eastern Europe")]), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md"
+  }, [_vm._v("Go back")]), _vm._v(" "), _c('ul', {
+    staticClass: "cbp_tmtimeline"
+  }, [_c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 21/1/17 to 24/1/17")]), _vm._v(" "), _c('span', [_vm._v("Groningen")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Villa Torlania")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Groningen")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 24/1/17 to 26/1/17")]), _vm._v(" "), _c('span', [_vm._v("Berlin")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Boiler Room")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Berlin")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 26/1/17 to 29/1/17")]), _vm._v(" "), _c('span', [_vm._v("Warschau")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Spierdalaj Kurwa")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Warschau")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("30/1/17")]), _vm._v(" "), _c('span', [_vm._v("Return date")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Return to Groningen")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  })])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5894,7 +5994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
   }), _vm._v(" "), _c('p', {
     staticClass: "text-color-accent space-outside-md font-md "
-  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), (_vm.foundResults) ? _c('div', {
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.foundResults) ? _c('div', {
     staticClass: "jumbotron animated fadeInLeft wow"
   }, [_c('div', {
     staticClass: "container"
@@ -5948,7 +6048,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "hotel-results"
     }
   })]) : _vm._e()])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "fixed bg-main space-inside-sm space-inside-sides-md text-center"
+  }, [_c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Maps")]), _vm._v(" "), _c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Hotels")]), _vm._v(" "), _c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Temperature")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -5992,21 +6114,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "panel-heading"
   }, [_vm._v("Profieloverzicht")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
-    staticClass: "panel-body"
-  }, [_c('img', {
-    staticClass: "img-responsive",
+    staticClass: "panel-body text-center"
+  }, [_c('h2', {
+    staticClass: "space-outside-md",
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "img-responsive circular",
+    staticStyle: {
+      "margin": "0 auto"
+    },
     attrs: {
       "src": _vm.user.photo_link
     }
   }), _vm._v(" "), _c('p', {
+    staticClass: "font-md space-outside-sm",
     domProps: {
       "textContent": _vm._s(_vm.user.email)
     }
   }), _vm._v(" "), _c('p', {
-    domProps: {
-      "textContent": _vm._s(_vm.user.name)
-    }
-  }), _vm._v(" "), _c('p', {
+    staticClass: "font-md",
     domProps: {
       "textContent": _vm._s(_vm.user.created_at)
     }
@@ -6198,86 +6326,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\r\n                                    Register\r\n                                ")])])])])])])])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d1e5c1dc", module.exports)
-  }
-}
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row animated fadeInLeft wow"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Profieloverzicht")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
-    staticClass: "panel-body text-center"
-  }, [_c('h2', {
-    staticClass: "space-outside-md",
-    domProps: {
-      "textContent": _vm._s(_vm.user.name)
-    }
-  }), _vm._v(" "), _c('img', {
-    staticClass: "img-responsive circular",
-    staticStyle: {
-      "margin": "0 auto"
-    },
-    attrs: {
-      "src": _vm.user.photo_link
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "font-md space-outside-sm",
-    domProps: {
-      "textContent": _vm._s(_vm.user.email)
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "font-md",
-    domProps: {
-      "textContent": _vm._s(_vm.user.created_at)
-    }
-  })]) : _vm._e()])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d817688c", module.exports)
-  }
-}
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("The About Page")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body "
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+  }, [_vm._v("\n                                    Register\n                                ")])])])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
