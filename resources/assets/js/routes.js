@@ -22,6 +22,11 @@ let routes = [
     },
 
     {
+        path: '/mytrip',
+        component: require('./views/Mytrip')
+    },
+    
+    {
         path: '/profile',
         component: require('./views/User')
     }
