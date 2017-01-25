@@ -7,7 +7,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
+            <a class="navbar-brand hidden-xs hidden-sm" href="/"><img src='images/banner-logo.png' style='width:175px;'/></a>
+            <a class="navbar-brand hidden-lg hidden-md" href="/"><img src='images/banner-logo.png' style='width:75px;'/></a>
 
         </div>
         <div class='navbar pull-left'>
@@ -16,7 +17,7 @@
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
 
                 @if (Auth::check())
-                    <div class="dropdown navbar-right space-outside-up-sm sm-space-outside-xl xs-space-outside-xl">
+                    <div class="dropdown navbar-right md-space-outside-up-sm lg-space-outside-up-sm hidden-xs hidden-sm">
                       <button class="btn hover-darken-accent transition-normal dropdown-toggle bg-accent  text-color-light" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         {{ Auth::user()->name }}
                         <span class="caret"></span>
@@ -24,6 +25,9 @@
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         @include ('layouts.nav-vue')
                       </ul>
+                    </div>
+                    <div class='hidden-lg hidden-md xs-space-outside-sm'>
+                        @include ('layouts.nav-vue')
                     </div>
                 @else
                     <form class="navbar-form navbar-right border-accent sm-space-outside-xl xs-space-outside-xl" role="form" method="POST" action="{{ url('/login') }}">

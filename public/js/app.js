@@ -4378,6 +4378,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -6025,7 +6026,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "space-outside-up-sm"
+    staticClass: "lg-space-outside-up-sm md-space-outside-up-sm hidden-xs"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -6035,7 +6036,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     staticStyle: {
-      "width": "250px",
+      "width": "210px",
       "display": "inline-block"
     },
     attrs: {
@@ -6197,7 +6198,90 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
+<<<<<<< HEAD
   }, [_vm._v("\n                                    Register\n                                ")])])])])])])])])])
+=======
+  }, [_vm._v("\r\n                                    Register\r\n                                ")])])])])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d1e5c1dc", module.exports)
+  }
+}
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row animated fadeInLeft wow"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Profieloverzicht")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
+    staticClass: "panel-body text-center"
+  }, [_c('h2', {
+    staticClass: "space-outside-md",
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "img-responsive circular",
+    staticStyle: {
+      "margin": "0 auto"
+    },
+    attrs: {
+      "src": _vm.user.photo_link
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "font-md space-outside-sm",
+    domProps: {
+      "textContent": _vm._s(_vm.user.email)
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "font-md",
+    domProps: {
+      "textContent": _vm._s(_vm.user.created_at)
+    }
+  })]) : _vm._e()])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d817688c", module.exports)
+  }
+}
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("The About Page")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body "
+  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+>>>>>>> 7fe1e028dda93329a4aab36e6e6f2fe19047d250
 }]}
 module.exports.render._withStripped = true
 if (false) {
