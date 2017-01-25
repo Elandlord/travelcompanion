@@ -6,14 +6,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/wow.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 
-<!-- <script>
-$(document).on('click','.vue-nav',function(e) {
-    console.log("close");
-
-    $('#expand-bootstrap-nav').hide();
-});
-</script> -->
-
 <div style="display: none" id="results"></div>
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>
@@ -121,7 +113,6 @@ $(document).on('click','.vue-nav',function(e) {
 
         console.log(post);
 
-//        post['hotels'] = ['name' => hotelname, ]
 //        $.post( "url", hotel , function( data, status ) {
 //            if (status){
 //
