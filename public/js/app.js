@@ -4507,7 +4507,7 @@ window.API = new (function () {
  */
 // Global Exception helper class
 __webpack_require__(42);
-// Helper class 
+// Helper class
 __webpack_require__(44);
 // Global Api Helper class
 __webpack_require__(37);
@@ -4702,7 +4702,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Event dispatcher class, for emitting and listening for events. 
+ * Event dispatcher class, for emitting and listening for events.
  * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
  * @type {Event}
  */
@@ -4716,7 +4716,7 @@ window.Event = new (function () {
    /**
     * Method which can be used to fire events.
     * @param  {[event]} the name of the event
-    * @param  {[data]} data to send with the event 
+    * @param  {[data]} data to send with the event
     * @return {[void]}
     */
 
@@ -4917,7 +4917,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * A helper class. All components can use this class. 
+ * A helper class. All components can use this class.
  * Provides one accespoint to common used functions
  * @type {Helper}
  */
@@ -4927,7 +4927,7 @@ window.Helper = new (function () {
    }
    /**
     * Capitalizes strings
-    * @param  {[string]} 
+    * @param  {[string]}
     * @return {[void]}
     */
 
@@ -5096,7 +5096,7 @@ window.Messager = new (function () {
       };
    }
    /**
-    * messages the user 
+    * messages the user
     * @param  {[type]} type of message
     * @param  {[message]}
     * @return {[void]}
@@ -5168,9 +5168,9 @@ window.Notifier = new (function () {
       //      {});
 
       /**
-       * Notify the user 
+       * Notify the user
        * @param  {[type]} type of message
-       * @param  {[message]} 
+       * @param  {[message]}
        * @return {[void]}
        */
 
@@ -5228,14 +5228,14 @@ var User = function (_Model) {
 		key: 'save',
 		value: function save() {
 			API.post('users/save', this.data(), this.success, function () {
-				// notify the user if something went wrong. 
+				// notify the user if something went wrong.
 			});
 		}
 	}, {
 		key: 'update',
 		value: function update() {
 			API.post('users/update/' + this.id, this.data(), this.success, function () {
-				// notify the user if something went wrong. 
+				// notify the user if something went wrong.
 			});
 		}
 	}, {
@@ -6198,9 +6198,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-<<<<<<< HEAD
-  }, [_vm._v("\n                                    Register\n                                ")])])])])])])])])])
-=======
   }, [_vm._v("\r\n                                    Register\r\n                                ")])])])])])])])])])
 }]}
 module.exports.render._withStripped = true
@@ -6281,7 +6278,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("The About Page")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body "
   }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
->>>>>>> 7fe1e028dda93329a4aab36e6e6f2fe19047d250
 }]}
 module.exports.render._withStripped = true
 if (false) {
