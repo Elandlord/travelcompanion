@@ -6,20 +6,19 @@
 
   @section('content')
 
-  <!--Source code -->
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <!-- Style to put some height on the map -->
 <style type="text/css">
     #map-canvas { height: 500px };
 </style>
 
-<!-- Load the Google Maps aPI -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <br>
 <br>
 <input id="locationText" type="text" />
-<button id="addNewLocation">Add</button>
+<button id="addNewLocation" onclick="addNewLocation();">Add</button>
 <button onclick="init();"type="button" name="button">goo</button>
 
 <div id="locationList">
