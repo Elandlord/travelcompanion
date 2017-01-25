@@ -6,6 +6,15 @@
         <p class='text-color-accent space-outside-md font-md '>Searching</p>
     </div>
 
+
+    <div class="fixed bg-main space-inside-sm space-inside-sides-md text-center">
+
+        <a class='text-color-accent space-inside-sides-md transition-normal text-hover-light font-md' href='#' id='maps'>Maps</a>
+        <a class='text-color-accent space-inside-sides-md transition-normal text-hover-light font-md' href='#' id='maps'>Hotels</a>
+        <a class='text-color-accent space-inside-sides-md transition-normal text-hover-light font-md' href='#' id='maps'>Temperature</a>
+
+    </div>
+
     <div class="jumbotron animated fadeInLeft wow" v-if="foundResults">
         <div class="container">
 
