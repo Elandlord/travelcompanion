@@ -14,7 +14,6 @@
 
     {
         "route_id": 1,
-        "hotel_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
         "price": "58",
@@ -37,7 +36,6 @@
 
     {
         "route_id": 1,
-        "hotel_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
         "price": "58",

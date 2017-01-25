@@ -56,6 +56,7 @@ class HotelsController extends Controller
      */
     public function store(Request $request)
     {
+        $hotel = null;
         if (isset($request['route_id']) &&
             isset($request['hotel_id']) &&
             isset($request['arrival_date']) &&
@@ -74,7 +75,7 @@ class HotelsController extends Controller
                 isset($request['hotel']['phone_number']) &&
                 isset($request['hotel']['email_address']) &&
                 isset($request['hotel']['zip_code'])) {
-                Hotel::create([
+                $hotel = Hotel::create([
                     'location_id' => $request['hotel']['location_id'],
                     'description' => $request['hotel']['description'],
                     'name' => $request['hotel']['name'],
@@ -86,9 +87,13 @@ class HotelsController extends Controller
                 ]);
             }
 
+            if (!isset($hotel)) {
+                return response('', 404);
+            }
+
             Hotel_route::create([
                 'route_id' => $request['route_id'],
-                'hotel_id' => $request['hotel_id'],
+                'hotel_id' => $hotel->id,
                 'arrival_date' => $request['arrival_date'],
                 'departure_date' => $request['departure_date'],
                 'price' => $request['price'],
