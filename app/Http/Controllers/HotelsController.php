@@ -65,7 +65,6 @@ class HotelsController extends Controller
         }
 
         if (isset($request['route_id']) &&
-            isset($request['hotel_id']) &&
             isset($request['arrival_date']) &&
             isset($request['departure_date']) &&
             isset($request['price']) &&
