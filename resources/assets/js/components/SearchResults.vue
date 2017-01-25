@@ -28,11 +28,12 @@
             </div>
 
         </div>
-
+    </div>
         <hr class="hr-orange">
 
         <div id="hotel-results"></div>
-    </div>
+
+</div>
 
 
 </template>

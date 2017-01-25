@@ -53,7 +53,7 @@ $(document).on('click','.vue-nav',function(e) {
                 </p>
                 <div class=\'row space-outside-md\'>
                     <div class=\'col-lg-8\'>
-                        <div class=\'input-group date\' id=\'datetimepicker1\'>
+                        <div class=\'input-group date\' id=\'`+ i +`\'>
                             <input type=\'text\' class=\"form-control\"/>
                             <span class=\"input-group-addon\">
                                             <span class=\"glyphicon glyphicon-calendar\"></span>
@@ -61,7 +61,7 @@ $(document).on('click','.vue-nav',function(e) {
                         </div>
                     </div>
                     <div class=\'col-lg-4\'>
-                        <button type=\"submit\"
+                        <button type=\"submit\" onclick=\"bookHotel(\'` + results[i].name + `\',\'` + results[i].formatted_address + `\',\'`+ i +`\')\"
                                 class=\"btn bg-accent text-color-light hover-darken-accent transition-normal\">
                             Book
                             now!
@@ -76,6 +76,55 @@ $(document).on('click','.vue-nav',function(e) {
             }
             $('#hotel-results').html(html);
         }
+    }
+
+    function bookHotel(hotelname, adress, dateTimeId) {
+        var post = [];
+        post['arrival_date'] = "test";
+        post['departure_date'] = "test";
+        //seperate the whole string by comma
+        var adressArray = adress.split(",");
+
+        //seperate the roadname and housenumber
+        var splitRoadname = adressArray[0].split(' ');
+
+        //the housenumber is the last index of the array
+        var houseNumber = splitRoadname[splitRoadname.length - 1];
+
+        //puzzle the roadname back together
+        var roadname = "";
+        for (var j = 0; j < (splitRoadname.length - 1); j++){
+            roadname += " " + splitRoadname[j];
+        }
+
+        // seperate the cityname fromm the zipcode and puzzle the zipcode back together
+        var zipCode = "";
+        var splitZipCode = adressArray[1].split(' ');
+        for (var k = 0; k < (splitZipCode.length - 1); k++){
+            zipCode += " " + splitZipCode[k];
+        }
+
+        //the last index of the zipcode is the cityname
+        var cityName = splitZipCode[splitZipCode.length -1];
+
+        //the last index of the entire adress array is the countryname
+        var countryName = adressArray[adressArray.length -1];
+
+        post['hotel'] = [];
+        post['hotel']['road_name'] = roadname.trim();
+        post['hotel']['house_number'] = houseNumber.trim();
+        post['hotel']['zip_code'] = zipCode.trim();
+        post['hotel']['city_name'] = cityName.trim();
+        post['hotel']['country_name'] = countryName.trim();
+
+        console.log(post);
+
+//        post['hotels'] = ['name' => hotelname, ]
+//        $.post( "url", hotel , function( data, status ) {
+//            if (status){
+//
+//            }
+//        });
     }
 
 </script>
