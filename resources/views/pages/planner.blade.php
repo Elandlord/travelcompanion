@@ -7,8 +7,8 @@
   @section('content')
 
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div id="maps_interface" class="bg-main space-inside-xs">
   <div class="row">
@@ -248,7 +248,7 @@ function init() {
 
 }
 
-    // Get the ball rolling and trigger our init() on 'load'
+    // Trigger our init()
     google.maps.event.addDomListener(window, 'load', init);
 </script>
 
