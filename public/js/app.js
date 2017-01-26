@@ -3047,10 +3047,6 @@ var Model = function () {
 	function Model(data) {
 		_classCallCheck(this, Model);
 
-		this.originalData = {};
-		this.all = {};
-
-		this.originalData = data;
 		for (var field in data) {
 			this[field] = data[field];
 		}
@@ -3060,9 +3056,6 @@ var Model = function () {
 		key: 'data',
 		value: function data() {
 			var data = Object.assign({}, this);
-
-			delete data.originalData;
-			delete data.all;
 
 			return data;
 		}
@@ -5296,6 +5289,15 @@ var User = function (_Model) {
 				success();
 			}
 		}
+	}, {
+		key: 'with',
+		value: function _with(relation, factory) {
+			var _this3 = this;
+
+			API.get('api/users/' + this.id + '/' + relation, function (relationData) {
+				_this3[relation] = factory(relationData);
+			});
+		}
 	}], [{
 		key: 'all',
 		value: function all(success, failure) {
@@ -5473,6 +5475,9 @@ var routes = [{
 }, {
     path: '/login',
     component: __webpack_require__(55)
+}, {
+    path: '/mytrip',
+    component: __webpack_require__(79)
 }, {
     path: '/profile',
     component: __webpack_require__(57)
@@ -6113,7 +6118,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Profieloverzicht")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
+  }, [_vm._v("User credentials")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
     staticClass: "panel-body text-center"
   }, [_c('h2', {
     staticClass: "space-outside-md",
@@ -14946,6 +14951,330 @@ module.exports = g;
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Models_User__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Models_Route__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Models_Location__ = __webpack_require__(77);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            user: null,
+            route: null,
+            locations: null
+        };
+    },
+    created: function created() {
+        this.initialSettings();
+    },
+
+
+    methods: {
+
+        // ---- setters and getters 
+
+
+        // ---- component functions
+
+        initialSettings: function initialSettings() {
+            var _this = this;
+
+            this.locations = null;
+            // User.with('routes', (route) => {
+            //     return new Route(route);
+            // }).getAuthenticated((user) => {
+            //     this.user = user;
+            // });
+
+
+            __WEBPACK_IMPORTED_MODULE_0__Models_User__["a" /* default */].getAuthenticated(function (user) {
+                user.with('routes', function (route) {
+                    return new __WEBPACK_IMPORTED_MODULE_1__Models_Route__["a" /* default */](route);
+                });
+
+                setTimeout(function () {
+                    _this.user = user;
+                }, 500);
+            });
+        },
+        tripOverview: function tripOverview(route) {
+            var _this2 = this;
+
+            route = new __WEBPACK_IMPORTED_MODULE_1__Models_Route__["a" /* default */](route);
+
+            this.user = null;
+
+            route.with('locations', function (location) {
+                return new __WEBPACK_IMPORTED_MODULE_2__Models_Location__["a" /* default */](location);
+            });
+
+            setTimeout(function () {
+                _this2.locations = route.locations;
+                console.log(_this2.locations);
+            }, 500);
+        }
+    }
+
+};
+
+/***/ }),
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(9);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Location = function (_Model) {
+  _inherits(Location, _Model);
+
+  function Location() {
+    _classCallCheck(this, Location);
+
+    return _possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).apply(this, arguments));
+  }
+
+  return Location;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = Location;
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(9);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Route = function (_Model) {
+	_inherits(Route, _Model);
+
+	function Route() {
+		_classCallCheck(this, Route);
+
+		return _possibleConstructorReturn(this, (Route.__proto__ || Object.getPrototypeOf(Route)).apply(this, arguments));
+	}
+
+	_createClass(Route, [{
+		key: 'with',
+		value: function _with(relation, factory) {
+			var _this2 = this;
+
+			API.get('api/routes/' + this.id + '/' + relation, function (relationData) {
+				_this2[relation] = factory(relationData);
+			});
+		}
+	}]);
+
+	return Route;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = Route;
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(76)
+
+/* template */
+var __vue_template__ = __webpack_require__(80)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Applications/XAMPP/xamppfiles/htdocs/travelcompanion/resources/assets/js/views/Mytrip.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0014f715", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-0014f715", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] Mytrip.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row animated fadeInLeft wow"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [(_vm.user != null) ? _c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
+    staticStyle: {
+      "display": "inline"
+    }
+  }, [_vm._v("Trip overview from: ")]), _c('h2', {
+    staticClass: "text-thin",
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  })]) : _vm._e(), _vm._v(" "), (_vm.user != null) ? _c('ul', {
+    staticClass: "list-group space-outside-up-md animated fadeInLeft wow",
+    attrs: {
+      "id": "routeslist"
+    }
+  }, _vm._l((_vm.user.routes), function(route) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('h3', [_vm._v(_vm._s(route.name))]), _vm._v("\n                     from " + _vm._s(route.departure_date) + "\n                     to " + _vm._s(route.return_date) + "\n                    \n\n                    "), _c('button', {
+      staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md",
+      on: {
+        "click": function($event) {
+          _vm.tripOverview(route)
+        }
+      }
+    }, [_vm._v("View")])])
+  })) : _vm._e(), _vm._v(" "), (_vm.locations != null) ? _c('div', {
+    staticClass: "animated fadeInLeft wow"
+  }, [_c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md",
+    on: {
+      "click": function($event) {
+        _vm.initialSettings()
+      }
+    }
+  }, [_vm._v("Go back")]), _vm._v(" "), _c('ul', {
+    staticClass: "cbp_tmtimeline",
+    attrs: {
+      "id": "locationslist"
+    }
+  }, _vm._l((_vm.locations), function(location) {
+    return _c('li', [_c('time', {
+      staticClass: "cbp_tmtime"
+    }, [_c('span', [_vm._v("from " + _vm._s(location.pivot.arrival_date) + " to " + _vm._s(location.pivot.departure_date))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(location.name))])]), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
+  }))]) : _vm._e()])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("HOTEL HIER INLADEN")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("ANDERS BOEKEN")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0014f715", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
