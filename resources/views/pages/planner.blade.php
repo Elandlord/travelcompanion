@@ -9,14 +9,6 @@
 
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- Style to put some height on the map -->
-<style type="text/css">
-    #map-canvas { height: 500px };
-</style>
-
-<!-- Remove <br> when going online -->
-<br>
-<br>
 
 <div id="maps_interface" class="bg-main space-inside-xs">
   <div class="row">
@@ -40,50 +32,27 @@
   <div class="row">
     <div class="container">
       <div class="col-lg-9">
-
+        <div style="height: 500px;" id="map-canvas">
+        </div>
       </div>
 
       <div class="col-lg-3">
         <h3>Locaties</h3>
 
-        <!-- <ul id="list" class="cbp_tmtimeline">
-            <li>
-                <time class="cbp_tmtime"><span>from 21/1/17 to 24/1/17</span> <span>Groningen</span></time>
-                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                    <h2 class='text-color-light'>Hotel Villa Torlania</h2>
-                    <p class='text-color-light'>Generic Road 17, DD0123 Groningen</p>
-                </div>
-            </li>
-            <li>
-                <time class="cbp_tmtime"><span>from 24/1/17 to 26/1/17</span> <span>Berlin</span></time>
-                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                    <h2 class='text-color-light'>Hotel Boiler Room</h2>
-                    <p class='text-color-light'>Generic Road 17, DD0123 Berlin</p>
-                </div>
-            </li>
-            <li>
-                <time class="cbp_tmtime"><span>from 26/1/17 to 29/1/17</span> <span>Warschau</span></time>
-                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                    <h2 class='text-color-light'>Hotel Spierdalaj Kurwa</h2>
-                    <p class='text-color-light'>Generic Road 17, DD0123 Warschau</p>
-                </div>
-            </li>
-             <li>
-                <time class="cbp_tmtime"><span>30/1/17</span> <span>Return date</span></time>
-                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                    <h2 class='text-color-light'>Return to Groningen</h2>
-                    <p class='text-color-light'></p>
-                </div>
-            </li>
-        </ul> -->
+        <ul id="list" class="cbp_tmtimeline">
+          <li id="list_item">
+              <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+              <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                  <h2 id="location_title" class='text-color-light'>Groningen</h2>
+              </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
+
+
 
 <script type="text/javascript">
 // Declare location array
@@ -104,16 +73,20 @@ function addNewLocation() {
   // Reset inputfield for another location
   document.getElementById("locationText").value = "";
 
-  // Create Li element
-  var node = document.createElement("LI");
+  // Create new list item
+  var listItem = document.getElementById("list_item");
 
-  // Create tekst for element
+  // Clone list item
+  var divClone = listItem.cloneNode(true); // the true is for deep cloning
+
+  // Append list item
+  document.getElementById('list').appendChild(divClone);
+
+  // Get tekst
   var textnode = document.createTextNode(location);
 
-  //Append element
-  node.appendChild(textnode);
-
-  document.getElementById("list").appendChild(node);
+  // get Location title element
+  document.getElementById("location_title").innerHTML = textnode.nodeValue;
 
 }
 
@@ -272,16 +245,12 @@ function init() {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    console.log('iets');
-    console.log(map);
+
 }
 
     // Get the ball rolling and trigger our init() on 'load'
     google.maps.event.addDomListener(window, 'load', init);
 </script>
 
-<div id="map-canvas">
-
-</div>
 
 @stop
