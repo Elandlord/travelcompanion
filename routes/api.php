@@ -19,7 +19,7 @@ Route::get('/user', function () {
 
 Route::resource('users', 'UsersController');
 Route::resource('users.routes', 'RoutesController');
-// Route::resource('users.routes.locations', 'LocationsController');
+Route::resource('users.hotels', 'HotelsController');
 Route::resource('routes.locations', 'LocationsController');
-Route::resource('routes.hotels', 'HotelsController');
+
 

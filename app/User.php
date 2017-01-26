@@ -33,4 +33,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Route');
     }
 
+    
+    public function hotels()
+    {
+        return $this->belongsToMany('App\Hotel');
+    }
+
 }
