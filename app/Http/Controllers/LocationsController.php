@@ -15,36 +15,6 @@ class LocationsController extends Controller
      * @param  int  $routeId
      * @return \Illuminate\Http\Response
      */
-    // public function index($userId, $routeId)
-    // {
-
-
-
-    //     $locations_routes_collection = Location_route::where('route_id', $routeId)->get();
-    //     $location_collection = array();
-
-
-    //     foreach ($locations_routes_collection as $location_route) {
-    //         array_push($location_collection, Location::find($location_route->location_id));
-    //     }
-
-    //     if (isset($locations_routes_collection) && isset($location_collection)) {
-    //         $json_response = array();
-
-    //         $i = 0;
-    //         foreach ($locations_routes_collection as $location_route) {
-    //             $json_response[$i] = $location_route['attributes'];
-    //             $json_response[$i]['locations'] =  $location_collection;
-    //             $i += 1;
-    //         }
-
-    //         // return response()->json();
-
-    //         return response(json_encode($json_response))->header('Content-type', 'application/json');
-    //     }
-    //     return response('', 404);
-    // }
-
     public function index(Route $route) 
     {
         $locations = $route->locations; 
