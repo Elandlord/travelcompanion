@@ -21,7 +21,9 @@ class Route extends Model
 
     public function locations()
     {
-        return $this->belongsToMany('App\Location');
+        return $this->belongsToMany('App\Location')
+            ->withPivot('arrival_date')
+            ->withPivot('departure_date');
     }
 
     public function user()
