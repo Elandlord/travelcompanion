@@ -11,8 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div id="maps_interface" class="bg-main space-inside-xs">
-  <div class="row">
     <div class="container">
+      <div class="row">
       <div class="col-lg-12">
         <div class="col-lg-3">
           <input class="form-control" id="start" type="text" placeholder="Vertrek" />
@@ -29,8 +29,8 @@
 </div>
 
 <div id="google_maps">
-  <div class="row">
-    <div class="container">
+  <div class="container-fluid">
+    <div class="row">
       <div class="col-lg-9">
         <div style="height: 500px;" id="map-canvas">
         </div>
@@ -41,10 +41,10 @@
 
         <ul id="list" class="cbp_tmtimeline">
           <li id="list_item">
-              <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-              <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                  <h2 id="location_title" class='text-color-light'>Groningen</h2>
-              </div>
+            <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+            <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+              <h2 id="location_title" class='text-color-light'>Meppel</h2>
+            </div>
           </li>
         </ul>
       </div>
@@ -52,15 +52,24 @@
   </div>
 </div>
 
-
-
 <script type="text/javascript">
 // Declare location array
 var locations = [];
 
+//Current date
+var date = new Date();
+var month = date.getUTCMonth() + 1;
+var day = date.getUTCDate();
+var year = date.getUTCFullYear();
+
+var newdate = day + "/" + month + "/" + year;
+
 // Button bindings
 var locationButton = document.getElementById("addNewLocation");
 locationButton.onclick = addNewLocation;
+
+//Show Date in Location list
+// document.getElementById('location_title').innerHTML=newdate;
 
 // Add new location to Maps
 function addNewLocation() {
@@ -72,21 +81,29 @@ function addNewLocation() {
 
   // Reset inputfield for another location
   document.getElementById("locationText").value = "";
+  //
+  // // Create new list item
+  // var listItem = document.getElementById("list_item");
+  //
+  // // Clone list item
+  // var divClone = listItem.cloneNode(true); // the true is for deep cloning
+  //
+  // // Append list item
+  // document.getElementById('list').appendChild(divClone);
+  //
+  // // Get tekst
+  // var textnode = document.createTextNode(location);
+  //
+  // // get Location title element
+  // document.getElementById("location_title").innerHTML = textnode.nodeValue;
 
-  // Create new list item
-  var listItem = document.getElementById("list_item");
+  var html = `<li id=\"list_item\">
+      <div class=\"cbp_tmicon\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i></div>
+      <div class=\"cbp_tmlabel bg-main-hover-lighten-xs transition-fast\">
+        <h2 id=\"location_title\" class=\"text-color-light\">Meppel</h2>
+      </div>
+    </li>`
 
-  // Clone list item
-  var divClone = listItem.cloneNode(true); // the true is for deep cloning
-
-  // Append list item
-  document.getElementById('list').appendChild(divClone);
-
-  // Get tekst
-  var textnode = document.createTextNode(location);
-
-  // get Location title element
-  document.getElementById("location_title").innerHTML = textnode.nodeValue;
 
 }
 
