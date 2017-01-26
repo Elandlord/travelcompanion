@@ -3101,7 +3101,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -3118,20 +3126,21 @@ var User = function (_Model) {
 		key: 'save',
 		value: function save() {
 			API.post('users/save', this.data(), this.success, function () {
-				// notify the user if something went wrong. 
+				// notify the user if something went wrong.
 			});
 		}
 	}, {
 		key: 'update',
 		value: function update() {
 			API.post('users/update/' + this.id, this.data(), this.success, function () {
-				// notify the user if something went wrong. 
+				// notify the user if something went wrong.
 			});
 		}
 	}, {
 		key: 'delete',
 		value: function _delete() {
 			var _this2 = this;
+<<<<<<< HEAD
 
 			var confirm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 			var success = arguments[1];
@@ -3151,6 +3160,27 @@ var User = function (_Model) {
 		value: function _with(relation, factory) {
 			var _this3 = this;
 
+=======
+
+			var confirm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+			var success = arguments[1];
+
+			if (confirm == true) {
+				Notifier.askConfirmation(function () {
+					API.delete('users/remove', _this2.id);
+					success();
+				});
+			} else {
+				API.delete('users/remove', this.id);
+				success();
+			}
+		}
+	}, {
+		key: 'with',
+		value: function _with(relation, factory) {
+			var _this3 = this;
+
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 			API.get('api/users/' + this.id + '/' + relation, function (relationData) {
 				_this3[relation] = factory(relationData);
 			});
@@ -4461,6 +4491,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 
 
 
@@ -4480,7 +4520,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
 
-        // ---- setters and getters 
+        // ---- setters and getters
 
 
         // ---- component functions
@@ -4757,7 +4797,7 @@ window.API = new (function () {
  */
 // Global Exception helper class
 __webpack_require__(44);
-// Helper class 
+// Helper class
 __webpack_require__(46);
 // Global Api Helper class
 __webpack_require__(39);
@@ -4952,7 +4992,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Event dispatcher class, for emitting and listening for events. 
+ * Event dispatcher class, for emitting and listening for events.
  * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
  * @type {Event}
  */
@@ -4966,7 +5006,7 @@ window.Event = new (function () {
    /**
     * Method which can be used to fire events.
     * @param  {[event]} the name of the event
-    * @param  {[data]} data to send with the event 
+    * @param  {[data]} data to send with the event
     * @return {[void]}
     */
 
@@ -5167,7 +5207,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * A helper class. All components can use this class. 
+ * A helper class. All components can use this class.
  * Provides one accespoint to common used functions
  * @type {Helper}
  */
@@ -5177,7 +5217,7 @@ window.Helper = new (function () {
    }
    /**
     * Capitalizes strings
-    * @param  {[string]} 
+    * @param  {[string]}
     * @return {[void]}
     */
 
@@ -5346,7 +5386,7 @@ window.Messager = new (function () {
       };
    }
    /**
-    * messages the user 
+    * messages the user
     * @param  {[type]} type of message
     * @param  {[message]}
     * @return {[void]}
@@ -5418,9 +5458,9 @@ window.Notifier = new (function () {
       //      {});
 
       /**
-       * Notify the user 
+       * Notify the user
        * @param  {[type]} type of message
-       * @param  {[message]} 
+       * @param  {[message]}
        * @return {[void]}
        */
 
@@ -5476,6 +5516,39 @@ var Location = function (_Model) {
 /* harmony default export */ __webpack_exports__["a"] = Location;
 
 /***/ }),
+<<<<<<< HEAD
+/* 49 */
+=======
+/* 50 */
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(1);
+<<<<<<< HEAD
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Location = function (_Model) {
+  _inherits(Location, _Model);
+
+  function Location() {
+    _classCallCheck(this, Location);
+
+    return _possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).apply(this, arguments));
+  }
+
+  return Location;
+}(__WEBPACK_IMPORTED_MODULE_0__Model__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = Location;
+
+/***/ }),
 /* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5483,6 +5556,10 @@ var Location = function (_Model) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Model__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+=======
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -5570,7 +5647,7 @@ var Weather = function (_Model) {
 				return "Woosh! It's cold outside. Better wear a scarf and gloves.";
 			} else if (this.temperature() > 5 && this.temperature() <= 10) {
 				return "It'll be chilly tonight. Take your coat!";
-			} else if (this.temperature() > 11 && this.temperature() < 20) {
+			} else if (this.temperature() > 10 && this.temperature() < 20) {
 				return "It's pleasant outside, although it will cool down. Wear a vest to be sure!";
 			} else {
 				return "It's freaking hot! You better wear sunscreen.";
@@ -5685,7 +5762,11 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(31)
 
 /* template */
+<<<<<<< HEAD
 var __vue_template__ = __webpack_require__(68)
+=======
+var __vue_template__ = __webpack_require__(63)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5729,7 +5810,11 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(32)
 
 /* template */
+<<<<<<< HEAD
 var __vue_template__ = __webpack_require__(65)
+=======
+var __vue_template__ = __webpack_require__(62)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5773,7 +5858,11 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(33)
 
 /* template */
+<<<<<<< HEAD
 var __vue_template__ = __webpack_require__(64)
+=======
+var __vue_template__ = __webpack_require__(68)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5817,7 +5906,11 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(34)
 
 /* template */
+<<<<<<< HEAD
 var __vue_template__ = __webpack_require__(66)
+=======
+var __vue_template__ = __webpack_require__(69)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5861,7 +5954,11 @@ var __vue_styles__ = {}
 __vue_exports__ = __webpack_require__(35)
 
 /* template */
+<<<<<<< HEAD
 var __vue_template__ = __webpack_require__(63)
+=======
+var __vue_template__ = __webpack_require__(64)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5903,9 +6000,59 @@ var __vue_styles__ = {}
 
 /* script */
 __vue_exports__ = __webpack_require__(36)
+<<<<<<< HEAD
 
 /* template */
 var __vue_template__ = __webpack_require__(62)
+=======
+
+/* template */
+var __vue_template__ = __webpack_require__(65)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\travelcompanion\\resources\\assets\\js\\views\\Mytrip.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8c6b4200", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-8c6b4200", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional) {console.error("[vue-loader] Mytrip.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* script */
+__vue_exports__ = __webpack_require__(37)
+
+/* template */
+var __vue_template__ = __webpack_require__(66)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5939,17 +6086,28 @@ module.exports = __vue_exports__
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 60 */
+=======
+/* 61 */
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
+<<<<<<< HEAD
 __vue_exports__ = __webpack_require__(37)
 
 /* template */
 var __vue_template__ = __webpack_require__(69)
+=======
+__vue_exports__ = __webpack_require__(38)
+
+/* template */
+var __vue_template__ = __webpack_require__(67)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -5983,6 +6141,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6306,6 +6465,9 @@ if (false) {
 
 /***/ }),
 /* 65 */
+=======
+/* 62 */
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -6459,8 +6621,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.user.created_at)
     }
+<<<<<<< HEAD
   })]) : _vm._e()])])])])
 },staticRenderFns: []}
+=======
+  })]) : _vm._e()])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "fixed bg-main space-inside-sm space-inside-sides-md text-center"
+  }, [_c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Maps")]), _vm._v(" "), _c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Hotels")]), _vm._v(" "), _c('a', {
+    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
+    attrs: {
+      "href": "#",
+      "id": "maps"
+    }
+  }, [_vm._v("Temperature")])])
+}]}
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -6470,7 +6659,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 68 */
+=======
+/* 63 */
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -6527,12 +6720,221 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
+<<<<<<< HEAD
      require("vue-hot-reload-api").rerender("data-v-69d0a50e", module.exports)
+=======
+     require("vue-hot-reload-api").rerender("data-v-52f5e3bd", module.exports)
   }
 }
 
 /***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container space-outside-md"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2 all-col-centered space-outside-md text-center"
+  }, [_c('img', {
+    staticClass: "center-block",
+    staticStyle: {
+      "width": "300px"
+    },
+    attrs: {
+      "src": "images/logo-travel.png"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading bg-main text-color-light"
+  }, [_vm._v("Login")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form",
+      "method": "POST",
+      "action": "login"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-4 control-label",
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("E-Mail Address")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "id": "email",
+      "type": "email",
+      "name": "email",
+      "required": "",
+      "autofocus": ""
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-4 control-label",
+    attrs: {
+      "for": "password"
+    }
+  }, [_vm._v("Password")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "id": "password",
+      "type": "password",
+      "name": "password",
+      "required": ""
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "col-md-6 col-md-offset-4"
+  }, [_c('div', {
+    staticClass: "checkbox"
+  }, [_c('label', [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "remember"
+    }
+  }), _vm._v(" Remember Me\r\n                                    ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-4"
+  }, [_c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\r\n                                    Login\r\n                                ")])])])])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-727e958a", module.exports)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
+  }
+}
+
+/***/ }),
+<<<<<<< HEAD
 /* 69 */
+=======
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row animated fadeInLeft wow"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [(_vm.user != null) ? _c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
+    staticStyle: {
+      "display": "inline"
+    }
+  }, [_vm._v("Trip overview from: ")]), _c('h2', {
+    staticClass: "text-thin",
+    staticStyle: {
+      "display": "inline"
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  })]) : _vm._e(), _vm._v(" "), (_vm.user != null) ? _c('ul', {
+    staticClass: "list-group space-outside-up-md animated fadeInLeft wow",
+    attrs: {
+      "id": "routeslist"
+    }
+  }, _vm._l((_vm.user.routes), function(route) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('h3', [_vm._v(_vm._s(route.name))]), _vm._v("\n                     from " + _vm._s(route.departure_date) + "\n                     to " + _vm._s(route.return_date) + "\n                    \n\n                    "), _c('button', {
+      staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md",
+      on: {
+        "click": function($event) {
+          _vm.tripOverview(route)
+        }
+      }
+    }, [_vm._v("View")])])
+  })) : _vm._e(), _vm._v(" "), (_vm.locations != null) ? _c('div', {
+    staticClass: "animated fadeInLeft wow"
+  }, [_c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md",
+    on: {
+      "click": function($event) {
+        _vm.initialSettings()
+      }
+    }
+  }, [_vm._v("Go back")]), _vm._v(" "), _c('ul', {
+    staticClass: "cbp_tmtimeline",
+    attrs: {
+      "id": "locationslist"
+    }
+  }, [_vm._l((_vm.locations), function(location) {
+    return _c('li', [_c('time', {
+      staticClass: "cbp_tmtime"
+    }, [_c('span', [_vm._v("from " + _vm._s(location.pivot.arrival_date) + " to " + _vm._s(location.pivot.departure_date))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(location.name))])]), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
+  }), _vm._v(" "), _vm._m(2)], 2)]) : _vm._e()])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("HOTEL HIER INLADEN")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("ANDERS BOEKEN")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span'), _vm._v(" "), _c('span', [_vm._v("End of trip")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_vm._v(":(")]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8c6b4200", module.exports)
+  }
+}
+
+/***/ }),
+/* 66 */
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -6647,13 +7049,179 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
+<<<<<<< HEAD
   }, [_vm._v("\n                                    Register\n                                ")])])])])])])])])])
+=======
+  }, [_vm._v("\r\n                                    Register\r\n                                ")])])])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d1e5c1dc", module.exports)
+  }
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row animated fadeInLeft wow"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("User credentials")]), _vm._v(" "), (_vm.user != null) ? _c('div', {
+    staticClass: "panel-body text-center"
+  }, [_c('h2', {
+    staticClass: "space-outside-md",
+    domProps: {
+      "textContent": _vm._s(_vm.user.name)
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "img-responsive circular",
+    staticStyle: {
+      "margin": "0 auto"
+    },
+    attrs: {
+      "src": _vm.user.photo_link
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "font-md space-outside-sm",
+    domProps: {
+      "textContent": _vm._s(_vm.user.email)
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "font-md",
+    domProps: {
+      "textContent": _vm._s(_vm.user.created_at)
+    }
+  })]) : _vm._e()])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d817688c", module.exports)
+  }
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('h1', {
+    staticClass: "text-center"
+  }, [_vm._v("Trip: Eastern Europe")]), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md"
+  }, [_vm._v("Go back")]), _vm._v(" "), _c('ul', {
+    staticClass: "cbp_tmtimeline"
+  }, [_c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 21/1/17 to 24/1/17")]), _vm._v(" "), _c('span', [_vm._v("Groningen")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Villa Torlania")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Groningen")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 24/1/17 to 26/1/17")]), _vm._v(" "), _c('span', [_vm._v("Berlin")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Boiler Room")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Berlin")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("from 26/1/17 to 29/1/17")]), _vm._v(" "), _c('span', [_vm._v("Warschau")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Hotel Spierdalaj Kurwa")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Generic Road 17, DD0123 Warschau")])])]), _vm._v(" "), _c('li', [_c('time', {
+    staticClass: "cbp_tmtime"
+  }, [_c('span', [_vm._v("30/1/17")]), _vm._v(" "), _c('span', [_vm._v("Return date")])]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmicon"
+  }, [_c('i', {
+    staticClass: "fa fa-home",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "cbp_tmlabel bg-main-hover-lighten-xs transition-fast"
+  }, [_c('h2', {
+    staticClass: "text-color-light"
+  }, [_vm._v("Return to Groningen")]), _vm._v(" "), _c('p', {
+    staticClass: "text-color-light"
+  })])])])])])])
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+<<<<<<< HEAD
      require("vue-hot-reload-api").rerender("data-v-751205e7", module.exports)
+=======
+     require("vue-hot-reload-api").rerender("data-v-edc1d0a4", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('section', {
+    staticClass: "space-outside-md"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('search-results')], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-f248aa64", module.exports)
+>>>>>>> 89d200cce7acba62a7fffd38207248c81536772f
   }
 }
 

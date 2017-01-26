@@ -14,11 +14,6 @@ class Route extends Model
         'return_date',
     ];
 
-    public function hotels()
-    {
-        return $this->belongsToMany('App\Hotel');
-    }
-
     public function locations()
     {
         return $this->belongsToMany('App\Location')

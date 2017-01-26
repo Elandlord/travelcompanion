@@ -82,27 +82,21 @@ function addNewLocation() {
   // Reset inputfield for another location
   document.getElementById("locationText").value = "";
   //
-  // // Create new list item
-  // var listItem = document.getElementById("list_item");
-  //
-  // // Clone list item
-  // var divClone = listItem.cloneNode(true); // the true is for deep cloning
-  //
-  // // Append list item
-  // document.getElementById('list').appendChild(divClone);
-  //
-  // // Get tekst
-  // var textnode = document.createTextNode(location);
-  //
-  // // get Location title element
-  // document.getElementById("location_title").innerHTML = textnode.nodeValue;
+  // Create new list item
+  var listItem = document.getElementById("list_item");
 
-  var html = `<li id=\"list_item\">
-      <div class=\"cbp_tmicon\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i></div>
-      <div class=\"cbp_tmlabel bg-main-hover-lighten-xs transition-fast\">
-        <h2 id=\"location_title\" class=\"text-color-light\">Meppel</h2>
-      </div>
-    </li>`
+  // Clone list item
+  var divClone = listItem.cloneNode(true); // the true is for deep cloning
+
+  // Append list item
+  document.getElementById('list').appendChild(divClone);
+
+  // Get tekst
+  var textnode = document.createTextNode(location);
+
+  // get Location title element
+  document.getElementById("location_title").innerHTML = textnode.nodeValue;
+
 
 
 }
