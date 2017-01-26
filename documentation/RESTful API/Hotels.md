@@ -2,7 +2,7 @@
 
 ###URL:
 
-  /users/{id}/routes/{id}/hotels
+  /users/{id}/hotels
 
 ###Method:
 
@@ -15,7 +15,7 @@
     {
         "city_name": "Amsterdam",
         "country": "Netherlands",
-        "route_id": 1,
+        "users_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
         "price": "58",
@@ -36,7 +36,7 @@
 `PUT/PATCH`
 
     {
-        "route_id": 1,
+        "users_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
         "price": "58",
@@ -57,7 +57,7 @@
 
 ###Success Response:
   
-`GET /users/{id}/routes/{id}/hotels`
+`GET /users/{id}/hotels`
 
 **Code:** 200<br>
 **Content:**
@@ -67,7 +67,7 @@
 [
     {
         "id": 1,
-        "route_id": 1,
+        "users_id": 1,
         "hotel_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
@@ -92,7 +92,7 @@
 ]
 ```
 
-`GET /users/{id}/routes/{id}/hotels/{id}`
+`GET /users/{id}/hotels/{id}`
 
 **Code:** 200<br>
 **Content:**
@@ -101,7 +101,7 @@
 ```
 {
     "id": 1,
-    "route_id": 1,
+    "users_id": 1,
     "hotel_id": 1,
     "arrival_date": "1989-06-05",
     "departure_date": "1984-08-19",
@@ -123,36 +123,36 @@
 }
 ```
 
-`POST /users/{id}/routes/{id}/hotels`
+`POST /users/{id}/hotels`
 
 **Code:** 201
 
-`PUT/PATCH /users/{id}/routes/{id}/hotels/{id}`
+`PUT/PATCH /users/{id}/hotels/{id}`
 
 **Code:** 200
 
-`DELETE /users/{id}/routes/{id}/hotels/{id}`
+`DELETE /users/{id}/hotels/{id}`
 
 **Code:** 200
  
 ###Error Response:
 
-`GET /users/{id}/routes/{id}/hotels`
+`GET /users/{id}/hotels`
 
 **Code:** 404
 
-`GET /users/{id}/routes/{id}/hotels/{id}`
+`GET /users/{id}/hotels/{id}`
 
 **Code:** 404
 
-`POST /users/{id}/routes/{id}/hotels`
+`POST /users/{id}/hotels`
 
 **Code:** 404
 
-`PUT/PATCH /users/{id}/routes/{id}/hotels/{id}`
+`PUT/PATCH /users/{id}/hotels/{id}`
 
 **Code:** 404
 
-`DELETE /users/{id}/routes/{id}/hotels/{id}`
+`DELETE /users/{id}/hotels/{id}`
 
 **Code:** 404
