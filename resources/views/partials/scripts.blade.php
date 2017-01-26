@@ -113,11 +113,11 @@
 
         console.log(post);
 
-//        $.post( "url", hotel , function( data, status ) {
-//            if (status){
-//
-//            }
-//        });
+        $.post( "url", post , function( data, statusText , xhr) {
+            if (xhr.status == 404){
+                alert("booking failed");
+            }
+        });
     }
 
 </script>
