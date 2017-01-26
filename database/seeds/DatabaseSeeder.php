@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
         factory(Hotel::class, 5)->create();
         factory(Route::class, 1)->create();
 
-        DB::table('hotel_route')->insert([
-            'route_id' => 1,
+        DB::table('hotel_user')->insert([
+            'user_id' => 1,
             'hotel_id' => 1,
             'arrival_date' => $faker->date(),
             'departure_date' => $faker->date(),
@@ -32,8 +32,8 @@ class DatabaseSeeder extends Seeder
             'paid' => true,
             'bank_account_number' => $faker->creditCardNumber()
         ]);
-        DB::table('hotel_route')->insert([
-            'route_id' => 1,
+        DB::table('hotel_user')->insert([
+            'user_id' => 1,
             'hotel_id' => 1,
             'arrival_date' => $faker->date(),
             'departure_date' => $faker->date(),
@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
             'paid' => true,
             'bank_account_number' => $faker->creditCardNumber()
         ]);
-        DB::table('hotel_route')->insert([
-            'route_id' => 1,
+        DB::table('hotel_user')->insert([
+            'user_id' => 1,
             'hotel_id' => 2,
             'arrival_date' => $faker->date(),
             'departure_date' => $faker->date(),
@@ -52,8 +52,8 @@ class DatabaseSeeder extends Seeder
             'paid' => true,
             'bank_account_number' => $faker->creditCardNumber()
         ]);
-        DB::table('hotel_route')->insert([
-            'route_id' => 2,
+        DB::table('hotel_user')->insert([
+            'user_id' => 1,
             'hotel_id' => 3,
             'arrival_date' => $faker->date(),
             'departure_date' => $faker->date(),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Route;
+use App\User;
 use Illuminate\Http\Request;
 
 class RoutesController extends Controller
@@ -12,9 +13,9 @@ class RoutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index(User $user)
     {
-        return Route::where('user_id', $userId)->get();
+        return Route::where('user_id', $user->id)->get();
     }
 
     /**

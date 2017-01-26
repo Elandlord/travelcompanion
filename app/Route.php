@@ -14,14 +14,11 @@ class Route extends Model
         'return_date',
     ];
 
-    public function hotels()
-    {
-        return $this->belongsToMany('App\Hotel');
-    }
-
     public function locations()
     {
-        return $this->belongsToMany('App\Location');
+        return $this->belongsToMany('App\Location')
+            ->withPivot('arrival_date')
+            ->withPivot('departure_date');
     }
 
     public function user()

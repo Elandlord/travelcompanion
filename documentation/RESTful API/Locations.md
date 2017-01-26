@@ -2,7 +2,7 @@
 
 ###URL:
 
-  /users/{id}/routes/{id}/locations
+  /routes/{id}/locations
 
 ###Method:
 
@@ -40,7 +40,7 @@
 
 ###Success Response:
   
-`GET /users/{id}/routes/{id}/locations`
+`GET /routes/{id}/locations`
 
 **Code:** 200<br>
 **Content:**
@@ -64,7 +64,7 @@
 ]
 ```
 
-`GET /users/{id}/routes/{id}/locations`
+`GET /routes/{id}/locations`
 
 **Code:** 200<br>
 **Content:**
@@ -85,36 +85,36 @@
 }
 ```
 
-`POST /users/{id}/routes/{id}/locations`
+`POST /routes/{id}/locations`
 
 **Code:** 201
 
-`PUT/PATCH /users/{id}/routes/{id}/locations/{id}`
+`PUT/PATCH /routes/{id}/locations/{id}`
 
 **Code:** 200
 
-`DELETE /users/{id}/routes/{id}/locations/{id}`
+`DELETE /routes/{id}/locations/{id}`
 
 **Code:** 200
  
 ###Error Response:
 
-`GET /users/{id}/routes/{id}/locations`
+`GET /routes/{id}/locations`
 
 **Code:** 404
 
-`GET /users/{id}/routes/{id}/locations/{id}`
+`GET /routes/{id}/locations/{id}`
 
 **Code:** 404
 
-`POST /users/{id}/routes/{id}/locations`
+`POST /routes/{id}/locations`
 
 **Code:** 404
 
-`PUT/PATCH /users/{id}/routes/{id}/locations/{id}`
+`PUT/PATCH /routes/{id}/locations/{id}`
 
 **Code:** 404
 
-`DELETE /users/{id}/routes/{id}/locations/{id}`
+`DELETE /routes/{id}/locations/{id}`
 
 **Code:** 404

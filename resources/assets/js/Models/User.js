@@ -48,6 +48,14 @@ class User extends Model{
 	}
 
 
+	with(relation, factory) {
+		API.get('api/users/' + this.id + '/' + relation, (relationData) => {
+			this[relation] = factory(relationData); 
+		});
+
+	}
+
+
 }
 
 export default User;
