@@ -17,6 +17,7 @@
                   </li>
                 </ul>
 
+
                 <div v-if="locations != null" class="animated fadeInLeft wow">
 
                     <button @click="initialSettings()" class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-down-md space-outside-sides-md">Go back</button>
@@ -31,10 +32,16 @@
                                 <p class='text-color-light'>ANDERS BOEKEN</p>
                             </div>
                         </li>
-
+                        <li>
+                        <time class="cbp_tmtime"><span></span> <span>End of trip</span></time>
+                            <div class="cbp_tmicon">:(</div>
+                            <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                                <h2 class='text-color-light'></h2>
+                                <p class='text-color-light'></p>
+                            </div>
+                        </li>
                         
                     </ul>
-
                 </div>
             </div>
         </div>
