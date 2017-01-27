@@ -17,8 +17,8 @@ $(document).on('click','.vue-nav',function(e) {
 
 <div style="display: none" id="results"></div>
 <!-- <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script> -->
-<script type="text/javascript">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>
+<script type="text/javascript"> -->
 
     function searchHotelApi() {
         var searchParameters = $("#searchbar").val();

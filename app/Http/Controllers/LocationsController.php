@@ -15,9 +15,9 @@ class LocationsController extends Controller
      * @param  int  $routeId
      * @return \Illuminate\Http\Response
      */
-    public function index(Route $route) 
+    public function index(Route $route)
     {
-        $locations = $route->locations; 
+        $locations = $route->locations;
         return response()->json($locations, 200);
     }
 
