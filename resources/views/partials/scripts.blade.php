@@ -90,34 +90,35 @@
             roadname += " " + splitRoadname[j];
         }
 
-        // seperate the cityname fromm the zipcode and puzzle the zipcode back together
-        var zipCode = "";
-        var splitZipCode = adressArray[1].split(' ');
-        for (var k = 0; k < (splitZipCode.length - 1); k++){
-            zipCode += " " + splitZipCode[k];
-        }
-
-        //the last index of the zipcode is the cityname
-        var cityName = splitZipCode[splitZipCode.length -1];
-
-        //the last index of the entire adress array is the countryname
-        var countryName = adressArray[adressArray.length -1];
-
-        post['hotel'] = {};
-        post['hotel']['name'] = hotelname;
-        post['hotel']['road_name'] = roadname.trim();
-        post['hotel']['house_number'] = houseNumber.trim();
-        post['hotel']['zip_code'] = zipCode.trim();
-        post['hotel']['city_name'] = cityName.trim();
-        post['hotel']['country_name'] = countryName.trim();
-
-        console.log(post);
-
-        $.post( "url", post , function( data, statusText , xhr) {
-            if (xhr.status == 404){
-                alert("booking failed");
+            // seperate the cityname fromm the zipcode and puzzle the zipcode back together
+            var zipCode = "";
+            var splitZipCode = adressArray[1].split(' ');
+            for (var k = 0; k < (splitZipCode.length - 1); k++) {
+                zipCode += " " + splitZipCode[k];
             }
-        });
+
+            //the last index of the zipcode is the cityname
+            var cityName = splitZipCode[splitZipCode.length - 1];
+
+            //the last index of the entire adress array is the countryname
+            var countryName = adressArray[adressArray.length - 1];
+
+            post['hotel'] = {};
+            post['hotel']['name'] = hotelname;
+            post['hotel']['road_name'] = roadname.trim();
+            post['hotel']['house_number'] = houseNumber.trim();
+            post['hotel']['zip_code'] = zipCode.trim();
+            post['hotel']['city_name'] = cityName.trim();
+            post['hotel']['country_name'] = countryName.trim();
+
+            console.log(post);
+
+            $.post("/api/users/{userid}/hotels", post, function (data, statusText, xhr) {
+                if (xhr.status == 404) {
+                    alert("booking failed");
+                }
+            });
+        }
     }
 
 </script>

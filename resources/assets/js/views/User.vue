@@ -3,7 +3,7 @@
         <div class="row animated fadeInLeft wow">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Profieloverzicht</div>
+                    <div class="panel-heading">User credentials</div>
 
                     <div class="panel-body text-center" v-if="user != null">
                         <h2 v-text="user.name" class='space-outside-md'> </h2>
@@ -30,6 +30,8 @@ import User from '../Models/User';
 
             mounted() {
                 User.getAuthenticated((user) => this.user = user);
+
+
 
             },
 

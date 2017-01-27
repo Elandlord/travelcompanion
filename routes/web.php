@@ -27,3 +27,4 @@ Route::get('get-profile', 'ProfileController@show');
 Route::get('user/authenticated', function() {
 	return response()->json(Auth::user(), 200);
 });
+

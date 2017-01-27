@@ -1,9 +1,6 @@
 class Model {
 	constructor(data) {
-		this.originalData = {};
-		this.all = {};
 
-		this.originalData = data;
 		for(let field in data) {
 			this[field] = data[field];
 		}
@@ -32,8 +29,7 @@ class Model {
 	data() {
  		let data = Object.assign({}, this);
 
- 		delete data.originalData;
- 		delete data.all;
+
 
  		return data;
 	}

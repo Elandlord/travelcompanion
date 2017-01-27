@@ -20,7 +20,6 @@
                 </div>                  
             </section> -->
 
-            
                 <search-results>
 
                 </search-results>

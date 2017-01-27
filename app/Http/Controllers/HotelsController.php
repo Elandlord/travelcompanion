@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hotel;
 use App\Hotel_route;
+use App\Location;
 use App\User;
 use App\Route;
 use Illuminate\Http\Request;
@@ -56,8 +57,14 @@ class HotelsController extends Controller
      */
     public function store(Request $request)
     {
+        $hotel = null;
+        $location = null;
+        if (isset($request['city_name']) && isset($request['country'])) {
+            $location = Location::firstOrCreate(['name' => $request['city_name'],
+                                                'country' => $request['country']]);
+        }
+
         if (isset($request['route_id']) &&
-            isset($request['hotel_id']) &&
             isset($request['arrival_date']) &&
             isset($request['departure_date']) &&
             isset($request['price']) &&
@@ -66,7 +73,6 @@ class HotelsController extends Controller
             isset($request['bank_account_number'])) {
 
             if (isset($request['hotel']) &&
-                isset($request['hotel']['location_id']) &&
                 isset($request['hotel']['description']) &&
                 isset($request['hotel']['name']) &&
                 isset($request['hotel']['road_name']) &&
@@ -74,8 +80,8 @@ class HotelsController extends Controller
                 isset($request['hotel']['phone_number']) &&
                 isset($request['hotel']['email_address']) &&
                 isset($request['hotel']['zip_code'])) {
-                Hotel::create([
-                    'location_id' => $request['hotel']['location_id'],
+                $hotel = Hotel::create([
+                    'location_id' => $location->id,
                     'description' => $request['hotel']['description'],
                     'name' => $request['hotel']['name'],
                     'road_name' => $request['hotel']['road_name'],
@@ -86,9 +92,13 @@ class HotelsController extends Controller
                 ]);
             }
 
+            if (!isset($hotel)) {
+                return response('', 404);
+            }
+
             Hotel_route::create([
                 'route_id' => $request['route_id'],
-                'hotel_id' => $request['hotel_id'],
+                'hotel_id' => $hotel->id,
                 'arrival_date' => $request['arrival_date'],
                 'departure_date' => $request['departure_date'],
                 'price' => $request['price'],
