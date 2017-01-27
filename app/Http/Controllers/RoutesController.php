@@ -59,10 +59,8 @@ class RoutesController extends Controller
 
           $route->save();
         }
-        
-        // Test return
-        // return \Response::json(json_encode($marc));
     }
+
 
     /**
      * Display the specified resource.

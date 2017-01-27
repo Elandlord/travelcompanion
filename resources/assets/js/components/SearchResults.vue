@@ -1,6 +1,7 @@
 <template>
 	<div>
 
+
     <div class='container text-center space-outside-md' v-if="loading">
         <i class='fa fa-cog fa-spin fa-5x fa-fw text-color-accent'></i>
         <p class='text-color-accent space-outside-md font-md '>Searching</p>
@@ -37,11 +38,12 @@
             </div>
 
         </div>
-
+    </div>
         <hr class="hr-orange">
 
         <div id="hotel-results"></div>
-    </div>
+
+</div>
 
 
 </template>
