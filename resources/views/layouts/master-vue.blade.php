@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width">
         <title>@yield('title') || TravelCompanion</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false&libraries=places"></script>
 
         @include('partials.styles')
 
@@ -25,11 +26,15 @@
         <div id="app">
             @include ('layouts.header-vue')
 
+            <map-planner></map-planner>
+
             <section class="section">
                 <div class="container">
                     <router-view></router-view>
                 </div>
             </section>
+
+
 
   @yield('content')
 
