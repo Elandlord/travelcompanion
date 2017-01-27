@@ -4254,6 +4254,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -4262,7 +4270,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchResults: "",
             loading: false,
             weather: null,
-            foundResults: false
+            foundResults: false,
+            weatherArray: []
         };
     },
     mounted: function mounted() {
@@ -4277,7 +4286,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Event.listen('weatherFound', function (weather) {
             _this.loading = false;
-            _this.weather = weather;
+            _this.weatherArray.push(weather);
+            _this.weather = _this.weatherArray;
             _this.foundResults = true;
         });
 
@@ -4378,7 +4388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             Event.fire('searching');
             var uniqueLocations = this.squash(locations);
             for (var j = 0; j < uniqueLocations.length; j++) {
-                __WEBPACK_IMPORTED_MODULE_0__Models_Weather__["a" /* default */].search(uniqueLocations[i], function (weather) {
+                __WEBPACK_IMPORTED_MODULE_0__Models_Weather__["a" /* default */].search(uniqueLocations[j], function (weather) {
                     return Event.fire('weatherFound', weather);
                 });
             }
@@ -6255,6 +6265,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "onclick": "generateRequests();",
       "type": "button",
       "name": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.searchWeather()
+      }
     }
   }, [_vm._v("Toon trip")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-block bg-accent text-color-light hover-darken-accent transition-normal",
@@ -6868,54 +6883,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
   }), _vm._v(" "), _c('p', {
     staticClass: "text-color-accent space-outside-md font-md "
-  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.foundResults) ? _c('div', {
-    staticClass: "jumbotron animated fadeInLeft wow"
-  }, [_c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "right"
-  }, [_c('p', {
-    staticStyle: {
-      "display": "inline"
-    },
-    domProps: {
-      "textContent": _vm._s(_vm.weather.temperature())
-    }
-  }), _vm._v("\n\n                C\n\n                "), _c('img', {
-    staticStyle: {
-      "display": "inline",
-      "width": "70px"
-    },
-    attrs: {
-      "src": _vm.weather.icon()
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "left"
-  }, [_c('h2', {
-    staticStyle: {
-      "display": "inline"
-    },
-    domProps: {
-      "textContent": _vm._s(_vm.weather.cityName())
-    }
-  }), _vm._v(", "), _c('h2', {
-    staticStyle: {
-      "display": "inline"
-    },
-    domProps: {
-      "textContent": _vm._s(_vm.weather.country())
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "text-color-accent space-outside-xs",
-    domProps: {
-      "textContent": _vm._s(_vm.weather.weatherType())
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "space-outside-xs",
-    domProps: {
-      "textContent": _vm._s(_vm.weather.dressingAdvice())
-    }
-  })])])]) : _vm._e(), _vm._v(" "), _c('hr', {
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.foundResults) ? _c('ul', _vm._l((_vm.weather), function(temp) {
+    return _c('li', [(_vm.foundResults) ? _c('div', {
+      staticClass: "jumbotron animated fadeInLeft wow"
+    }, [_c('div', {
+      staticClass: "container"
+    }, [_c('div', {
+      staticClass: "right"
+    }, [_c('p', {
+      staticStyle: {
+        "display": "inline"
+      },
+      domProps: {
+        "textContent": _vm._s(temp.temperature())
+      }
+    }), _vm._v("\n\n                            C\n\n                            "), _c('img', {
+      staticStyle: {
+        "display": "inline",
+        "width": "70px"
+      },
+      attrs: {
+        "src": temp.icon()
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "left"
+    }, [_c('h2', {
+      staticStyle: {
+        "display": "inline"
+      },
+      domProps: {
+        "textContent": _vm._s(temp.cityName())
+      }
+    }), _vm._v(", "), _c('h2', {
+      staticStyle: {
+        "display": "inline"
+      },
+      domProps: {
+        "textContent": _vm._s(temp.country())
+      }
+    }), _vm._v(" "), _c('p', {
+      staticClass: "text-color-accent space-outside-xs",
+      domProps: {
+        "textContent": _vm._s(temp.weatherType())
+      }
+    }), _vm._v(" "), _c('p', {
+      staticClass: "space-outside-xs",
+      domProps: {
+        "textContent": _vm._s(temp.dressingAdvice())
+      }
+    })])])]) : _vm._e()])
+  })) : _vm._e(), _vm._v(" "), _c('hr', {
     staticClass: "hr-orange"
   }), _vm._v(" "), _c('div', {
     attrs: {

@@ -16,29 +16,37 @@
 
     </div>
 
-    <div class="jumbotron animated fadeInLeft wow" v-if="foundResults">
-        <div class="container">
 
-            <div class='right'>
-                <p  v-text="weather.temperature()" style="display: inline;"></p>
 
-                C
+        <ul v-if="foundResults">
+            <li v-for="temp in weather">
+                <div class="jumbotron animated fadeInLeft wow" v-if="foundResults">
+                    <div class="container">
 
-                <img :src="weather.icon()" style="display: inline; width: 70px;" />
-            </div>
+                        <div class='right'>
+                            <p  v-text="temp.temperature()" style="display: inline;"></p>
 
-            <div class='left'>
+                            C
 
-                <h2 v-text="weather.cityName()" style="display: inline;"></h2>, <h2 v-text="weather.country()" style="display: inline;"></h2>
+                            <img :src="temp.icon()" style="display: inline; width: 70px;" />
+                        </div>
 
-                <p class='text-color-accent space-outside-xs' v-text="weather.weatherType()"></p>
+                        <div class='left'>
 
-                <p class='space-outside-xs' v-text="weather.dressingAdvice()"></p>
+                            <h2 v-text="temp.cityName()" style="display: inline;"></h2>, <h2 v-text="temp.country()" style="display: inline;"></h2>
 
-            </div>
+                            <p class='text-color-accent space-outside-xs' v-text="temp.weatherType()"></p>
 
-        </div>
-    </div>
+                            <p class='space-outside-xs' v-text="temp.dressingAdvice()"></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
         <hr class="hr-orange">
 
         <div id="hotel-results"></div>
@@ -58,6 +66,7 @@
                 loading: false,
                 weather: null,
                 foundResults: false,
+                weatherArray: [],
             }
         },
 
@@ -74,7 +83,8 @@
 
             Event.listen('weatherFound', (weather) => {
                 this.loading = false;
-                this.weather = weather;
+                this.weatherArray.push(weather);
+                this.weather = this.weatherArray;
                 this.foundResults = true;
             });
 

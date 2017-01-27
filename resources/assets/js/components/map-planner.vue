@@ -10,7 +10,7 @@
                         <input type="date" name="date" class="form-control" onchange="setMinDate()" required>
                         <input type="date" name="date" class="form-control" min="" required>
                         <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" @click="addToLocations()" id="addNewLocation" onclick="addNewLocation();">Voeg Bestemming toe</button>
-                        <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="generateRequests();"type="button" name="button">Toon trip</button>
+                        <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" @click="searchWeather()" onclick="generateRequests();"type="button" name="button">Toon trip</button>
                         <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="saveTrip();">Bewaar je trip</button>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
     		    Event.fire('searching');
     		    var uniqueLocations = this.squash(locations);
     		    for(var j = 0; j < uniqueLocations.length; j++){
-    		        Weather.search(uniqueLocations[i], weather => Event.fire('weatherFound', weather) );
+    		        Weather.search(uniqueLocations[j], weather => Event.fire('weatherFound', weather) );
     		    }
     		}
 
