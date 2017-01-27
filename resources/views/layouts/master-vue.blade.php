@@ -26,6 +26,7 @@
         <div id="app">
             @include ('layouts.header-vue')
 
+            <map-planner></map-planner>
 
             <section class="section">
                 <div class="container">
