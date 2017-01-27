@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Hotel_route extends Model
+class Hotel_user extends Model
 {
     protected $table = 'hotel_user';
     public $timestamps = false;

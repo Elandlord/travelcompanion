@@ -36,6 +36,7 @@ class RoutesController extends Controller
      */
     public function store(Request $request, $userId)
     {
+
         // $departure_date = $request['departure_date'];
         // $return_date = $request['return_date'];
         //
@@ -51,8 +52,21 @@ class RoutesController extends Controller
 
         // $request->input('data')['json
         foreach ($marc = $request->input('data')['json']['location']as $value) {
-          
+
           # code...
+
+        $departure_date = $request['departure_date'];
+        $return_date = $request['return_date'];
+        $name = $request['name'];
+
+        if (isset($departure_date) && isset($return_date) && isset($name)) {
+            Route::create([
+                'name' => $name,
+                'user_id' => $userId,
+                'departure_date' => $departure_date,
+                'return_date' => $return_date,
+            ]);
+            return response('', 201);
         }
 
 

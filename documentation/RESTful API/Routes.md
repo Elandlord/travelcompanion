@@ -15,7 +15,8 @@
 	{
 		"user_id": "user id",
 		"departure_date": "when the user will start their trip",
-		"return_date": "when the user returns from their trip"
+		"return_date": "when the user returns from their trip",
+		"name": "My awesome route name"
 	}
 
 `PUT/PATCH`
@@ -23,7 +24,8 @@
 	{
 		"user_id": "user id",
 		"departure_date": "when the user will start their trip",
-		"return_date": "when the user returns from their trip"
+		"return_date": "when the user returns from their trip",
+		"name": "My awesome route name"
 	}
 
 ###Success Response:
@@ -33,14 +35,15 @@
 **Content:**
     
 ```
-        [
-            {
-                "id": 1,
-                "user_id": 1,
-                "departure_date": "1982-06-02",
-                "return_date": "1989-10-23"
-            }
-        ]
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "departure_date": "1982-06-02",
+        "return_date": "1989-10-23",
+        "name": "My route name"
+    }
+]
 ```
 
 `GET /users/{id}/routes/{id}`
@@ -49,11 +52,11 @@
 **Content:**
     
 ```
-	    {
-            "user_id": 1,
-            "departure_date": "1982-06-02",
-            "return_date": "1989-10-23"
-		}
+{
+    "user_id": 1,
+    "departure_date": "1982-06-02",
+    "return_date": "1989-10-23"
+}
 ```
 
 `POST /users`
