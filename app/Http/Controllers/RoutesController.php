@@ -69,7 +69,7 @@ class RoutesController extends Controller
 
 
 
-            return \Response::json(json_encode($marc));
+            return response()->json($marc);
         }
     }
 

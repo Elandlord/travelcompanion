@@ -28,14 +28,9 @@
 
 
             <section class="section">
-
-                <map-planner></map-planner>
-
-                <div class="container">
-                    <router-view>
+                <router-view>
                         
-                    </router-view>
-                </div>
+                </router-view>
             </section>
 
             @yield('content')
