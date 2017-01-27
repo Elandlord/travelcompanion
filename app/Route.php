@@ -9,6 +9,7 @@ class Route extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'name',
         'user_id', 
         'departure_date', 
         'return_date',

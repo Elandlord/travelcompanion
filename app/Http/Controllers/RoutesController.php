@@ -38,9 +38,11 @@ class RoutesController extends Controller
     {
         $departure_date = $request['departure_date'];
         $return_date = $request['return_date'];
+        $name = $request['name'];
 
-        if (isset($departure_date) && isset($return_date)) {
+        if (isset($departure_date) && isset($return_date) && isset($name)) {
             Route::create([
+                'name' => $name,
                 'user_id' => $userId,
                 'departure_date' => $departure_date,
                 'return_date' => $return_date,
