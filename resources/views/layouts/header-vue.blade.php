@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-default navbar-fixed-top bg-main">
     <div class="container">
         <div class="navbar-header">
@@ -17,7 +16,7 @@
         <div class="navbar-collapse collapse bg-main" id="navbar-main">
 
                 @if (Auth::check())
-                    <div class="dropdown navbar-right md-space-outside-up-sm lg-space-outside-up-sm hidden-xs hidden-sm">
+                    <div class="dropdown navbar-right md-space-outside-up-sm lg-space-outside-up-sm visible-lg">
                       <button class="btn hover-darken-accent transition-normal dropdown-toggle bg-accent  text-color-light" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         {{ Auth::user()->name }}
                         <span class="caret"></span>
@@ -26,7 +25,7 @@
                         @include ('layouts.nav-vue')
                       </ul>
                     </div>
-                    <div class='hidden-lg hidden-md xs-space-outside-sm'>
+                    <div class='visible-sm xs-space-outside-sm'>
                         @include ('layouts.nav-vue')
                     </div>
                 @else
