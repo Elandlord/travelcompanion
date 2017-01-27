@@ -26,19 +26,19 @@
         <div id="app">
             @include ('layouts.header-vue')
 
-            <div class='container-fluid'>
-                <map-planner></map-planner>
-            </div>
+
             <section class="section">
 
+                <map-planner></map-planner>
+
                 <div class="container">
-                    <router-view></router-view>
+                    <router-view>
+                        
+                    </router-view>
                 </div>
             </section>
 
-
-
-  @yield('content')
+            @yield('content')
 
         </div>
 

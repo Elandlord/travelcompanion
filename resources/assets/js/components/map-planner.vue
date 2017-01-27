@@ -10,7 +10,7 @@
                         <input type="date" name="date" class="form-control space-outside-sm" onchange="setMinDate()" required>
                         <input type="date" name="date" class="form-control" min="" required>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm" @click="addToLocations()" id="addNewLocation" onclick="addNewLocation();">Add destination</button>
-                        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" @click="searchWeather()" onclick="generateRequests();"type="button" name="button">Show trip</button>
+                        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" @click="searchWeather()" onclick="generateRequests();" type="button" name="button">Show trip</button>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm" onclick="saveTrip();">Save trip</button>
                     </div>
                 </div>
@@ -22,20 +22,21 @@
         </div>
 
         <div id="google_maps">
+            <div class='container space-outside-md'>
+                <div class="col-xs-12">
+                    <h1 class='space-outside-sm text-center text-color-accent'>Trip</h1>
+                    <ul id="list" class="cbp_tmtimeline">
+                        <li class="list_item">
+                            <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                            <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                                <h2 id="location_title" class='text-color-light'>Trip name</h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <h1 class='space-outside-sm text-center text-color-accent'>Trip</h1>
-                        <ul id="list" class="cbp_tmtimeline">
-                            <li class="list_item">
-                                <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                                <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                                    <h2 id="location_title" class='text-color-light'>Trip name</h2>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
                     <div class="col-xs-12 ">
                         <div style="height: 400px;" id="map-canvas">
                         </div>

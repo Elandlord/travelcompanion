@@ -16,7 +16,6 @@
         for (var i = 0; i < waypoints.length; i++) {
             var searchParameters = waypoints[i]['location'];
 
-
             var service = new google.maps.places.PlacesService($('#results').get(0));
             var request = {
                 query: searchParameters,
@@ -29,11 +28,16 @@
     function searchCallback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var html = "";
-            console.log(results);
+            var result = results[0].formatted_address.split(",");
+            var location = result[1];
+            var location_place = location.split(" ");
+            var place = location_place.slice(-1).pop();
+             $('#hotel-results').append("<h1 class='text-color-main text-center space-outside-md'>" + place + "</h1>");
             for (var i = 0; i < results.length; i++) {
+                console.log(results[i]);
                 var rating = "";
                 if (results[i].rating) {
-                    rating = " - " + results[i].rating;
+                    rating = results[i].rating;
                 }
                 html += `<div class=\"row\">
     <div class=\"col-lm-12\">
@@ -44,9 +48,12 @@
                             alt=\"Lorem ipsum\"/></a>
             </div>
             <div class=\"col-xs-12 col-sm-12 col-md-7\">
-                <h3 class=\'text-color-accent\'>` + results[i].name + rating + `</h3>
+                <h2 style='display: inline;' class=\'text-color-accent\'>` + results[i].name + ` <img style='max-width:30px; display: inline;' class='img-responsive space-outside-left-md' src='` + results[i].icon + `'/></h2>
                 <p class=\'font-weight-light\'>
                     ` + results[i].formatted_address + `
+                </p>
+                <p>
+                    Rating: ` + rating + ` out of 5
                 </p>
                 <div class=\'row space-outside-md\'>
                     <div class=\'col-lg-8\'>
@@ -54,7 +61,6 @@
                     <input type=\"date\" id=\"departure` + i + `\" name=\"date\" min=\"\" required>
                     </div>
                     <div class=\'col-lg-4\'>
-
                         <button type=\"submit\" onclick=\"bookHotel(\'` + results[i].name + `\',\'` + results[i].formatted_address + `\',\'` + i + `\')\"
                                 class=\"btn bg-accent text-color-light hover-darken-accent transition-normal\">
                             Book
@@ -68,7 +74,7 @@
 </div>
 <hr class=\"hr-orange\">`;
             }
-            $('#hotel-results').append(html + "<hr class='hr-solid'>");
+            $('#hotel-results').append(html);
         }
     }
 
