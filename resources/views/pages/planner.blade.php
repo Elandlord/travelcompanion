@@ -9,21 +9,28 @@
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function setMinDate() {
+  var returnDateElements = document.getElementsByName('date');
+  var minDate = new Date(returnDateElements[0].value);
+  minDate.setDate(minDate.getDate() + 1);
+  minDateFormated = minDate.toISOString().substring(0, 10)
+  returnDateElements[1].min = minDateFormated;
+  }
+  </script>
 
 <div id="maps_interface" class="bg-main space-inside-xs">
     <div class="container">
       <div class="row">
-      <div class="col-lg-12">
-        <div class="col-lg-3">
-          <input class="form-control" id="start" type="text" placeholder="Vertrek" />
+        <div class="col-xs-12">
+          <input class="form-control" type="text" name="" value="" placeholder="Trip Naam" required/>
+          <input class="form-control" id="locationText" type="text" placeholder="Vertrek" required/>
+          <input type="date" name="date" class="form-control" onchange="setMinDate()" required>
+          <input type="date" name="date" class="form-control" min="" required>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" id="addNewLocation" onclick="addNewLocation();">Voeg Bestemming toe</button>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="generateRequests();"type="button" name="button">Toon trip</button>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="saveTrip();">Bewaar je trip</button>
         </div>
-
-        <div class="col-lg-3">
-          <input class="form-control" id="locationText" type="text" placeholder="Bestemming" />
-        </div>
-        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" id="addNewLocation" onclick="addNewLocation();">Voeg Bestemming toe</button>
-        <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" onclick="generateRequests();"type="button" name="button">Maak Trip</button>
-      </div>
     </div>
   </div>
 </div>
@@ -31,22 +38,22 @@
 <div id="google_maps">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-9">
-        <div style="height: 500px;" id="map-canvas">
-        </div>
-      </div>
-
-      <div class="col-lg-3">
+      <div class="col-xs-12">
         <h3>Locaties</h3>
 
         <ul id="list" class="cbp_tmtimeline">
-          <li id="list_item">
+          <li class="list_item">
             <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
             <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-              <h2 id="location_title" class='text-color-light'>Meppel</h2>
+              <h2 id="location_title" class='text-color-light'>Trip Naam</h2>
             </div>
           </li>
         </ul>
+      </div>
+
+      <div class="col-xs-12">
+        <div style="height: 400px;" id="map-canvas">
+        </div>
       </div>
     </div>
   </div>
@@ -81,23 +88,19 @@ function addNewLocation() {
 
   // Reset inputfield for another location
   document.getElementById("locationText").value = "";
-  //
-  // Create new list item
-  var listItem = document.getElementById("list_item");
+  document.getElementById("locationText").placeholder = " Bestemming";
 
-  // Clone list item
-  var divClone = listItem.cloneNode(true); // the true is for deep cloning
+  var newListItemElement = document.createElement('li');
+  newListItemElement.innerHTML = `<div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+              <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                <h2 id="location_title" class='text-color-light'>` + location + `</h2>
+              </div>`;
 
-  // Append list item
-  document.getElementById('list').appendChild(divClone);
+  var location_title = document.getElementsByClassName('location_title');
 
-  // Get tekst
-  var textnode = document.createTextNode(location);
-
-  // get Location title element
-  document.getElementById("location_title").innerHTML = textnode.nodeValue;
-
-
+  // Get list
+  var listElement = document.getElementById('list');
+  listElement.append(newListItemElement);
 
 }
 
@@ -114,8 +117,27 @@ var directionsService = new google.maps.DirectionsService();
 var num, map, data;
 var requestArray = [], renderArray = [];
 
-// A JSON Array containing some people/routes and the destinations/stops
+// A JSON Array containing routes and the destinations/stops
 var jsonArray = makeJsonObject();
+
+function saveTrip(){
+  var json = makeJsonObject();
+
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: "api/users/1/routes",
+    type: "POST",
+    data: {
+      data: {json:json}
+    },
+    error: function(req, err){ console.log('my message' + err); },
+    succes:function(response){
+      console.log($.parseJSON(response));
+    },
+  });
+}
 
 // 16 Standard Colours for navigation polylines
 // var colourArray = ['navy', 'grey', 'fuchsia', 'black', 'white', 'lime', 'maroon', 'purple', 'aqua', 'red', 'green', 'silver', 'olive', 'blue', 'yellow', 'teal'];
