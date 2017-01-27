@@ -9,19 +9,17 @@ class Route extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'name',
         'user_id', 
         'departure_date', 
         'return_date',
     ];
 
-    public function hotels()
-    {
-        return $this->belongsToMany('App\Hotel');
-    }
-
     public function locations()
     {
-        return $this->belongsToMany('App\Location');
+        return $this->belongsToMany('App\Location')
+            ->withPivot('arrival_date')
+            ->withPivot('departure_date');
     }
 
     public function user()

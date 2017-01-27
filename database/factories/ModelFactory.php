@@ -29,6 +29,7 @@ $factory->define(App\Route::class, function (Faker\Generator $faker) {
        'user_id' => 1,
        'departure_date' => $faker->date(),
        'return_date' => $faker->date(),
+       'name' => $faker->name() . " Route",
    ];
 });
 

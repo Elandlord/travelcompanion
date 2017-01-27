@@ -6,60 +6,138 @@
 
   @section('content')
 
-  <!--Source code -->
-<!-- Style to put some height on the map -->
-<style type="text/css">
-    #map-canvas { height: 500px };
-</style>
 
-<!-- Load the Google Maps aPI -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function setMinDate() {
+  var returnDateElements = document.getElementsByName('date');
+  var minDate = new Date(returnDateElements[0].value);
+  minDate.setDate(minDate.getDate() + 1);
+  minDateFormated = minDate.toISOString().substring(0, 10)
+  returnDateElements[1].min = minDateFormated;
+  }
+  </script>
 
-<br>
-<br>
-<input id="locationText" type="text" />
-<button id="addNewLocation">Add</button>
-<button onclick="init();"type="button" name="button">goo</button>
+<div id="maps_interface" class="bg-main space-inside-xs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <input class="form-control" type="text" name="" value="" placeholder="Trip Naam" required/>
+          <input class="form-control" id="locationText" type="text" placeholder="Vertrek" required/>
+          <input type="date" name="date" class="form-control" onchange="setMinDate()" required>
+          <input type="date" name="date" class="form-control" min="" required>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" id="addNewLocation" onclick="addNewLocation();">Voeg Bestemming toe</button>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="generateRequests();"type="button" name="button">Toon trip</button>
+          <button class="btn btn-block bg-accent text-color-light hover-darken-accent transition-normal" onclick="saveTrip();">Bewaar je trip</button>
+        </div>
+    </div>
+  </div>
+</div>
 
-<div id="locationList">
+<div id="google_maps">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Locaties</h3>
+
+        <ul id="list" class="cbp_tmtimeline">
+          <li class="list_item">
+            <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+            <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+              <h2 id="location_title" class='text-color-light'>Trip Naam</h2>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12">
+        <div style="height: 400px;" id="map-canvas">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
 // Declare location array
 var locations = [];
 
+//Current date
+var date = new Date();
+var month = date.getUTCMonth() + 1;
+var day = date.getUTCDate();
+var year = date.getUTCFullYear();
+
+var newdate = day + "/" + month + "/" + year;
+
 // Button bindings
 var locationButton = document.getElementById("addNewLocation");
 locationButton.onclick = addNewLocation;
 
-// Button functions
+//Show Date in Location list
+// document.getElementById('location_title').innerHTML=newdate;
+
+// Add new location to Maps
 function addNewLocation() {
+  // get Location from inputfrield by ID
   var location = document.getElementById("locationText").value;
+
+  // Push Location in Array
   locations.push(location);
+
+  // Reset inputfield for another location
   document.getElementById("locationText").value = "";
+  document.getElementById("locationText").placeholder = " Bestemming";
+
+  var newListItemElement = document.createElement('li');
+  newListItemElement.innerHTML = `<div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
+              <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
+                <h2 id="location_title" class='text-color-light'>` + location + `</h2>
+              </div>`;
+
+  var location_title = document.getElementsByClassName('location_title');
+
+  // Get list
+  var listElement = document.getElementById('list');
+  listElement.append(newListItemElement);
+
 }
 
 // Create Json Object function
 function makeJsonObject() {
   var json = {
     location : locations
-}
+  }
   return json;
 }
-
-// Write location to Screen function
-function writeLocation () {
-}
-
 
 // Initialise some variables
 var directionsService = new google.maps.DirectionsService();
 var num, map, data;
 var requestArray = [], renderArray = [];
 
-// A JSON Array containing some people/routes and the destinations/stops
+// A JSON Array containing routes and the destinations/stops
 var jsonArray = makeJsonObject();
+
+function saveTrip(){
+  var json = makeJsonObject();
+
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: "api/users/1/routes",
+    type: "POST",
+    data: {
+      data: {json:json}
+    },
+    error: function(req, err){ console.log('my message' + err); },
+    succes:function(response){
+      console.log($.parseJSON(response));
+    },
+  });
+}
 
 // 16 Standard Colours for navigation polylines
 // var colourArray = ['navy', 'grey', 'fuchsia', 'black', 'white', 'lime', 'maroon', 'purple', 'aqua', 'red', 'green', 'silver', 'olive', 'blue', 'yellow', 'teal'];
@@ -102,11 +180,12 @@ function generateRequests(){
 
         // Grab the first waypoint for the 'start' location
         start = (waypts.shift()).location;
+        // start = document.getElementById('start').value;
         // Grab the last waypoint for use as a 'finish' location
         finish = waypts.pop();
         if(finish === undefined){
             // Unless there was no finish location for some reason?
-            finish = start;
+            // finish = start;
         } else {
             finish = finish.location;
         }
@@ -144,7 +223,7 @@ function processRequests(){
             renderArray[i] = new google.maps.DirectionsRenderer();
             renderArray[i].setMap(map);
 
-            // // Some unique options from the colorArray so we can see the routes
+            // Some unique options from the colorArray so we can see the routes
             // renderArray[i].setOptions({
             //     preserveViewport: true,
             //     suppressInfoWindows: true,
@@ -200,15 +279,11 @@ function init() {
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-    // Start the request making
-    generateRequests()
 }
 
-    // Get the ball rolling and trigger our init() on 'load'
-    // google.maps.event.addDomListener(window, 'load', init);
+    // Trigger our init()
+    google.maps.event.addDomListener(window, 'load', init);
 </script>
 
-<!-- Somewhere in the DOM for the map to be rendered -->
-<div id="map-canvas"></div>
 
 @stop

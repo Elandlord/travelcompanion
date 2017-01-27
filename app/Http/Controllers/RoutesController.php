@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Route;
+use App\User;
 use Illuminate\Http\Request;
 
 class RoutesController extends Controller
@@ -12,9 +13,9 @@ class RoutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index(User $user)
     {
-        return Route::where('user_id', $userId)->get();
+        return Route::where('user_id', $user->id)->get();
     }
 
     /**
@@ -35,18 +36,42 @@ class RoutesController extends Controller
      */
     public function store(Request $request, $userId)
     {
+
+        // $departure_date = $request['departure_date'];
+        // $return_date = $request['return_date'];
+        //
+        // if (isset($departure_date) && isset($return_date)) {
+        //     Route::create([
+        //         'user_id' => $userId,
+        //         'departure_date' => $departure_date,
+        //         'return_date' => $return_date,
+        //     ]);
+        //     return response('', 201);
+        // }
+        // return response('', 404);
+
+        // $request->input('data')['json
+        foreach ($marc = $request->input('data')['json']['location']as $value) {
+
+          # code...
+
         $departure_date = $request['departure_date'];
         $return_date = $request['return_date'];
+        $name = $request['name'];
 
-        if (isset($departure_date) && isset($return_date)) {
+        if (isset($departure_date) && isset($return_date) && isset($name)) {
             Route::create([
+                'name' => $name,
                 'user_id' => $userId,
                 'departure_date' => $departure_date,
                 'return_date' => $return_date,
             ]);
             return response('', 201);
         }
-        return response('', 404);
+
+
+
+        return \Response::json(json_encode($marc));
     }
 
     /**
