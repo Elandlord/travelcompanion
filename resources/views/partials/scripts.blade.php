@@ -128,11 +128,21 @@
 
             console.log(post);
 
-            $.post("/api/users/{userid}/hotels", post, function (data, statusText, xhr) {
-                if (xhr.status == 404) {
-                    alert("booking failed");
+            $.getJSON("user/authenticated", function (data) {
+                if(data.id) {
+                    $.post("/api/users/" + data.id + "/hotels", post, function (data, statusText, xhr) {
+                        if (xhr.status == 404) {
+                            alert("booking failed");
+                        }
+                    });
+                } else {
+                    alert("Please log in before booking a hotel.")
                 }
             });
+
+
+
+
         }
     }
 

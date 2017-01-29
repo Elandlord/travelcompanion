@@ -4262,6 +4262,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -4361,15 +4367,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
             searchParameters: null,
-            locations: []
+            locations: [],
+            loading: false
         };
     },
+    created: function created() {
+        var _this = this;
+
+        Event.listen('searching', function () {
+            _this.loading = true;
+        });
+
+        Event.listen('weatherFound', function (weather) {
+            _this.loading = false;
+        });
+    },
+
 
     methods: {
         squash: function squash(arr) {
@@ -4466,59 +4490,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4700,12 +4671,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.locations = null;
-            // User.with('routes', (route) => {
-            //     return new Route(route);
-            // }).getAuthenticated((user) => {
-            //     this.user = user;
-            // });
-
 
             __WEBPACK_IMPORTED_MODULE_0__Models_User__["a" /* default */].getAuthenticated(function (user) {
                 user.with('routes', function (route) {
@@ -6190,7 +6155,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "map-planner"
     }
   }, [_c('div', {
-    staticClass: "bg-main space-inside-xs",
+    staticClass: "space-inside-xs",
     attrs: {
       "id": "maps_interface"
     }
@@ -6201,12 +6166,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-xs-12"
   }, [_c('input', {
-    staticClass: "form-control",
+    staticClass: "form-control space-outside-sm",
     attrs: {
       "type": "text",
       "name": "",
       "value": "",
-      "placeholder": "Trip Naam",
+      "placeholder": "Trip name",
       "required": ""
     }
   }), _vm._v(" "), _c('input', {
@@ -6220,7 +6185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "locationText",
       "type": "text",
-      "placeholder": "Vertrek",
+      "placeholder": "Place of departure",
       "required": ""
     },
     domProps: {
@@ -6233,7 +6198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
+    staticClass: "form-control space-outside-sm",
     attrs: {
       "type": "date",
       "name": "date",
@@ -6249,7 +6214,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "required": ""
     }
   }), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-block bg-accent text-color-light hover-darken-accent transition-normal",
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm",
     attrs: {
       "id": "addNewLocation",
       "onclick": "addNewLocation();"
@@ -6259,8 +6224,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addToLocations()
       }
     }
-  }, [_vm._v("Voeg Bestemming toe")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-block bg-accent text-color-light hover-darken-accent transition-normal",
+  }, [_vm._v("Add destination")]), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal",
     attrs: {
       "onclick": "generateRequests();",
       "type": "button",
@@ -6271,24 +6236,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchWeather()
       }
     }
-  }, [_vm._v("Toon trip")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-block bg-accent text-color-light hover-darken-accent transition-normal",
+  }, [_vm._v("Show trip")]), _vm._v(" "), _c('button', {
+    staticClass: "btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm",
     attrs: {
       "onclick": "saveTrip();"
     }
-  }, [_vm._v("Bewaar je trip")])])])])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_vm._v("Save trip")])])])]), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "container text-center space-outside-md"
+  }, [_c('i', {
+    staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "text-color-accent space-outside-md font-md "
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _c('div', {
     attrs: {
       "id": "google_maps"
     }
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "container-fluid"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
+    staticClass: "col-xs-12 "
+  }, [_vm._t("default")], 2)])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container space-outside-md"
+  }, [_c('div', {
     staticClass: "col-xs-12"
-  }, [_c('h3', [_vm._v("Locaties")]), _vm._v(" "), _c('ul', {
+  }, [_c('h1', {
+    staticClass: "space-outside-sm text-center text-color-accent"
+  }, [_vm._v("Trip")]), _vm._v(" "), _c('ul', {
     staticClass: "cbp_tmtimeline",
     attrs: {
       "id": "list"
@@ -6309,16 +6286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "location_title"
     }
-  }, [_vm._v("Trip Naam")])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12"
-  }, [_c('div', {
-    staticStyle: {
-      "height": "400px"
-    },
-    attrs: {
-      "id": "map-canvas"
-    }
-  })])])])])
+  }, [_vm._v("Trip name")])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -6598,11 +6566,18 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('section', {
+  return _c('div', [_c('map-planner', [_c('div', {
+    staticStyle: {
+      "height": "400px"
+    },
+    attrs: {
+      "id": "map-canvas"
+    }
+  })]), _vm._v(" "), _c('section', {
     staticClass: "space-outside-md"
   }, [_c('div', {
     staticClass: "container"
-  }, [_c('search-results')], 1)])])
+  }, [_c('search-results')], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -6883,7 +6858,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-cog fa-spin fa-5x fa-fw text-color-accent"
   }), _vm._v(" "), _c('p', {
     staticClass: "text-color-accent space-outside-md font-md "
-  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.foundResults) ? _c('ul', _vm._l((_vm.weather), function(temp) {
+  }, [_vm._v("Searching")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [(_vm.foundResults) ? _c('ul', [_c('h1', {
+    staticClass: "text-color-accent text-center space-outside-sm"
+  }, [_vm._v("Weather")]), _vm._v(" "), _vm._l((_vm.weather), function(temp) {
     return _c('li', [(_vm.foundResults) ? _c('div', {
       staticClass: "jumbotron animated fadeInLeft wow"
     }, [_c('div', {
@@ -6897,7 +6880,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "textContent": _vm._s(temp.temperature())
       }
-    }), _vm._v("\n\n                            C\n\n                            "), _c('img', {
+    }), _vm._v("\n\n                                    C\n\n                                    "), _c('img', {
       staticStyle: {
         "display": "inline",
         "width": "70px"
@@ -6932,36 +6915,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(temp.dressingAdvice())
       }
     })])])]) : _vm._e()])
-  })) : _vm._e(), _vm._v(" "), _c('hr', {
+  })], 2) : _vm._e(), _vm._v(" "), _c('hr', {
     staticClass: "hr-orange"
-  }), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "hotel-results"
     }
   })])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "fixed bg-main space-inside-sm space-inside-sides-md text-center"
-  }, [_c('a', {
-    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
-    attrs: {
-      "href": "#",
-      "id": "maps"
-    }
-  }, [_vm._v("Maps")]), _vm._v(" "), _c('a', {
-    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
-    attrs: {
-      "href": "#",
-      "id": "maps"
-    }
-  }, [_vm._v("Hotels")]), _vm._v(" "), _c('a', {
-    staticClass: "text-color-accent space-inside-sides-md transition-normal text-hover-light font-md",
-    attrs: {
-      "href": "#",
-      "id": "maps"
-    }
-  }, [_vm._v("Temperature")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
