@@ -86,6 +86,7 @@
         var departureid = "departure" + dateTimeId;
         post['arrival_date'] = document.getElementById(arrivalid).value;
         post['departure_date'] = document.getElementById(departureid).value;
+        post['paid'] = 0; //TODO make actual payment???
 
         if(!post['arrival_date'] || !post['departure_date']){
             alert("Fill in a arrival and departure date before booking a hotel!")
@@ -130,6 +131,8 @@
 
             $.getJSON("user/authenticated", function (data) {
                 if(data.id) {
+                    post['users_id'] = data.id;
+                    console.log(post);
                     $.post("/api/users/" + data.id + "/hotels", post, function (data, statusText, xhr) {
                         if (xhr.status == 404) {
                             alert("booking failed");
