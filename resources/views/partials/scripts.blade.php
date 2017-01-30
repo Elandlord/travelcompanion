@@ -137,16 +137,12 @@
             post['hotels']['city_name'] = cityName.trim();
             post['hotels']['country_name'] = countryName.trim();
 
-            console.log(post);
-
             $.getJSON("user/authenticated", function (data) {
                 if(data.id) {
                     post['users_id'] = data.id;
-                    console.log(post);
                     $.post("/api/users/" + data.id + "/hotels", post, function (data, statusText, xhr) {
-                        if (xhr.status == 404) {
-                            alert("booking failed");
-                        }
+                        console.log(data);
+                        console.log("status: " + statusText);
                     });
                 } else {
                     alert("Please log in before booking a hotel.")
@@ -179,17 +175,6 @@
         returnDateElement.min = nowDateFormatted;
     }
 </script>
-
-<script type="text/javascript">
-//    function setMinDate() {
-//        var returnDateElements = document.getElementsByName('date');
-//        var minDate = new Date(returnDateElements[0].value);
-//        minDate.setDate(minDate.getDate() + 1);
-//        minDateFormated = minDate.toISOString().substring(0, 10)
-//        returnDateElements[1].min = minDateFormated;
-//    }
-</script>
-
 
 <script type="text/javascript">
     // Declare location array

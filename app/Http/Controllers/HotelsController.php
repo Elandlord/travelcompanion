@@ -64,7 +64,7 @@ class HotelsController extends Controller
                                                 'country' => $request['country']]);
         }
 
-        if (isset($request['route_id']) &&
+        if (isset($request['user_id']) &&
             isset($request['arrival_date']) &&
             isset($request['departure_date']) &&
             isset($request['price']) &&
@@ -91,7 +91,7 @@ class HotelsController extends Controller
             }
 
             Hotel_route::create([
-                'route_id' => $request['route_id'],
+                'user_id' => $request['user_id'],
                 'hotel_id' => $hotel->id,
                 'arrival_date' => $request['arrival_date'],
                 'departure_date' => $request['departure_date'],
