@@ -77,13 +77,6 @@ import Location from '../Models/Location';
 
                 initialSettings(){
                     this.locations = null;
-                    // User.with('routes', (route) => {
-                    //     return new Route(route);
-                    // }).getAuthenticated((user) => {
-                    //     this.user = user;
-                    // });
-
-
 
                     User.getAuthenticated((user) => {
                         user.with('routes', (route) => {

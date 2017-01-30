@@ -6,6 +6,7 @@
 Homestead.json
 Homestead.yaml
 .env
-
 app.css
 app.js
+npm-debug.log
+/.gitignore

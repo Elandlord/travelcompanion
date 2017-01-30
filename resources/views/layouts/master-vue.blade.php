@@ -9,32 +9,36 @@
         <meta name="viewport" content="width=device-width">
         <title>@yield('title') || TravelCompanion</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
-        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4bbyifwfej8H4k5dCeTIV_tyFMfK8H4c&sensor=false&libraries=places"></script>
+
         @include('partials.styles')
-        
+
+
         <script>
             window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
                 ]); ?>
         </script>
+        
     </head>
 
     <body>
         <div id="app">
             @include ('layouts.header-vue')
 
+
             <section class="section">
-                <div class="container">
-                    <router-view></router-view>
-                </div>
+                <router-view>
+                        
+                </router-view>
             </section>
 
-<!--         @yield('content')  -->
+            @yield('content')
 
         </div>
 
         <script src="/js/app.js"></script>
-          
+
 
         @include('partials.footer')
 
@@ -43,4 +47,3 @@
     </body>
 
 </html>
-
