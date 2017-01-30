@@ -16,27 +16,29 @@ class HotelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId, $routeId)
+    public function index(User $user)
     {
-        $hotel_route_collection = Hotel_route::where('route_id', $routeId)->get();
-        $hotel_collection = array();
+        // $hotel_route_collection = Hotel_route::where('route_id', $routeId)->get();
+        // $hotel_collection = array();
 
-        foreach ($hotel_route_collection as $hotel_route) {
-             array_push($hotel_collection, Hotel::find($hotel_route->hotel_id));
-        }
+        // foreach ($hotel_route_collection as $hotel_route) {
+        //      array_push($hotel_collection, Hotel::find($hotel_route->hotel_id));
+        // }
 
-        if (isset($hotel_route_collection) && isset($hotel_collection)) {
-            $json_response = array();
+        // if (isset($hotel_route_collection) && isset($hotel_collection)) {
+        //     $json_response = array();
 
-            $i = 0;
-            foreach ($hotel_route_collection as $hotel_route) {
-                $json_response[$i] = $hotel_route['attributes'];
-                $json_response[$i]['hotels'] =  $hotel_collection;
-                $i += 1;
-            }
-            return response(json_encode($json_response))->header('Content-type', 'application/json');
-        }
-        return response('', 404);
+        //     $i = 0;
+        //     foreach ($hotel_route_collection as $hotel_route) {
+        //         $json_response[$i] = $hotel_route['attributes'];
+        //         $json_response[$i]['hotels'] =  $hotel_collection;
+        //         $i += 1;
+        //     }
+        //     return response(json_encode($json_response))->header('Content-type', 'application/json');
+        // }
+        // return response('', 404);
+        $hotels = $user->hotels; 
+        return response()->json($hotels, 200);
     }
 
     /**
