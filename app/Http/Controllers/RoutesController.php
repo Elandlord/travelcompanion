@@ -55,6 +55,7 @@ class RoutesController extends Controller
         foreach ($name = $request->input('data')['json']['name']as $value) {
           $route = new Route;
 
+
           $route->name = $value;
 
           $route->save();
@@ -63,6 +64,9 @@ class RoutesController extends Controller
         // foreach ($location = $request->input('data')['json']['name']as $value) {
 
         // }
+
+            return response()->json($marc);
+        }
     }
 
 
