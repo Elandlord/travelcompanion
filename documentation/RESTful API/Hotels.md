@@ -13,8 +13,6 @@
 `POST`
 
     {
-        "city_name": "Amsterdam",
-        "country": "Netherlands",
         "users_id": 1,
         "arrival_date": "1989-06-05",
         "departure_date": "1984-08-19",
@@ -23,12 +21,10 @@
         "paid": 1,
         "bank_account_number": "5275225665733200",
         "hotels": {
-            "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
+            "location_id": "1",
             "name": "Ashtyn Nitzsche DVM Hotel",
             "road_name": "Shyanne Manor",
             "house_number": "281",
-            "phone_number": "(393) 290-2391",
-            "email_address": "rosie90@example.org",
             "zip_code": "00163"
         }
     }
@@ -45,12 +41,9 @@
         "bank_account_number": "5275225665733200",
         "hotels": {
             "location_id": "1",
-            "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
             "name": "Ashtyn Nitzsche DVM Hotel",
             "road_name": "Shyanne Manor",
             "house_number": "281",
-            "phone_number": "(393) 290-2391",
-            "email_address": "rosie90@example.org",
             "zip_code": "00163"
         }
     }
@@ -74,17 +67,13 @@
         "price": "58",
         "amount_persons": "1",
         "paid": 1,
-        "bank_account_number": "5275225665733200",
         "hotels": [
             {
                 "id": 1,
                 "location_id": "1",
-                "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
                 "name": "Ashtyn Nitzsche DVM Hotel",
                 "road_name": "Shyanne Manor",
                 "house_number": "281",
-                "phone_number": "(393) 290-2391",
-                "email_address": "rosie90@example.org",
                 "zip_code": "00163"
             }
         ]
@@ -112,12 +101,9 @@
     "hotels": {
         "id": 1,
         "location_id": "1",
-        "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
         "name": "Ashtyn Nitzsche DVM Hotel",
         "road_name": "Shyanne Manor",
         "house_number": "281",
-        "phone_number": "(393) 290-2391",
-        "email_address": "rosie90@example.org",
         "zip_code": "00163"
     }
 }
