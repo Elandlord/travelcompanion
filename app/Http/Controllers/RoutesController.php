@@ -50,15 +50,19 @@ class RoutesController extends Controller
         // }
         // return response('', 404);
 
-        // $request->input('data')['json
+        // $marc = $request->input('data')['json']['name'];
 
-        foreach ($location = $request->input('data')['json']['location']as $value) {
+        foreach ($name = $request->input('data')['json']['name']as $value) {
           $route = new Route;
 
           $route->name = $value;
 
           $route->save();
-        }
+          }
+
+        // foreach ($location = $request->input('data')['json']['name']as $value) {
+
+        // }
     }
 
 
@@ -130,3 +134,5 @@ class RoutesController extends Controller
         return response('', 404);
     }
 }
+
+?>

@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" name="" value="" placeholder="Trip Naam" required/>
+                        <input class="form-control" id="tripName" type="text" name="" value="" placeholder="Trip Naam" required/>
                         <input class="form-control" id="locationText" type="text" placeholder="Vertrek" required/>
                         <input type="date" name="date" class="form-control" onchange="setMinDate()" required>
                         <input type="date" name="date" class="form-control" min="" required>

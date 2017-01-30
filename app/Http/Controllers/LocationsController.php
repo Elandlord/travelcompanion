@@ -39,29 +39,14 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        if (isset($request['location_id']) &&
-            isset($request['route_id']) &&
-            isset($request['arrival_date']) &&
-            isset($request['departure_date'])) {
 
-            if (isset($request['location']) &&
-                isset($request['location']['name']) &&
-                isset($request['location']['country'])) {
-                Location::create([
-                    'name' => $request['location']['name'],
-                    'country' => $request['location']['country'],
-                ]);
-            }
+    foreach ($locations = $request->input('data')['json']['location']as $value) {
+        $location = new Location;
 
-            Location_route::create([
-                'location_id' => $request['location_id'],
-                'route_id' => $request['route_id'],
-                'arrival_date' => $request['arrival_date'],
-                'departure_date' => $request['departure_date'],
-            ]);
-            return response('', 201);
-        }
-        return response('', 404);
+        $location->name = $value;
+
+        $location->save();
+      }
     }
 
     /**

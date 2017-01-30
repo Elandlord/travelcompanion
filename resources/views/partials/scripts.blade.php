@@ -163,6 +163,7 @@
 <script type="text/javascript">
     // Declare location array
     var locations = [];
+    var tripName = [];
 
     //Current date
     var date = new Date();
@@ -184,8 +185,11 @@
         // get Location from inputfrield by ID
         var location = document.getElementById("locationText").value;
 
+        var name = document.getElementById("tripName").value;
+
         // Push Location in Array
         locations.push(location);
+        tripName.push(name);
 
         // Reset inputfield for another location
         document.getElementById("locationText").value = "";
@@ -207,8 +211,10 @@
 
     // Create Json Object function
     function makeJsonObject() {
+      console.log(tripName);
         var json = {
-            location: locations
+            location: locations,
+            name: tripName
         }
         return json;
     }
@@ -229,6 +235,23 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: "api/users/1/routes",
+            type: "POST",
+            data: {
+                data: {json: json}
+            },
+            error: function (req, err) {
+                console.log('my message' + err);
+            },
+            succes: function (response) {
+                console.log($.parseJSON(response));
+            },
+        });
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "api/routes/1/locations",
             type: "POST",
             data: {
                 data: {json: json}
@@ -285,6 +308,7 @@
 
             // Grab the first waypoint for the 'start' location
             start = (waypts.shift()).location;
+
             // start = document.getElementById('start').value;
             // Grab the last waypoint for use as a 'finish' location
             finish = waypts.pop();
