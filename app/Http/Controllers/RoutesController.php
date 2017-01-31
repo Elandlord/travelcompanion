@@ -34,44 +34,20 @@ class RoutesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request, $routeId)
     {
+      $data = json_decode($request->input('data')['json']);
 
-            // $departure_date = $request['departure_date'];
-            // $return_date = $request['return_date'];
-            //
-            // if (isset($departure_date) && isset($return_date)) {
-            //     Route::create([
-            //         'user_id' => $userId,
-            //         'departure_date' => $departure_date,
-            //         'return_date' => $return_date,
-            //     ]);
-            //     return response('', 201);
-            // }
-            // return response('', 404);
+      $route = new Route;
 
-            // $request->input('data')['json
-            foreach ($marc = $request->input('data')['json']['location']as $value) {
+      $route->name = $data->name;;
+      $route->departure_date = $data->departure_date;;
+      $route->return_date = $data->return_date;
+      $route->user_id = $routeId;
 
-            $departure_date = $request['departure_date'];
-            $return_date = $request['return_date'];
-            $name = $request['name'];
-
-            if (isset($departure_date) && isset($return_date) && isset($name)) {
-                Route::create([
-                    'name' => $name,
-                    'user_id' => $userId,
-                    'departure_date' => $departure_date,
-                    'return_date' => $return_date,
-                ]);
-                return response('', 201);
-            }
-
-
-
-            return response()->json($marc);
-        }
+      $route->save();
     }
+
 
     /**
      * Display the specified resource.
@@ -141,3 +117,5 @@ class RoutesController extends Controller
         return response('', 404);
     }
 }
+
+?>
