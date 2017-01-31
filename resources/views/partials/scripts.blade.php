@@ -150,6 +150,8 @@
                             console.log(data);
                         },
                         data: post
+                    }).done(function () {
+                        alert("Succesfull booked the hotel.");
                     })
                 } else {
                     alert("Please log in before booking a hotel.")
@@ -298,7 +300,7 @@
                 },
             });
 
-            alert("Succesfull safed the trip.")
+            alert("Succesfull saved the trip.");
         }
     }
 
