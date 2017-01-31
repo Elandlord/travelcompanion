@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
-use App\Hotel_route;
+use App\Hotel_user;
 use App\Location;
 use App\User;
 use App\Route;
@@ -59,63 +59,68 @@ class HotelsController extends Controller
      */
     public function store(Request $request)
     {
+
+//        return response($request->getContent());
         $hotel = null;
         $location = null;
-        if (isset($request['city_name']) && isset($request['country'])) {
-            $location = Location::firstOrCreate(['name' => $request['city_name'],
-                                                'country' => $request['country']]);
+
+        if ($request->has('city_name') && $request->has('country')) {
+            $location = Location::firstOrCreate([
+                'name' => $request->input('city_name'),
+                'country' => $request->input('country')
+            ]);
         }
 
-        if (isset($request['user_id']) &&
-            isset($request['arrival_date']) &&
-            isset($request['departure_date']) &&
-            isset($request['price']) &&
-            isset($request['amount_persons']) &&
-            isset($request['paid']) &&
-            isset($request['bank_account_number'])) {
+        if ($request->has('user_id') &&
+            $request->has('arrival_date') &&
+            $request->has('departure_date') &&
+            $request->has('price') &&
+            $request->has('amount_persons') &&
+            $request->has('paid') &&
+            $request->has('bank_account_number')) {
 
-            if (isset($request['hotel']) &&
-                isset($request['hotel']['name']) &&
-                isset($request['hotel']['road_name']) &&
-                isset($request['hotel']['house_number']) &&
-                isset($request['hotel']['zip_code'])) {
+            if ($request->has('hotel') &&
+                $request->has('hotel.name') &&
+                $request->has('hotel.road_name') &&
+                $request->has('hotel.house_number') &&
+                $request->has('hotel.zip_code')) {
                 $hotel = Hotel::create([
                     'location_id' => $location->id,
-                    'name' => $request['hotel']['name'],
-                    'road_name' => $request['hotel']['road_name'],
-                    'house_number' => $request['hotel']['house_number'],
-                    'zip_code' => $request['hotel']['zip_code'],
+                    'name' => $request->input('hotel.name'),
+                    'road_name' => $request->input('hotel.road_name'),
+                    'house_number' => $request->input('hotel.house_number'),
+                    'zip_code' => $request->input('hotel.zip_code'),
                 ]);
             }
 
             if (!isset($hotel)) {
-                return response('', 404);
+                return response('Hotel not found', 404);
             }
 
-            Hotel_route::create([
-                'user_id' => $request['user_id'],
+            Hotel_user::create([
+                'user_id' => $request->input('user_id'),
                 'hotel_id' => $hotel->id,
-                'arrival_date' => $request['arrival_date'],
-                'departure_date' => $request['departure_date'],
-                'price' => $request['price'],
-                'amount_persons' => $request['amount_persons'],
-                'paid' => $request['paid'],
-                'back_account_number' => $request['bank_account_number']
+                'arrival_date' => $request->input('arrival_date'),
+                'departure_date' => $request->input('departure_date'),
+                'price' => $request->input('price'),
+                'amount_persons' => $request->input('amount_persons'),
+                'paid' => $request->input('paid'),
+                'back_account_number' => $request->input('bank_account_number')
             ]);
+
             return response('', 201);
         }
-        return response('', 404);
+        return response('Failed', 404);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $userId
-     * @param  int  $routeId
      * @param  int  $hotelId
      * @return \Illuminate\Http\Response
      */
-    public function show($userId, $routeId, $hotelId)
+    public function show($userId, $hotelId)
     {
         $hotel_collection = Hotel::where('id', $hotelId)->get();
         $hotel_route_collection = Hotel_route::where('hotel_id', $hotelId)->get();
@@ -151,9 +156,9 @@ class HotelsController extends Controller
      * @param  int  $hotelId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $userId, $routeId, $hotelId)
+    public function update(Request $request, $userId, $hotelId)
     {
-        if (isset($request['route_id']) &&
+        if (isset($request['user_id']) &&
             isset($request['hotel_id']) &&
             isset($request['arrival_date']) &&
             isset($request['departure_date']) &&
@@ -162,9 +167,9 @@ class HotelsController extends Controller
             isset($request['paid']) &&
             isset($request['bank_account_number'])) {
 
-            $hotel_route = Hotel_route::where([['route_id', $routeId], ['hotel_id', $hotelId]])
+            $hotel_user = Hotel_route::where([['user_id', $userId], ['hotel_id', $hotelId]])
             ->update([
-                'route_id' => $request['route_id'],
+                'route_id' => $request['user_id'],
                 'hotel_id' => $request['hotel_id'],
                 'arrival_date' => $request['arrival_date'],
                 'departure_date' => $request['departure_date'],
@@ -174,12 +179,12 @@ class HotelsController extends Controller
                 'bank_account_number' => $request['bank_account_number']
             ]);
 
-            if (isset($request['hotel']) &&
-                isset($request['hotel']['location_id']) &&
-                isset($request['hotel']['name']) &&
-                isset($request['hotel']['road_name']) &&
-                isset($request['hotel']['house_number']) &&
-                isset($request['hotel']['zip_code'])
+            if (isset($request['hotels']) &&
+                isset($request['hotels']['location_id']) &&
+                isset($request['hotels']['name']) &&
+                isset($request['hotels']['road_name']) &&
+                isset($request['hotels']['house_number']) &&
+                isset($request['hotels']['zip_code'])
             ) {
                 Hotel::find($hotelId)->update([
                     'location_id' => $request['location_id'],

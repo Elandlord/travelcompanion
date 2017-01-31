@@ -129,29 +129,40 @@
             //the last index of the entire adress array is the countryname
             var countryName = adressArray[adressArray.length - 1];
 
-            post['hotels'] = {};
-            post['hotels']['name'] = hotelname;
-            post['hotels']['road_name'] = roadname.trim();
-            post['hotels']['house_number'] = houseNumber.trim();
-            post['hotels']['zip_code'] = zipCode.trim();
-            post['hotels']['city_name'] = cityName.trim();
-            post['hotels']['country_name'] = countryName.trim();
+            post['hotel'] = {};
+            post['hotel']['name'] = hotelname;
+            post['hotel']['road_name'] = roadname.trim();
+            post['hotel']['house_number'] = houseNumber.trim();
+            post['hotel']['zip_code'] = zipCode.trim();
+            post['city_name'] = cityName.trim();
+            post['country'] = countryName.trim();
 
             $.getJSON("user/authenticated", function (data) {
                 if(data.id) {
                     post['users_id'] = data.id;
-                    $.post("/api/users/" + data.id + "/hotels", post, function (data, statusText, xhr) {
-                        console.log(data);
-                        console.log("status: " + statusText);
-                    });
+                    console.log(post);
+//                    $.post("/api/users/" + data.id + "/hotels", JSON.stringify(post), function (data, statusText, xhr) {
+//                        console.log(data);
+//                        console.log("status: " + statusText);
+//                    });
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "/api/users/" + data.id + "/hotels",
+                        type: 'post',
+                        ContentType: 'application/json',
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        data: JSON.stringify(post)
+                    }).done(function () {
+                        alert("done");
+                    })
                 } else {
                     alert("Please log in before booking a hotel.")
                 }
             });
-
-
-
-
         }
     }
 
