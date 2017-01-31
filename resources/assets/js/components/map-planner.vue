@@ -24,7 +24,7 @@
         <div id="google_maps">
             <div class='container space-outside-md'>
                 <div class="col-xs-12">
-                    <h1 class='space-outside-sm text-center text-color-accent'>Trip overzicht</h1>
+                    <h1 class='space-outside-sm text-center text-color-accent'>Trip</h1>
                     <ul id="list" class="cbp_tmtimeline">
                         <li class="list_item">
                             <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
