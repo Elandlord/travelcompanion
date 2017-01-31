@@ -25,7 +25,7 @@
                     <ul class='cbp_tmtimeline' id="locationslist">
 
                         <li v-for="location in locations">
-                           <time class="cbp_tmtime"><span>from {{ location.pivot.arrival_date }} to {{ location.pivot.departure_date }}</span> <span>{{ location.country }}</span></time>
+                           <!-- <time class="cbp_tmtime"><span>from {{ location.pivot.arrival_date }} to {{ location.pivot.departure_date }}</span> <span>{{ location.country }}</span></time> -->
                             <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
                             <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
                                 <h2 class='text-color-light'>{{ location.name }}</h2>

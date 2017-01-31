@@ -25,7 +25,7 @@
                         @include ('layouts.nav-vue')
                       </ul>
                     </div>
-                    <div class='visible-sm xs-space-outside-sm'>
+                    <div class='visible-sm visible-xs xs-space-outside-sm'>
                         @include ('layouts.nav-vue')
                     </div>
                 @else
