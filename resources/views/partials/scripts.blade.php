@@ -179,24 +179,18 @@
     }
 </script>
 
+
 <script type="text/javascript">
     // Declare location array
-    var locations = [];
+    var locationList = [];
 
-    //Current date
-    var date = new Date();
-    var month = date.getUTCMonth() + 1;
-    var day = date.getUTCDate();
-    var year = date.getUTCFullYear();
+    // Initialise variables for Google Maps
+    var directionsService = new google.maps.DirectionsService();
+    var num, map, data;
+    var requestArray = [], renderArray = [];
 
-    var newdate = day + "/" + month + "/" + year;
-
-    // Button bindings
-    var locationButton = document.getElementById("addNewLocation");
-    locationButton.onclick = addNewLocation;
-
-    //Show Date in Location list
-    // document.getElementById('location_title').innerHTML=newdate;
+    // A JSON Array containing routes and the destinations/stops
+    var jsonArray = makeJsonObject2();
 
     // Add new location to Maps
     function addNewLocation() {
@@ -204,11 +198,15 @@
         var location = document.getElementById("locationText").value;
 
         // Push Location in Array
-        locations.push(location);
+        if(location == ""){
+          alert("Je hebt geen locatie toegevoegd.")
+        } else {
+          locationList.push(location);
+        }
 
         // Reset inputfield for another location
         document.getElementById("locationText").value = "";
-        document.getElementById("locationText").placeholder = " Bestemming";
+        document.getElementById("locationText").placeholder = "Place of arrival";
 
         var newListItemElement = document.createElement('li');
         newListItemElement.innerHTML = `<div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
@@ -216,53 +214,93 @@
                 <h2 id="location_title" class='text-color-light'>` + location + `</h2>
               </div>`;
 
-        var location_title = document.getElementsByClassName('location_title');
-
         // Get list
         var listElement = document.getElementById('list');
         listElement.append(newListItemElement);
-
     }
+
+    // On Keypress change tripname
+    function edValueKeyPress() {
+         var tripName = document.getElementById("tripName");
+         var s = tripName.value;
+
+         var nameOfTrip = document.getElementById("location_title");
+         nameOfTrip.innerText = "Trip: "+s;
+     }
 
     // Create Json Object function
     function makeJsonObject() {
+        var json = {};
+        json['location'] = locationList;
+        json['name'] = document.getElementById('tripName').value;
+        json['departure_date'] = document.getElementById('departure_date').value;;
+        json['return_date'] = document.getElementById('return_date').value;;
+
+        return JSON.stringify(json);
+    }
+
+    // Create Json Object function
+    function makeJsonObject2() {
         var json = {
-            location: locations
+            location: locationList
         }
         return json;
     }
 
-    // Initialise some variables
-    var directionsService = new google.maps.DirectionsService();
-    var num, map, data;
-    var requestArray = [], renderArray = [];
-
-    // A JSON Array containing routes and the destinations/stops
-    var jsonArray = makeJsonObject();
-
     function saveTrip() {
-        var json = makeJsonObject();
+        var post = {};
 
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "api/users/1/routes",
-            type: "POST",
-            data: {
-                data: {json: json}
-            },
-            error: function (req, err) {
-                console.log('my message' + err);
-            },
-            succes: function (response) {
-                console.log($.parseJSON(response));
-            },
-        });
+        if(tripName == "") {
+          alert('Enter Tripname');
+        } else {
+
+          var json = makeJsonObject();
+
+            $.getJSON("user/authenticated", function (data) {
+                if(data.id) {
+                    post['users_id'] = data.id;
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "api/users/" + data.id +"/routes",
+                        type: "POST",
+                        data: {
+                            data: {json}
+                        },
+                        error: function (req, err) {
+                            console.log('my message' + err);
+                        },
+
+                        succes: function (response) {
+                            console.log($.parseJSON(response));
+                        },
+                    })
+                }
+            });
+
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "api/routes/1/locations",
+                type: "POST",
+                data: {
+                    data: {json}
+                },
+                error: function (req, err) {
+                    console.log('my message' + err);
+                },
+                succes: function (response) {
+                    console.log($.parseJSON(response));
+                },
+            });
+
+            alert("Succesfull safed the trip.")
+        }
     }
-
-    // 16 Standard Colours for navigation polylines
-    // var colourArray = ['navy', 'grey', 'fuchsia', 'black', 'white', 'lime', 'maroon', 'purple', 'aqua', 'red', 'green', 'silver', 'olive', 'blue', 'yellow', 'teal'];
 
     // Let's make an array of requests which will become individual polylines on the map.
     function generateRequests() {
@@ -270,18 +308,17 @@
         requestArray = [];
 
         for (var route in jsonArray) {
-            // This now deals with one of the people / routes
 
             // Somewhere to store the wayoints
             var waypts = [];
 
             // 'start' and 'finish' will be the routes origin and destination
-            var start, finish
+            var start, finish;
 
             // lastpoint is used to ensure that duplicate waypoints are stripped
-            var lastpoint
+            var lastpoint;
 
-            data = jsonArray[route]
+            data = jsonArray[route];
 
             limit = data.length
             for (var waypoint = 0; waypoint < limit; waypoint++) {
@@ -303,7 +340,7 @@
             searchHotelApi(waypts);
 
             // Grab the first waypoint for the 'start' location
-            start = (waypts.shift()).location;
+            start = (waypts.shift())['location'];
             // start = document.getElementById('start').value;
             // Grab the last waypoint for use as a 'finish' location
             finish = waypts.pop();
@@ -346,24 +383,6 @@
                 renderArray[i] = new google.maps.DirectionsRenderer();
                 renderArray[i].setMap(map);
 
-                // Some unique options from the colorArray so we can see the routes
-                // renderArray[i].setOptions({
-                //     preserveViewport: true,
-                //     suppressInfoWindows: true,
-                //     polylineOptions: {
-                //         strokeWeight: 4,
-                //         strokeOpacity: 0.8,
-                //         strokeColor: colourArray[i]
-                //     },
-                //     markerOptions:{
-                //         icon:{
-                //             path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                //             scale: 3,
-                //             strokeColor: colourArray[i]
-                //         }
-                //     }
-                // });
-
                 // Use this new renderer with the result
                 renderArray[i].setDirections(result);
                 // and start the next request
@@ -396,12 +415,12 @@
             center: new google.maps.LatLng(50.677965, -3.768841),
             zoom: 8,
             mapTypeControl: false,
+            scrollwheel: false,
             streetViewControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
     }
 
     // Trigger our init()

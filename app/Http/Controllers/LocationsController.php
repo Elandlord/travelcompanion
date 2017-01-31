@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Route;
 use App\Location_route;
 use App\Location;
+use DB;
 use Illuminate\Http\Request;
 
 class LocationsController extends Controller
@@ -15,9 +16,9 @@ class LocationsController extends Controller
      * @param  int  $routeId
      * @return \Illuminate\Http\Response
      */
-    public function index(Route $route) 
+    public function index(Route $route)
     {
-        $locations = $route->locations; 
+        $locations = $route->locations;
         return response()->json($locations, 200);
     }
 
@@ -39,29 +40,16 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        if (isset($request['location_id']) &&
-            isset($request['route_id']) &&
-            isset($request['arrival_date']) &&
-            isset($request['departure_date'])) {
 
-            if (isset($request['location']) &&
-                isset($request['location']['name']) &&
-                isset($request['location']['country'])) {
-                Location::create([
-                    'name' => $request['location']['name'],
-                    'country' => $request['location']['country'],
-                ]);
-            }
+      $data = json_decode($request->input('data')['json']);
 
-            Location_route::create([
-                'location_id' => $request['location_id'],
-                'route_id' => $request['route_id'],
-                'arrival_date' => $request['arrival_date'],
-                'departure_date' => $request['departure_date'],
-            ]);
-            return response('', 201);
-        }
-        return response('', 404);
+      foreach ($locatie = $data->location as $value) {
+        $location = new Location;
+
+        $location->name = $value;
+
+        $location->save();
+      }
     }
 
     /**
