@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Route;
 use App\User;
 use Illuminate\Http\Request;
+use App\Location;
 
 class RoutesController extends Controller
 {
@@ -38,14 +39,29 @@ class RoutesController extends Controller
     {
       $data = json_decode($request->input('data')['json']);
 
-      $route = new Route;
+      $route = new Route();
 
       $route->name = $data->name;;
       $route->departure_date = $data->departure_date;;
       $route->return_date = $data->return_date;
       $route->user_id = $routeId;
-
       $route->save();
+
+        foreach ($data->location as $value) {
+
+        $location = Location::where('name', $value)->first();
+
+        if(!empty($location->id)){
+            $location = Location::find($location->id);
+            $location->routes()->attach($route);
+        }else{
+            $location = new Location();
+            $location->name = $value;
+            $location->save();
+            $location->routes()->attach($route);
+        }
+
+      }
     }
 
 

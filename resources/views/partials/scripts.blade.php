@@ -282,22 +282,28 @@
                 }
             });
 
+             $.getJSON("user/authenticated", function (data) {
+                if(data.id) {
+                    post['users_id'] = data.id;
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "api/routes/1/locations",
-                type: "POST",
-                data: {
-                    data: {json}
-                },
-                error: function (req, err) {
-                    console.log('my message' + err);
-                },
-                succes: function (response) {
-                    console.log($.parseJSON(response));
-                },
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "api/routes/" + data.id +"/locations",
+                        type: "POST",
+                        data: {
+                            data: {json}
+                        },
+                        error: function (req, err) {
+                            console.log('my message' + err);
+                        },
+
+                        succes: function (response) {
+                            console.log($.parseJSON(response));
+                        },
+                    })
+                }
             });
 
             alert("Succesfull saved the trip.");

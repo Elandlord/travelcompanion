@@ -41,15 +41,22 @@ class LocationsController extends Controller
     public function store(Request $request)
     {
 
-      $data = json_decode($request->input('data')['json']);
+      // $data = json_decode($request->input('data')['json']);
 
-      foreach ($locatie = $data->location as $value) {
-        $location = new Location;
+      // foreach ($data->location as $value) {
 
-        $location->name = $value;
+      //   $location = Location::where('name', $value)->first();
 
-        $location->save();
-      }
+      //   if(!empty($location->id)){
+      //       return $location->id;
+      //   }else{
+      //       $location = new Location();
+      //       $location->name = $value;
+      //       $location->save();
+      //       return DB::getPdo()->lastInsertId();
+      //   }
+
+      // }
     }
 
     /**
