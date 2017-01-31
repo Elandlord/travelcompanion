@@ -12,6 +12,7 @@
 {{--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWPLb40f0QoQrIK3T-A27E9jwURduLXw&libraries=places"></script>--}}
 <script type="text/javascript">
 
+//---------------------------------------------HOTEL
     function searchHotelApi(waypoints) {
         for (var i = 0; i < waypoints.length; i++) {
             var searchParameters = waypoints[i]['location'];
@@ -152,6 +153,7 @@
                         data: post
                     }).done(function () {
                         alert("Succesfull booked the hotel.");
+                        postTransaction(post['bank_account_number'] ,post['price']);
                     })
                 } else {
                     alert("Please log in before booking a hotel.")
@@ -160,9 +162,28 @@
         }
     }
 
-</script>
+    function postTransaction(account_number, amount) {
+        console.log("posting transaction");
+        var transaction = `{"account_number_from": `+account_number+`,"amount": `+amount+`}`;
+        //transaction['account_number_from'] =  account_number;
+        //transaction['amount'] = amount;
+        console.log(transaction);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "http://127.0.0.1:5000/transaction",
+            type: 'post',
+            ContentType: 'application/json',
+            success: function (data) {
+                console.log("sent payment");
+                console.log(data);
+            },
+            data: transaction
+        })
+    }
 
-<script type="text/javascript">
+//------------------------------------------------------DATEPICKER
 
     function setMinDate(id, departureid) {
         var returnDateElement = document.getElementById(id);
@@ -179,10 +200,9 @@
         var nowDateFormatted = nowDate.toISOString().substring(0, 10);
         returnDateElement.min = nowDateFormatted;
     }
-</script>
 
+//-------------------------------------------------------MAPS
 
-<script type="text/javascript">
     // Declare location array
     var locationList = [];
 
@@ -427,8 +447,7 @@
 
     // Trigger our init()
     google.maps.event.addDomListener(window, 'load', init);
-</script>
 
-<script>
+
     new WOW().init();
 </script>
