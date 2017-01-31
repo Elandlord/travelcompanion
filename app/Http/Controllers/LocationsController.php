@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Route;
 use App\Location_route;
 use App\Location;
+use DB;
 use Illuminate\Http\Request;
 
 class LocationsController extends Controller
@@ -40,7 +41,9 @@ class LocationsController extends Controller
     public function store(Request $request)
     {
 
-    foreach ($locations = $request->input('data')['json']['location']as $value) {
+      $data = json_decode($request->input('data')['json']);
+
+      foreach ($locatie = $data->location as $value) {
         $location = new Location;
 
         $location->name = $value;

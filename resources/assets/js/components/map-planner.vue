@@ -5,16 +5,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-
-                        <input class="form-control" id="tripName" type="text" name="" value="" placeholder="Trip Naam" required/>
-                        <input class="form-control" id="locationText" type="text" placeholder="Vertrek" required/>
-                        <input type="date" name="date" class="form-control" onchange="setMinDate()" required>
-
-                        <input class="form-control space-outside-sm" type="text" name="" value="" placeholder="Trip name" required/>
+                        <input class="form-control space-outside-sm" id="tripName" onKeyPress="edValueKeyPress()" onKeyUp="edValueKeyPress()" type="text" name="" value="" placeholder="Name of your trip" required/>
                         <input v-model="searchParameters" class="form-control" id="locationText" type="text" placeholder="Place of departure" required/>
-                        <input type="date" name="date" class="form-control space-outside-sm" onchange="setMinDate()" required>
-
-                        <input type="date" name="date" class="form-control" min="" required>
+                        <input type="date" id="departure_date" name="date" class="form-control space-outside-sm" onchange="setMinDate()" required>
+                        <input type="date" id="return_date" name="date" class="form-control" min="" required>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm" @click="addToLocations()" id="addNewLocation" onclick="addNewLocation();">Add destination</button>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" @click="searchWeather()" onclick="generateRequests();" type="button" name="button">Show trip</button>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm" onclick="saveTrip();">Save trip</button>
@@ -30,7 +24,7 @@
         <div id="google_maps">
             <div class='container space-outside-md'>
                 <div class="col-xs-12">
-                    <h1 class='space-outside-sm text-center text-color-accent'>Trip</h1>
+                    <h1 class='space-outside-sm text-center text-color-accent'>Trip overzicht</h1>
                     <ul id="list" class="cbp_tmtimeline">
                         <li class="list_item">
                             <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
@@ -88,11 +82,12 @@
             },
 
     	    addToLocations(){
-    	        locations.push(this.searchParameters);
+    	        this.locations.push(this.searchParameters);
     	    },
     		searchWeather(){
     		    Event.fire('searching');
-    		    var uniqueLocations = this.squash(locations);
+    		    //var uniqueLocations = this.squash(locations);
+            var uniqueLocations = this.locations;
     		    for(var j = 0; j < uniqueLocations.length; j++){
     		        Weather.search(uniqueLocations[j], weather => Event.fire('weatherFound', weather) );
     		    }

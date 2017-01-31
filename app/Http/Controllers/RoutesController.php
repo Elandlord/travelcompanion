@@ -34,39 +34,18 @@ class RoutesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request, $routeId)
     {
+      $data = json_decode($request->input('data')['json']);
 
-        // $departure_date = $request['departure_date'];
-        // $return_date = $request['return_date'];
-        //
-        // if (isset($departure_date) && isset($return_date)) {
-        //     Route::create([
-        //         'user_id' => $userId,
-        //         'departure_date' => $departure_date,
-        //         'return_date' => $return_date,
-        //     ]);
-        //     return response('', 201);
-        // }
-        // return response('', 404);
+      $route = new Route;
 
-        // $marc = $request->input('data')['json']['name'];
+      $route->name = $data->name;;
+      $route->departure_date = $data->departure_date;;
+      $route->return_date = $data->return_date;
+      $route->user_id = $routeId;
 
-        foreach ($name = $request->input('data')['json']['name']as $value) {
-          $route = new Route;
-
-
-          $route->name = $value;
-
-          $route->save();
-          }
-
-        // foreach ($location = $request->input('data')['json']['name']as $value) {
-
-        // }
-
-            return response()->json($marc);
-        }
+      $route->save();
     }
 
 
