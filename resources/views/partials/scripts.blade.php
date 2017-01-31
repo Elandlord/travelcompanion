@@ -54,10 +54,15 @@
                 <p>
                     Rating: ` + rating + ` out of 5
                 </p>
+                <p>
+                    Price for one night: <span id=\"price`+ i +`\">`+ ((Math.random() * 90) + 10).toFixed(2) +`</span>
+                </p>
                 <div class=\'row space-outside-md\'>
                     <div class=\'col-lg-8\'>
-                        <input type=\"date\" id=\"arrival` + i + `\" name="date" onclick="setMinToday()" onchange=\"setMinDate()\" required>
-                    <input type=\"date\" id=\"departure` + i + `\" name=\"date\" min=\"\" required>
+                        <input type=\"date\" id=\"arrival` + i + `\" name=\"date\" onclick=\"setMinToday(this.id)\" onchange=\"setMinDate(this.id, 'departure` + i + `')\" required>
+                    <input type=\"date\" id=\"departure` + i + `\" name=\"date\" min=\"\" required><br>
+                    Amount of people: <input type=\"number\" id=\"amount` + i + `\"><br>
+                    Accountnumber: <input type=\"number\" id=\"accountnumber` + i + `\">
                     </div>
                     <div class=\'col-lg-4\'>
                         <button type=\"submit\" onclick=\"bookHotel(\'` + results[i].name + `\',\'` + results[i].formatted_address + `\',\'` + i + `\')\"
@@ -80,11 +85,17 @@
     function bookHotel(hotelname, adress, dateTimeId) {
         var post = {};
 
-
+        var priceid = "#price" + dateTimeId;
+        var accountnumberid = "accountnumber" + dateTimeId;
+        var amountid = "amount" + dateTimeId;
         var arrivalid = "arrival" + dateTimeId;
         var departureid = "departure" + dateTimeId;
         post['arrival_date'] = document.getElementById(arrivalid).value;
         post['departure_date'] = document.getElementById(departureid).value;
+        post['paid'] = 0; //TODO make actual payment???
+        post['amount_persons'] = document.getElementById(amountid).value;
+        post['bank_account_number'] = document.getElementById(accountnumberid).value;
+        post['price'] = $(priceid).html();
 
         if(!post['arrival_date'] || !post['departure_date']){
             alert("Fill in a arrival and departure date before booking a hotel!")
@@ -122,14 +133,26 @@
             post['hotel']['road_name'] = roadname.trim();
             post['hotel']['house_number'] = houseNumber.trim();
             post['hotel']['zip_code'] = zipCode.trim();
-            post['hotel']['city_name'] = cityName.trim();
-            post['hotel']['country_name'] = countryName.trim();
+            post['city_name'] = cityName.trim();
+            post['country'] = countryName.trim();
 
-            // console.log(post);
-
-            $.post("/api/users/{userid}/hotels", post, function (data, statusText, xhr) {
-                if (xhr.status == 404) {
-                    alert("booking failed");
+            $.getJSON("user/authenticated", function (data) {
+                if(data.id) {
+                    post['user_id'] = data.id;
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "/api/users/" + data.id + "/hotels",
+                        type: 'post',
+                        ContentType: 'application/json',
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        data: post
+                    })
+                } else {
+                    alert("Please log in before booking a hotel.")
                 }
             });
         }
@@ -139,29 +162,20 @@
 
 <script type="text/javascript">
 
-    function setMinDate() {
-        var returnDateElements = document.getElementsByName('date');
-        var minDate = new Date(returnDateElements[0].value);
+    function setMinDate(id, departureid) {
+        var returnDateElement = document.getElementById(id);
+        var minDate = new Date(returnDateElement.value);
         minDate.setDate(minDate.getDate() + 1);
         minDateFormated = minDate.toISOString().substring(0, 10);
-        returnDateElements[1].min = minDateFormated;
+        var departureDatePicker =  document.getElementById(departureid);
+        departureDatePicker.min = minDateFormated;
     }
 
-    function setMinToday() {
-        var returnDateElements = document.getElementsByName('date');
+    function setMinToday(id) {
+        var returnDateElement = document.getElementById(id);
         var nowDate = new Date();
         var nowDateFormatted = nowDate.toISOString().substring(0, 10);
-        returnDateElements[0].min = nowDateFormatted;
-    }
-</script>
-
-<script type="text/javascript">
-    function setMinDate() {
-        var returnDateElements = document.getElementsByName('date');
-        var minDate = new Date(returnDateElements[0].value);
-        minDate.setDate(minDate.getDate() + 1);
-        minDateFormated = minDate.toISOString().substring(0, 10)
-        returnDateElements[1].min = minDateFormated;
+        returnDateElement.min = nowDateFormatted;
     }
 </script>
 
@@ -414,5 +428,5 @@
 </script>
 
 <script>
-    new WOW().init(); 
+    new WOW().init();
 </script>
