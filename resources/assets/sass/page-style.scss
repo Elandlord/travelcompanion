@@ -1,0 +1,13 @@
+.dropdown-menu {
+  li {
+    padding: 5px 10px;
+    &:nth-child(even){
+      background-color: #f39c12;
+
+    }
+
+    li {
+      padding: 0;
+    }
+  }
+}
