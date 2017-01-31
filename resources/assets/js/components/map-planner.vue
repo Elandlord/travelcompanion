@@ -7,7 +7,7 @@
                     <div class="col-xs-12">
                         <input class="form-control space-outside-sm" id="tripName" onKeyPress="edValueKeyPress()" onKeyUp="edValueKeyPress()" type="text" name="" value="" placeholder="Name of your trip" required/>
                         <input v-model="searchParameters" class="form-control" id="locationText" type="text" placeholder="Place of departure" required/>
-                        <input type="date" id="departure_date" name="date" class="form-control space-outside-sm" onchange="setMinDate()" required>
+                        <input type="date" id="departure_date" name="date" class="form-control space-outside-sm" onclick="setMinToday(this.id)" onchange="setMinDate(this.id, 'return_date')" required>
                         <input type="date" id="return_date" name="date" class="form-control" min="" required>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal space-outside-sm" @click="addToLocations()" id="addNewLocation" onclick="addNewLocation();">Add destination</button>
                         <button class="btn bg-accent text-color-light hover-darken-accent transition-normal" @click="searchWeather()" onclick="generateRequests();" type="button" name="button">Show trip</button>
