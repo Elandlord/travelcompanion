@@ -59,8 +59,6 @@ class HotelsController extends Controller
      */
     public function store(Request $request)
     {
-
-//        return response($request->getContent());
         $hotel = null;
         $location = null;
 
@@ -84,6 +82,7 @@ class HotelsController extends Controller
                 $request->has('hotel.road_name') &&
                 $request->has('hotel.house_number') &&
                 $request->has('hotel.zip_code')) {
+
                 $hotel = Hotel::create([
                     'location_id' => $location->id,
                     'name' => $request->input('hotel.name'),

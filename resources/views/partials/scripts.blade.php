@@ -34,7 +34,6 @@
             var place = location_place.slice(-1).pop();
              $('#hotel-results').append("<h1 class='text-color-main text-center space-outside-md'>" + place + "</h1>");
             for (var i = 0; i < results.length; i++) {
-                //console.log(results[i]);
                 var rating = "";
                 if (results[i].rating) {
                     rating = results[i].rating;
@@ -139,12 +138,7 @@
 
             $.getJSON("user/authenticated", function (data) {
                 if(data.id) {
-                    post['users_id'] = data.id;
-                    console.log(post);
-//                    $.post("/api/users/" + data.id + "/hotels", JSON.stringify(post), function (data, statusText, xhr) {
-//                        console.log(data);
-//                        console.log("status: " + statusText);
-//                    });
+                    post['user_id'] = data.id;
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -155,9 +149,7 @@
                         success: function (data) {
                             console.log(data);
                         },
-                        data: JSON.stringify(post)
-                    }).done(function () {
-                        alert("done");
+                        data: post
                     })
                 } else {
                     alert("Please log in before booking a hotel.")
