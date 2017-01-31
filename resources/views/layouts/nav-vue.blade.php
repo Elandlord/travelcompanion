@@ -19,7 +19,7 @@
             </li>
 
             <li>
-                <router-link tag="li" to="/about">
+                <router-link tag="li" to="/hotels">
                     <a class='xs-text-color-light vue-nav'>Hotels</a>
                 </router-link>
             </li>

@@ -24,9 +24,15 @@ class Hotel extends Model
         'zip_code', 
     ];
 
-    public function route()
+    public function users()
     {
-        return $this->hasMany('App\Hotel_route');
+        return $this->hasMany('App\User')
+            ->withPivot('arrival_date')
+            ->withPivot('departure_date')
+            ->withPivot('price')
+            ->withPivot('amount_persons')
+            ->withPivot('paid')
+            ->withPivot('bank_account_number');
     }
 
     public function location()

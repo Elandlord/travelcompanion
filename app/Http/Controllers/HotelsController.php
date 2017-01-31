@@ -16,27 +16,29 @@ class HotelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId, $routeId)
+    public function index(User $user)
     {
-        $hotel_route_collection = Hotel_route::where('route_id', $routeId)->get();
-        $hotel_collection = array();
+        // $hotel_route_collection = Hotel_route::where('route_id', $routeId)->get();
+        // $hotel_collection = array();
 
-        foreach ($hotel_route_collection as $hotel_route) {
-             array_push($hotel_collection, Hotel::find($hotel_route->hotel_id));
-        }
+        // foreach ($hotel_route_collection as $hotel_route) {
+        //      array_push($hotel_collection, Hotel::find($hotel_route->hotel_id));
+        // }
 
-        if (isset($hotel_route_collection) && isset($hotel_collection)) {
-            $json_response = array();
+        // if (isset($hotel_route_collection) && isset($hotel_collection)) {
+        //     $json_response = array();
 
-            $i = 0;
-            foreach ($hotel_route_collection as $hotel_route) {
-                $json_response[$i] = $hotel_route['attributes'];
-                $json_response[$i]['hotels'] =  $hotel_collection;
-                $i += 1;
-            }
-            return response(json_encode($json_response))->header('Content-type', 'application/json');
-        }
-        return response('', 404);
+        //     $i = 0;
+        //     foreach ($hotel_route_collection as $hotel_route) {
+        //         $json_response[$i] = $hotel_route['attributes'];
+        //         $json_response[$i]['hotels'] =  $hotel_collection;
+        //         $i += 1;
+        //     }
+        //     return response(json_encode($json_response))->header('Content-type', 'application/json');
+        // }
+        // return response('', 404);
+        $hotels = $user->hotels; 
+        return response()->json($hotels, 200);
     }
 
     /**
@@ -73,21 +75,15 @@ class HotelsController extends Controller
             isset($request['bank_account_number'])) {
 
             if (isset($request['hotel']) &&
-                isset($request['hotel']['description']) &&
                 isset($request['hotel']['name']) &&
                 isset($request['hotel']['road_name']) &&
                 isset($request['hotel']['house_number']) &&
-                isset($request['hotel']['phone_number']) &&
-                isset($request['hotel']['email_address']) &&
                 isset($request['hotel']['zip_code'])) {
                 $hotel = Hotel::create([
                     'location_id' => $location->id,
-                    'description' => $request['hotel']['description'],
                     'name' => $request['hotel']['name'],
                     'road_name' => $request['hotel']['road_name'],
                     'house_number' => $request['hotel']['house_number'],
-                    'phone_number' => $request['hotel']['phone_number'],
-                    'email_address' => $request['hotel']['email_address'],
                     'zip_code' => $request['hotel']['zip_code'],
                 ]);
             }
@@ -180,22 +176,16 @@ class HotelsController extends Controller
 
             if (isset($request['hotel']) &&
                 isset($request['hotel']['location_id']) &&
-                isset($request['hotel']['description']) &&
                 isset($request['hotel']['name']) &&
                 isset($request['hotel']['road_name']) &&
                 isset($request['hotel']['house_number']) &&
-                isset($request['hotel']['phone_number']) &&
-                isset($request['hotel']['email_address']) &&
                 isset($request['hotel']['zip_code'])
             ) {
                 Hotel::find($hotelId)->update([
                     'location_id' => $request['location_id'],
-                    'description' => $request['description'],
                     'name' => $request['name'],
                     'road_name' => $request['road_name'],
                     'house_number' => $request['house_number'],
-                    'phone_number' => $request['phone_number'],
-                    'email_address' => $request['email_address'],
                     'zip_code' => $request['zip_code']
                 ]);
             }

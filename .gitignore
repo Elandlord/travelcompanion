@@ -10,3 +10,5 @@ app.css
 app.js
 npm-debug.log
 /.gitignore
+/public/js/app.js
+/public/css/app.css
