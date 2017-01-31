@@ -36,7 +36,13 @@ class User extends Authenticatable
     
     public function hotels()
     {
-        return $this->belongsToMany('App\Hotel');
+        return $this->belongsToMany('App\Hotel')
+            ->withPivot('arrival_date')
+            ->withPivot('departure_date')
+            ->withPivot('price')
+            ->withPivot('amount_persons')
+            ->withPivot('paid')
+            ->withPivot('bank_account_number');
     }
 
 }

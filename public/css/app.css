@@ -8460,7 +8460,7 @@ button.close {
 
 	- Secties aangeven met een lange gestreepte lijn. Daarin in hoofdletters de title van de sectie aangeven..
 	- volgorde per sectie is: --Base settings--, --classes--, --media queries--.
-	- probeer de single responsibility rule aan te houden. 
+	- probeer de single responsibility rule aan te houden.
 
 {screensize}-{element}-{behaviour}-{usage}-{identifier}-{amount}
 {lg}-{bg}-{hover}-{darken}-{main}-{xs}
@@ -8498,7 +8498,7 @@ button.close {
 
 /* ----------------------- */
 
-/* 
+/*
 
 	/* Large desktops and laptops */
 
@@ -8512,7 +8512,7 @@ button.close {
 
 /*
 
-	
+
 	INCLUDED IN THIS DOCUMENT:
 	-- color variables
 	-- font variables
@@ -8522,7 +8522,7 @@ button.close {
 	-- aesthetic variables
 	-- html stucture variables
 	-- base settings
-	
+
 	HUISSTIJL
 	-------------------------------------
 	-- backgrounds
