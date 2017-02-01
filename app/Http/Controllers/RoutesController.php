@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Route;
 use App\User;
 use Illuminate\Http\Request;
+use App\Location;
 
 class RoutesController extends Controller
 {
@@ -34,23 +35,35 @@ class RoutesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request, $routeId)
     {
-        $departure_date = $request['departure_date'];
-        $return_date = $request['return_date'];
-        $name = $request['name'];
+      $data = json_decode($request->input('data')['json']);
 
-        if (isset($departure_date) && isset($return_date) && isset($name)) {
-            Route::create([
-                'name' => $name,
-                'user_id' => $userId,
-                'departure_date' => $departure_date,
-                'return_date' => $return_date,
-            ]);
-            return response('', 201);
+      $route = new Route();
+
+      $route->name = $data->name;;
+      $route->departure_date = $data->departure_date;;
+      $route->return_date = $data->return_date;
+      $route->user_id = $routeId;
+      $route->save();
+
+        foreach ($data->location as $value) {
+
+        $location = Location::where('name', $value)->first();
+
+        if(!empty($location->id)){
+            $location = Location::find($location->id);
+            $location->routes()->attach($route);
+        }else{
+            $location = new Location();
+            $location->name = $value;
+            $location->save();
+            $location->routes()->attach($route);
         }
-        return response('', 404);
+
+      }
     }
+
 
     /**
      * Display the specified resource.
@@ -120,3 +133,5 @@ class RoutesController extends Controller
         return response('', 404);
     }
 }
+
+?>

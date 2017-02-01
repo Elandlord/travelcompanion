@@ -25,11 +25,11 @@
                     <ul class='cbp_tmtimeline' id="locationslist">
 
                         <li v-for="location in locations">
-                           <time class="cbp_tmtime"><span>from {{ location.pivot.arrival_date }} to {{ location.pivot.departure_date }}</span> <span>{{ location.name }}</span></time>
+                           <!-- <time class="cbp_tmtime"><span>from {{ location.pivot.arrival_date }} to {{ location.pivot.departure_date }}</span> <span>{{ location.country }}</span></time> -->
                             <div class="cbp_tmicon"><i class="fa fa-home" aria-hidden="true"></i></div>
                             <div class="cbp_tmlabel bg-main-hover-lighten-xs transition-fast">
-                                <h2 class='text-color-light'>HOTEL HIER INLADEN</h2>
-                                <p class='text-color-light'>ANDERS BOEKEN</p>
+                                <h2 class='text-color-light'>{{ location.name }}</h2>
+                                <p class='text-color-light'></p>
                             </div>
                         </li>
                         <li>
@@ -77,13 +77,6 @@ import Location from '../Models/Location';
 
                 initialSettings(){
                     this.locations = null;
-                    // User.with('routes', (route) => {
-                    //     return new Route(route);
-                    // }).getAuthenticated((user) => {
-                    //     this.user = user;
-                    // });
-
-
 
                     User.getAuthenticated((user) => {
                         user.with('routes', (route) => {

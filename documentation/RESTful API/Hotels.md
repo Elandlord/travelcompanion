@@ -13,45 +13,40 @@
 `POST`
 
     {
-        "city_name": "Amsterdam",
-        "country": "Netherlands",
-        "users_id": 1,
-        "arrival_date": "1989-06-05",
-        "departure_date": "1984-08-19",
-        "price": "58",
-        "amount_persons": "1",
-        "paid": 1,
-        "bank_account_number": "5275225665733200",
-        "hotels": {
-            "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
-            "name": "Ashtyn Nitzsche DVM Hotel",
-            "road_name": "Shyanne Manor",
-            "house_number": "281",
-            "phone_number": "(393) 290-2391",
-            "email_address": "rosie90@example.org",
-            "zip_code": "00163"
+        "city_name":"Hoogeveen",
+        "country":"Netherlands",
+        "user_id":1,
+        "arrival_date":"2017-01-30",
+        "departure_date":"2017-01-31",
+        "price":"48.71",
+        "amount_persons": "2",
+        "paid":0,
+        "bank_account_number":"1111111",
+        "hotel": {
+            "name":"Hotel Hoogeveen",
+            "road_name":"Mathijsenstraat",
+            "house_number":"1",
+            "zip_code":"7909 AP"
         }
     }
 
 `PUT/PATCH`
 
     {
-        "users_id": 1,
-        "arrival_date": "1989-06-05",
-        "departure_date": "1984-08-19",
-        "price": "58",
-        "amount_persons": "1",
-        "paid": 1,
-        "bank_account_number": "5275225665733200",
-        "hotels": {
-            "location_id": "1",
-            "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
-            "name": "Ashtyn Nitzsche DVM Hotel",
-            "road_name": "Shyanne Manor",
-            "house_number": "281",
-            "phone_number": "(393) 290-2391",
-            "email_address": "rosie90@example.org",
-            "zip_code": "00163"
+        "city_name":"Hoogeveen",
+        "country":"Netherlands",
+        "user_id":1,
+        "arrival_date":"2017-01-30",
+        "departure_date":"2017-01-31",
+        "price":"48.71",
+        "amount_persons": "2",
+        "paid":0,
+        "bank_account_number":"1111111",
+        "hotel": {
+            "name":"Hotel Hoogeveen",
+            "road_name":"Mathijsenstraat",
+            "house_number":"1",
+            "zip_code":"7909 AP"
         }
     }
 
@@ -74,17 +69,13 @@
         "price": "58",
         "amount_persons": "1",
         "paid": 1,
-        "bank_account_number": "5275225665733200",
         "hotels": [
             {
                 "id": 1,
                 "location_id": "1",
-                "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
                 "name": "Ashtyn Nitzsche DVM Hotel",
                 "road_name": "Shyanne Manor",
                 "house_number": "281",
-                "phone_number": "(393) 290-2391",
-                "email_address": "rosie90@example.org",
                 "zip_code": "00163"
             }
         ]
@@ -112,12 +103,9 @@
     "hotels": {
         "id": 1,
         "location_id": "1",
-        "description": "Ratione illum quam et odio rerum. Nihil corrupti tempora consequatur repellat in impedit. Voluptatibus deleniti natus sit vel magnam odit recusandae.",
         "name": "Ashtyn Nitzsche DVM Hotel",
         "road_name": "Shyanne Manor",
         "house_number": "281",
-        "phone_number": "(393) 290-2391",
-        "email_address": "rosie90@example.org",
         "zip_code": "00163"
     }
 }
